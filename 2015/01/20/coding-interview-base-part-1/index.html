@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>剑指Offer读书笔记(1) | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="剑指Offer读书笔记(1) | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="剑指Offer读书笔记(1) | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/01/20/coding-interview-base-part-1/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-01-20T02:04:41.000Z" class="post-list__meta--date date">2015-01-20</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/剑指Offer/">剑指Offer</a>, <a class="tag-link" href="/tags/技术/">技术</a>, <a class="tag-link" href="/tags/读书/">读书</a>, <a class="tag-link" href="/tags/面试/">面试</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">剑指Offer读书笔记(1)</h1>
+  </header>
+
+  <section class="post">
+    <p>在此将【剑指Offer】中的经典问题和重要内容整理出来，便于以后遇到类似的问题再次查阅。博主强烈为大家推荐这本书，因为这本书中的题目都来自真实的公司笔试，对于大家求职、找工作会有很大的帮助。</p>
+<a id="more"></a>
+<h3 id="1、在定义一个赋值运算符时，通常需要考虑以下四点：">1、在定义一个赋值运算符时，通常需要考虑以下四点：</h3><ul>
+<li>是否将返回值的类型声明为该类型的引用，并在函数结束前返回实例自身的引用(即*this)。只有一个返回引用，才可以允许连续赋值，否则如果函数的返回值是void，应用该赋值运算符将不能做连续赋值。</li>
+<li>是否将传入的参数类型声明为常量引用。如果传入的参数不是引用而是实例，那么从形参到实参会调用一次复制构造函数，把参数声明为引用可以避免这样的无谓消耗，能提高代码的效率。同时，我们在赋值运算函数内部不会改变传入的实例状态，因此应该在传入的引用参数前加上const关键字。</li>
+<li>是否释放实例已有的内存，如果我们忘记在分配新内存之前释放自身已有的空间，恒旭将出现内存泄漏。</li>
+<li>是否判断传入的参数和当前的实例是否是同一个实例。如果是同一个，则不进行赋值运算，直接返回，如果事先不判断就进行赋值，那么在释放实例自身内存的时候就会导致严重的问题，当*this和传入的参数是同一个实例时，一旦释放了自身的内存，传入的参数的内存将同时被释放，因此将再也找不到需要赋值的内容了。</li>
+</ul>
+<p>当我们完整的考虑了上述四个方面以后，我们可以写出如下的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CMyString&amp; CMyString::<span class="keyword">operator</span> = (<span class="keyword">const</span> CMyString &amp;str)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>==&amp;str)</span><br><span class="line">	  <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">delete</span> []m_pData;</span><br><span class="line">	m_pData=NULL;</span><br><span class="line">	m_pData=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="built_in">strlen</span>(str.m_pData)+<span class="number">1</span>];</span><br><span class="line">	<span class="built_in">strcpy</span>(m_pData,str.m_pData);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、要想在赋值运算符函数中实现异常安全性，我们有两种方法">2、要想在赋值运算符函数中实现异常安全性，我们有两种方法</h3><ul>
+<li>方法一：先用new分配新内容再用delete释放已有内容。这样只有当分配内容成功后再释放原来的内容，换句话说当分配内存失败时我们可以确定CMyString的实例不会被修改。</li>
+<li>方法二：先创建一个临时实例，再交换临时实例和原来的实例</li>
+</ul>
+<p>下面给出第二种方法的实现代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CMyString&amp; CMyString::<span class="keyword">operator</span> = (<span class="keyword">const</span> CMyString &amp;str)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>！=&amp;str)&#123;</span><br><span class="line"></span><br><span class="line">	  <span class="function">CMyString <span class="title">strTemp</span><span class="params">(str)</span></span>;</span><br><span class="line"></span><br><span class="line">	  <span class="keyword">char</span>* pTemp=strTemp.m_pData;</span><br><span class="line">	  strTemp.m_pData=m_pData;</span><br><span class="line">	  m_pData=pTemp;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> *<span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、对于C++和C#中的struct和class的认识">3、对于C++和C#中的struct和class的认识</h3><ul>
+<li>C++:在C++中如果没有标明成员函数或者成员变量的访问权限级别，则在struct中默认的是public，在class中的默认的private。</li>
+<li>C#:在C#中如果没有标明成员函数或者成员变量的访问级别，则struct和class默认都是private，不同的是struct定义的是值类型，其实例在栈上分配内存；class定义的是引用类型，其实例在堆上分配内存。</li>
+</ul>
+<h3 id="4、在C#中实现单例模式">4、在C#中实现单例模式</h3><ul>
+<li>原理：在C#语法中C#是在调用静态函数时初始化静态变量，.NET运行时可以保证只调用一次静态构造函数，这样我们就可以保证仅初始化一次Instance;<br>下面给出代码示例：<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Singleton</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span>(<span class="params"></span>)</span><br><span class="line">  </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance=<span class="keyword">new</span> Singleton();</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Singleton Instance</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">get</span>&#123; <span class="keyword">return</span> instance;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="5、C++数组重要概念">5、C++数组重要概念</h3><ul>
+<li>数组是最简单的一种数据结构，它占据一块连续的内存并按照顺序存储数据。</li>
+<li>在C/C++中，数组和指针是相互关联又有区别的两个概念。当我们声明一个数组时，其数组的名字同时是一个指针，该指针指向数组的第一个元素，因此我们可以使用一个指针来访问数组。可是值得注意的是，C/C++并没有记录数组的大小，因此使用指针访问数组中的元素时要注意不能超出数组的边界。</li>
+<li>使用sizeof计算指针的大小时，在32位操作系统中，对于任意指针结果都是4。</li>
+<li>二维数组在内存中占据连续的空间。在内存中从上到下存储各行元素，在同一行中按照从左到右的顺序存储。因此我们可以根据行号和列号计算出相对于数组首地址的偏移量，从而找到对应的元素。</li>
+</ul>
+<h3 id="6、C#中的String类型">6、C#中的String类型</h3><ul>
+<li>在C#中封装字符串的类型Sysytem.String有一个非常特殊的性质，即String中的内容是不能改变的。当尝试改变String中的内容，就会产生一个新的实例。</li>
+<li>如果要连续多次修改字符串内容，可以考虑使用StringBuilder。</li>
+<li>当我们需要在函数或者方法中返回一个String实例时，我们需要在传入的参数前加上ref或者out标记</li>
+</ul>
+<h3 id="7、链表">7、链表</h3><ul>
+<li>链表是一种动态数据结构，因为在创建链表的时候，不需要知道链表的长度。当插入一个结点时，我们只需要为新结点分配内存，然后调整指针的指向来确保新结点被链接到链表当中。内存分配不是在创建链表时一次性完成，而是每添加一个结点分配一次内存。由于没有闲置的内存，因此链表的空间效率比数组要高。</li>
+<li>因为链表中的内存不是一次性分配的，所以我们不能确定链表的内存和数组一样是连续的，因此如果想在链表中找到第i个结点，我们只能从头结点开始，沿着指向下一个结点的指针遍历链表，其效率是O(n)。而在数组中，我们可以根据下标i直接找到第i个元素，其效率是O(1)。</li>
+<li>当我们需要从尾到头输出链表时，第一个遍历到的结点最后一个输出，而最后一个遍历到的结点第一个输出，这是典型的后进先出，因此我们可以考虑使用栈来实现这种顺序。下面是具体的代码实现：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintListReversingly_Iteratively</span><span class="params">(ListNode* pHead)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;ListNode*&gt; nodes;</span><br><span class="line"></span><br><span class="line">	ListNode* pNode=pHead;</span><br><span class="line">	<span class="keyword">while</span>(pNode!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">      nodes.push(pNode);</span><br><span class="line">      pNode=pNode-&gt;m_pNext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty())</span><br><span class="line">    &#123;</span><br><span class="line">      pNode=nodes.top();</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%d\t"</span>,pNode-&gt;m_nValue);</span><br><span class="line">      nodes.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="8、树">8、树</h3><ul>
+<li>除了根节点之外每个结点只有一个父结点，根节点没有父结点。</li>
+<li>除了叶节点以外所有结点都有一个或者多个子结点，叶结点没有子结点。父结点和子结点间用指针链接。</li>
+<li>二叉树是树的一类特殊结构，在二叉树的每个结点最多只能有两个子结点。二叉树有三种主要的遍历方式，即前序遍历(根、左、右)、中序遍历(左、根、右)、后序遍历(左、右、根)。</li>
+<li>二叉搜索树是二叉树的一个特例，其特点是左子节点总是小于或等于根节点，右子结点总是大于或等于根节点。</li>
+</ul>
+<h3 id="9、栈和队列">9、栈和队列</h3><ul>
+<li>栈的特点是后进先出，即最后一个被压入(Push)栈的元素会第一个被弹出(Pop)。</li>
+<li>队列的特点是先进先出，即第一个进入队列(入队)的元素将会第一个出来(出队)。</li>
+</ul>
+<h3 id="10、递归与循环">10、递归与循环</h3><ul>
+<li>递归实现的效率无法和循环相比，因此函数调用会造成时间和空间的损失、会造成重复计算、可能会造成栈溢出。<br>在经典的斐波那契数列问题中，我们可以采用下面的方法来代替传统的递归方法：<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="type">Fiboncci</span>(<span class="type">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span>[] <span class="literal">result</span>=new <span class="type">int</span>[]&#123;<span class="number">0</span>,<span class="number">1</span>&#125;;</span><br><span class="line">  <span class="keyword">if</span>(n&lt;<span class="number">2</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="literal">result</span>[n];</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> m=<span class="number">1</span>;</span><br><span class="line">  <span class="type">int</span> n=<span class="number">0</span>;</span><br><span class="line">  <span class="type">int</span> k=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">     k=m+n;</span><br><span class="line">     n=m;</span><br><span class="line">     m=k;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="11、位运算">11、位运算</h3><ul>
+<li>左移m&lt;&lt;n表示把m左移n位。左移n位的时候，最左边的n位将被丢弃，同时在最右边补上n个0。如：<blockquote>
+<p> 00001010&lt;&lt;2=00101000<br> 10001010&lt;&lt;3=01010000</p>
+</blockquote>
+</li>
+<li>右移m&gt;&gt;n表示把m右移n位。右移n位的时候，最右边的n位将被丢弃。此时如果数字是一个无符号数值，则用0填补最左边的n位;如果数字是一个正数，则在右移之后在左边补n个0;如果数字是一个负数，则右移之后在左边补n个1。如：<blockquote>
+<p> 00001010&gt;&gt;2=00000010<br> 10001010&gt;&gt;3=11110001</p>
+</blockquote>
+</li>
+</ul>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/01/20/coding-interview-base-part-1/" data-title="剑指Offer读书笔记(1)" data-url="http://qinyuanpei.com/2015/01/20/coding-interview-base-part-1/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

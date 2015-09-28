@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>C#中Socket通信编程的同步实现 | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="C#中Socket通信编程的同步实现 | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="C#中Socket通信编程的同步实现 | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/03/15/csharp-socket-programing-part-1/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-03-15T07:05:56.000Z" class="post-list__meta--date date">2015-03-15</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/Socket/">Socket</a>, <a class="tag-link" href="/tags/同步/">同步</a>, <a class="tag-link" href="/tags/多线程/">多线程</a>, <a class="tag-link" href="/tags/通信/">通信</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">C#中Socket通信编程的同步实现</h1>
+  </header>
+
+  <section class="post">
+    <p>本文通过分析和总结C#中Socket通信编程的关键技术，按照同步实现的方式实现了一个简单的Socket聊天程序，目的是通过这个程序来掌握Socket编程，为进一步开发Unity3D网络游戏打下一个坚实的基础。</p>
+<a id="more"></a>
+<h1 id="Socket编程基础">Socket编程基础</h1><p>关于Socket编程基础部分的内容，主要是了解和掌握.NET框架下为Socket编程提供的相关类和接口方法。.NET中常见的网络相关的API都集中在System.Net和System.Net.Socket这两个命名空间下，大家可以通过MSDN去了解这两个命名空间下相关的类和方法。这里援引一位朋友总结的一篇文章<a href="http://www.cnblogs.com/sunev/archive/2012/08/05/2604189.html" target="_blank" rel="external">http://www.cnblogs.com/sunev/archive/2012/08/05/2604189.html</a>，大家可以从这里获得更为直观的认识。</p>
+<h1 id="什么是Socket编程的同步实现">什么是Socket编程的同步实现</h1><p>本文的目的是按照同步实现的方式来实现一个简单的Socket聊天程序，因此在解决这个问题前，我们首先来看看什么是Socket编程的同步实现。所谓Socket编程的同步实现就是指按照同步过程的方法来实现Socket通信。从编程来说，我们常用的方法或者函数都是同步过程。因为当我们调用一个方法或者函数的时候我们能够立即得到它的返回值。可是我们知道在Socket通信中，我们不能保证时时刻刻连接都通畅、更不能够保证时时刻刻都有数据收发，因为我们就需要不断去读取相应的值来确定整个过程的状态。这就是Socket编程的同步实现了，下面我们来看具体的实现过程。</p>
+<h1 id="如何实现Socket同步通信">如何实现Socket同步通信</h1><h2 id="服务端">服务端</h2><p>服务端的主要职责是处理各个客户端发送来的数据，因此在客户端的Socket编程中需要使用两个线程来循环处理客户端的请求，一个线程用于监听客户端的连接情况，一个线程用于监听客户端的消息发送，当服务端接收到客户端的消息后需要将消息处理后再分发给各个客户端。</p>
+<h3 id="基本流程">基本流程</h3><ul>
+<li>创建套接字</li>
+<li>绑定套接字的IP和端口号——Bind()</li>
+<li>将套接字处于监听状态等待客户端的连接请求——Listen()</li>
+<li>当请求到来后，接受请求并返回本次会话的套接字——Accept()</li>
+<li>使用返回的套接字和客户端通信——Send()/Receive()</li>
+<li>返回，再次等待新的连接请求</li>
+<li>关闭套接字</li>
+</ul>
+<h3 id="代码示例">代码示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System;&#10;using System.Collections.Generic;&#10;using System.Text;&#10;using System.Net;&#10;using System.Net.Sockets;&#10;using System.Threading;&#10;&#10;namespace TCPLib&#10;&#123;&#10;    public class TCPServer&#10;    &#123;&#10;        private byte[] result = new byte[1024];&#10;        /// &#60;summary&#62;&#10;        /// &#26368;&#22823;&#30340;&#30417;&#21548;&#25968;&#37327;&#10;        /// &#60;/summary&#62;&#10;        private int maxClientCount;&#10;        public int MaxClientCount&#10;        &#123;&#10;            get &#123; return maxClientCount; &#125;&#10;            set &#123; maxClientCount = value; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// IP&#22320;&#22336;&#10;        /// &#60;/summary&#62;&#10;        private string ip;&#10;        public string IP&#10;        &#123;&#10;            get &#123; return ip; &#125;&#10;            set &#123; ip = value; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#31471;&#21475;&#21495;&#10;        /// &#60;/summary&#62;&#10;        private int port;&#10;        public int Port&#10;        &#123;&#10;            get &#123; return port; &#125;&#10;            set &#123; port = value; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#23458;&#25143;&#31471;&#21015;&#34920;&#10;        /// &#60;/summary&#62;&#10;        private List&#60;Socket&#62; mClientSockets;&#10;        public List&#60;Socket&#62; ClientSockets&#10;        &#123;&#10;            get &#123; return mClientSockets; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// IP&#32456;&#31471;&#10;        /// &#60;/summary&#62;&#10;        private IPEndPoint ipEndPoint;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#26381;&#21153;&#31471;Socket&#10;        /// &#60;/summary&#62;&#10;        private Socket mServerSocket;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#24403;&#21069;&#23458;&#25143;&#31471;Socket&#10;        /// &#60;/summary&#62;&#10;        private Socket mClientSocket;&#10;        public Socket ClientSocket &#10;        &#123;&#10;            get &#123; return mClientSocket;  &#125;&#10;            set &#123; mClientSocket = value; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#26500;&#36896;&#20989;&#25968;&#10;        /// &#60;/summary&#62;&#10;        /// &#60;param name=&#34;port&#34;&#62;&#31471;&#21475;&#21495;&#60;/param&#62;&#10;        /// &#60;param name=&#34;count&#34;&#62;&#30417;&#21548;&#30340;&#26368;&#22823;&#26641;&#30446;&#60;/param&#62;&#10;        public TCPServer(int port, int count)&#10;        &#123;&#10;            this.ip = IPAddress.Any.ToString();&#10;            this.port = port;&#10;            this.maxClientCount=count;&#10;&#10;            this.mClientSockets = new List&#60;Socket&#62;();&#10;&#10;            //&#21021;&#22987;&#21270;IP&#32456;&#31471;&#10;            this.ipEndPoint = new IPEndPoint(IPAddress.Any, port);&#10;            //&#21021;&#22987;&#21270;&#26381;&#21153;&#31471;Socket&#10;            this.mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);&#10;            //&#31471;&#21475;&#32465;&#23450;&#10;            this.mServerSocket.Bind(this.ipEndPoint);&#10;            //&#35774;&#32622;&#30417;&#21548;&#25968;&#30446;&#10;            this.mServerSocket.Listen(maxClientCount);&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#26500;&#36896;&#20989;&#25968;&#10;        /// &#60;/summary&#62;&#10;        /// &#60;param name=&#34;ip&#34;&#62;ip&#22320;&#22336;&#60;/param&#62;&#10;        /// &#60;param name=&#34;port&#34;&#62;&#31471;&#21475;&#21495;&#60;/param&#62;&#10;        /// &#60;param name=&#34;count&#34;&#62;&#30417;&#21548;&#30340;&#26368;&#22823;&#25968;&#30446;&#60;/param&#62;&#10;        public TCPServer(string ip,int port,int count)&#10;        &#123;&#10;            this.ip = ip;&#10;            this.port = port;&#10;            this.maxClientCount = count;&#10;&#10;            this.mClientSockets = new List&#60;Socket&#62;();&#10;&#10;            //&#21021;&#22987;&#21270;IP&#32456;&#31471;&#10;            this.ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);&#10;            //&#21021;&#22987;&#21270;&#26381;&#21153;&#31471;Socket&#10;            this.mServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);&#10;            //&#31471;&#21475;&#32465;&#23450;&#10;            this.mServerSocket.Bind(this.ipEndPoint);&#10;            //&#35774;&#32622;&#30417;&#21548;&#25968;&#30446;&#10;            this.mServerSocket.Listen(maxClientCount);&#10;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#23450;&#20041;&#19968;&#20010;Start&#26041;&#27861;&#23558;&#26500;&#36896;&#20989;&#25968;&#20013;&#30340;&#26041;&#27861;&#20998;&#31163;&#20986;&#26469;&#10;        /// &#60;/summary&#62;&#10;        public void Start()&#10;        &#123;&#10;            //&#21019;&#24314;&#26381;&#21153;&#31471;&#32447;&#31243;&#65292;&#23454;&#29616;&#23458;&#25143;&#31471;&#36830;&#25509;&#35831;&#27714;&#30340;&#24490;&#29615;&#30417;&#21548;&#10;            var mServerThread = new Thread(this.ListenClientConnect);&#10;            //&#26381;&#21153;&#31471;&#32447;&#31243;&#24320;&#21551;&#10;            mServerThread.Start();&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#30417;&#21548;&#23458;&#25143;&#31471;&#38142;&#25509;&#10;        /// &#60;/summary&#62;&#10;        private void ListenClientConnect()&#10;        &#123;&#10;            //&#35774;&#32622;&#24490;&#29615;&#26631;&#24535;&#20301;&#10;            bool flag = true;&#10;            while (flag)&#10;            &#123;&#10;                //&#33719;&#21462;&#36830;&#25509;&#21040;&#26381;&#21153;&#31471;&#30340;&#23458;&#25143;&#31471;&#10;                this.ClientSocket = this.mServerSocket.Accept();&#10;                //&#23558;&#33719;&#21462;&#21040;&#30340;&#23458;&#25143;&#31471;&#28155;&#21152;&#21040;&#23458;&#25143;&#31471;&#21015;&#34920;&#10;                this.mClientSockets.Add(this.ClientSocket);&#10;                //&#21521;&#23458;&#25143;&#31471;&#21457;&#36865;&#19968;&#26465;&#28040;&#24687;&#10;                this.SendMessage(string.Format(&#34;&#23458;&#25143;&#31471;&#123;0&#125;&#24050;&#25104;&#21151;&#36830;&#25509;&#21040;&#26381;&#21153;&#22120;&#34;, this.ClientSocket.RemoteEndPoint));&#10;                //&#21019;&#24314;&#23458;&#25143;&#31471;&#28040;&#24687;&#32447;&#31243;&#65292;&#23454;&#29616;&#23458;&#25143;&#31471;&#28040;&#24687;&#30340;&#24490;&#29615;&#30417;&#21548;&#10;                var mReveiveThread = new Thread(this.ReceiveClient);&#10;                //&#27880;&#24847;&#21040;ReceiveClient&#26041;&#27861;&#20256;&#20837;&#20102;&#19968;&#20010;&#21442;&#25968;&#10;                //&#23454;&#38469;&#19978;&#36825;&#20010;&#21442;&#25968;&#23601;&#26159;&#27492;&#26102;&#36830;&#25509;&#21040;&#26381;&#21153;&#22120;&#30340;&#23458;&#25143;&#31471;&#10;                //&#21363;ClientSocket&#10;                mReveiveThread.Start(this.ClientSocket);&#10;            &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#25509;&#25910;&#23458;&#25143;&#31471;&#28040;&#24687;&#30340;&#26041;&#27861;&#10;        /// &#60;/summary&#62;&#10;        private void ReceiveClient(object obj)&#10;        &#123;&#10;            //&#33719;&#21462;&#24403;&#21069;&#23458;&#25143;&#31471;&#10;            //&#22240;&#20026;&#27599;&#27425;&#21457;&#36865;&#28040;&#24687;&#30340;&#21487;&#33021;&#24182;&#19981;&#26159;&#21516;&#19968;&#20010;&#23458;&#25143;&#31471;&#65292;&#25152;&#20197;&#38656;&#35201;&#20351;&#29992;var&#26469;&#23454;&#20363;&#21270;&#19968;&#20010;&#26032;&#30340;&#23545;&#35937;&#10;            //&#21487;&#26159;&#25105;&#24863;&#35273;&#36825;&#37324;&#29992;&#23616;&#37096;&#21464;&#37327;&#26356;&#22909;&#19968;&#28857;&#10;            var mClientSocket = (Socket)obj;&#10;            // &#24490;&#29615;&#26631;&#24535;&#20301;&#10;            bool flag = true;&#10;            while (flag)&#10;            &#123;&#10;                try&#10;                &#123;&#10;                    //&#33719;&#21462;&#25968;&#25454;&#38271;&#24230;&#10;                    int receiveLength = mClientSocket.Receive(result);&#10;                    //&#33719;&#21462;&#23458;&#25143;&#31471;&#28040;&#24687;&#10;                    string clientMessage = Encoding.UTF8.GetString(result, 0, receiveLength);&#10;                    //&#26381;&#21153;&#31471;&#36127;&#36131;&#23558;&#23458;&#25143;&#31471;&#30340;&#28040;&#24687;&#20998;&#21457;&#32473;&#21508;&#20010;&#23458;&#25143;&#31471;&#10;                    this.SendMessage(string.Format(&#34;&#23458;&#25143;&#31471;&#123;0&#125;&#21457;&#26469;&#28040;&#24687;:&#123;1&#125;&#34;,mClientSocket.RemoteEndPoint,clientMessage));&#10;&#10;                &#125;&#10;                catch (Exception e)&#10;                &#123;&#10;                    //&#20174;&#23458;&#25143;&#31471;&#21015;&#34920;&#20013;&#31227;&#38500;&#35813;&#23458;&#25143;&#31471;&#10;                    this.mClientSockets.Remove(mClientSocket);&#10;                    //&#21521;&#20854;&#23427;&#23458;&#25143;&#31471;&#21578;&#30693;&#35813;&#23458;&#25143;&#31471;&#19979;&#32447;&#10;                    this.SendMessage(string.Format(&#34;&#26381;&#21153;&#22120;&#21457;&#26469;&#28040;&#24687;:&#23458;&#25143;&#31471;&#123;0&#125;&#20174;&#26381;&#21153;&#22120;&#26029;&#24320;,&#26029;&#24320;&#21407;&#22240;:&#123;1&#125;&#34;,mClientSocket.RemoteEndPoint,e.Message));&#10;                    //&#26029;&#24320;&#36830;&#25509;&#10;                    mClientSocket.Shutdown(SocketShutdown.Both);&#10;                    mClientSocket.Close();&#10;                    break;&#10;                &#125;&#10;            &#125;&#10;            &#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#21521;&#25152;&#26377;&#30340;&#23458;&#25143;&#31471;&#32676;&#21457;&#28040;&#24687;&#10;        /// &#60;/summary&#62;&#10;        /// &#60;param name=&#34;msg&#34;&#62;message&#60;/param&#62;&#10;        public void SendMessage(string msg)&#10;        &#123;&#10;            //&#30830;&#20445;&#28040;&#24687;&#38750;&#31354;&#20197;&#21450;&#23458;&#25143;&#31471;&#21015;&#34920;&#38750;&#31354;&#10;            if (msg == string.Empty || this.mClientSockets.Count &#60;= 0) return;&#10;            //&#21521;&#27599;&#19968;&#20010;&#23458;&#25143;&#31471;&#21457;&#36865;&#28040;&#24687;&#10;            foreach (Socket s in this.mClientSockets)&#10;            &#123;&#10;                (s as Socket).Send(Encoding.UTF8.GetBytes(msg));&#10;            &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#21521;&#25351;&#23450;&#30340;&#23458;&#25143;&#31471;&#21457;&#36865;&#28040;&#24687;&#10;        /// &#60;/summary&#62;&#10;        /// &#60;param name=&#34;ip&#34;&#62;ip&#60;/param&#62;&#10;        /// &#60;param name=&#34;port&#34;&#62;port&#60;/param&#62;&#10;        /// &#60;param name=&#34;msg&#34;&#62;message&#60;/param&#62;&#10;        public void SendMessage(string ip,int port,string msg)&#10;        &#123;&#10;            //&#26500;&#36896;&#20986;&#19968;&#20010;&#32456;&#31471;&#22320;&#22336;&#10;            IPEndPoint _IPEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);&#10;            //&#36941;&#21382;&#25152;&#26377;&#23458;&#25143;&#31471;&#10;            foreach (Socket s in mClientSockets)&#10;            &#123;&#10;                if (_IPEndPoint == (IPEndPoint)s.RemoteEndPoint)&#10;                &#123;&#10;                    s.Send(Encoding.UTF8.GetBytes(msg));&#10;                &#125;&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，现在我们已经编写好了一个具备接收和发送数据能力的服务端程序。现在我们来尝试让服务端运行起来：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System;&#10;using System.Collections.Generic;&#10;using System.Text;&#10;using TCPLib;&#10;using System.Net;&#10;using System.Net.Sockets;&#10;&#10;namespace TCPLib.Test&#10;&#123;&#10;    class Program&#10;    &#123;&#10;        static void Main(string[] args)&#10;        &#123;&#10;            //&#25351;&#23450;IP&#21644;&#31471;&#21475;&#21495;&#21450;&#26368;&#22823;&#30417;&#21548;&#25968;&#30446;&#30340;&#26041;&#24335;&#10;            TCPLib.TCPServer s1 = new TCPServer(&#34;127.0.0.1&#34;, 6001, 10);&#10;            //&#25351;&#23450;&#31471;&#21475;&#21495;&#21450;&#26368;&#22823;&#30417;&#21548;&#25968;&#30446;&#30340;&#26041;&#24335;&#10;            TCPLib.TCPServer s2 = new TCPServer(6001, 10);&#10;           &#10;            //&#25191;&#34892;Start&#26041;&#27861;&#10;            s1.Start();&#10;        &#10;        &#125;&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在我们来看看编写客户端Socket程序的基本流程</p>
+<h2 id="客户端">客户端</h2><p>客户端相对于服务端来说任务要轻许多，因为客户端仅仅需要和服务端通信即可，可是因为在和服务器通信的过程中，需要时刻保持连接通畅，因此同样需要两个线程来分别处理连接情况的监听和消息发送的监听。</p>
+<h3 id="基本流程-1">基本流程</h3><ul>
+<li>创建套接字保证与服务器的端口一致</li>
+<li>向服务器发出连接请求——Connect()</li>
+<li>和服务器端进行通信——Send()/Receive()</li>
+<li>关闭套接字</li>
+</ul>
+<h3 id="代码示例-1">代码示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System;&#10;using System.Collections.Generic;&#10;using System.Text;&#10;using System.Net;&#10;using System.Net.Sockets;&#10;using System.Threading;&#10;&#10;namespace TCPLib&#10;&#123;&#10;    public class TCPClient&#10;    &#123;&#10;        /// &#60;summary&#62;&#10;        /// &#23450;&#20041;&#25968;&#25454;&#10;        /// &#60;/summary&#62;&#10;        private byte[] result = new byte[1024];&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#23458;&#25143;&#31471;IP&#10;        /// &#60;/summary&#62;&#10;        private string ip;&#10;        public string IP&#10;        &#123;&#10;            get &#123; return ip; &#125;&#10;            set &#123; ip = value; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#23458;&#25143;&#31471;&#31471;&#21475;&#21495;&#10;        /// &#60;/summary&#62;&#10;        private int port;&#10;        public int Port&#10;        &#123;&#10;            get &#123; return port; &#125;&#10;            set &#123; port = value; &#125;&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// IP&#32456;&#31471;&#10;        /// &#60;/summary&#62;&#10;        private IPEndPoint ipEndPoint;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#23458;&#25143;&#31471;Socket&#10;        /// &#60;/summary&#62;&#10;        private Socket mClientSocket;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#26159;&#21542;&#36830;&#25509;&#21040;&#20102;&#26381;&#21153;&#22120;&#10;        /// &#40664;&#35748;&#20026;flase&#10;        /// &#60;/summary&#62;&#10;        private bool isConnected = false;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#26500;&#36896;&#20989;&#25968;&#10;        /// &#60;/summary&#62;&#10;        /// &#60;param name=&#34;ip&#34;&#62;IP&#22320;&#22336;&#60;/param&#62;&#10;        /// &#60;param name=&#34;port&#34;&#62;&#31471;&#21475;&#21495;&#60;/param&#62;&#10;        public TCPClient(string ip, int port)&#10;        &#123;&#10;            this.ip=ip;&#10;            this.port=port;&#10;            //&#21021;&#22987;&#21270;IP&#32456;&#31471;&#10;            this.ipEndPoint = new IPEndPoint(IPAddress.Parse(this.ip), this.port);&#10;            //&#21021;&#22987;&#21270;&#23458;&#25143;&#31471;Socket&#10;            mClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);&#10;&#10;        &#125;&#10;&#10;        public void Start()&#10;        &#123;&#10;            //&#21019;&#24314;&#19968;&#20010;&#32447;&#31243;&#20197;&#19981;&#26029;&#36830;&#25509;&#26381;&#21153;&#22120;&#10;            var mConnectThread = new Thread(this.ConnectToServer);&#10;            //&#24320;&#21551;&#32447;&#31243;&#10;            mConnectThread.Start();&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#36830;&#25509;&#21040;&#26381;&#21153;&#22120;&#10;        /// &#60;/summary&#62;&#10;        private void ConnectToServer()&#10;        &#123;&#10;            //&#24403;&#27809;&#26377;&#36830;&#25509;&#21040;&#26381;&#21153;&#22120;&#26102;&#24320;&#22987;&#36830;&#25509;&#10;            while (!isConnected)&#10;            &#123;&#10;                try&#10;                &#123;&#10;                    //&#24320;&#22987;&#36830;&#25509;&#10;                    mClientSocket.Connect(this.ipEndPoint);&#10;                    this.isConnected = true;&#10;                &#125;&#10;                catch (Exception e)&#10;                &#123;&#10;                    //&#36755;&#20986;Debug&#20449;&#24687;&#10;                    Console.WriteLine(string.Format(&#34;&#22240;&#20026;&#19968;&#20010;&#38169;&#35823;&#30340;&#21457;&#29983;&#65292;&#26242;&#26102;&#26080;&#27861;&#36830;&#25509;&#21040;&#26381;&#21153;&#22120;&#65292;&#38169;&#35823;&#20449;&#24687;&#20026;:&#123;0&#125;&#34;,e.Message));&#10;                    this.isConnected = false;&#10;                &#125;&#10;&#10;                //&#31561;&#24453;5&#31186;&#38047;&#21518;&#23581;&#35797;&#20877;&#27425;&#36830;&#25509;&#10;                Thread.Sleep(5000);&#10;                Console.WriteLine(&#34;&#27491;&#22312;&#23581;&#35797;&#37325;&#26032;&#36830;&#25509;...&#34;);&#10;            &#125;&#10;&#10;            //&#36830;&#25509;&#25104;&#21151;&#21518;&#10;            Console.WriteLine(&#34;&#36830;&#25509;&#26381;&#21153;&#22120;&#25104;&#21151;&#65292;&#29616;&#22312;&#21487;&#20197;&#21644;&#26381;&#21153;&#22120;&#36827;&#34892;&#20250;&#35805;&#20102;&#34;);&#10;            //&#21019;&#24314;&#19968;&#20010;&#32447;&#31243;&#20197;&#30417;&#21548;&#25968;&#25454;&#25509;&#25910;&#10;            var mReceiveThread = new Thread(this.ReceiveMessage);&#10;            //&#24320;&#21551;&#32447;&#31243;&#10;            mReceiveThread.Start();&#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#22240;&#20026;&#23458;&#25143;&#31471;&#21482;&#25509;&#21463;&#26469;&#33258;&#26381;&#21153;&#22120;&#30340;&#25968;&#25454;&#10;        /// &#22240;&#27492;&#36825;&#20010;&#26041;&#27861;&#20013;&#19981;&#38656;&#35201;&#21442;&#25968;&#10;        /// &#60;/summary&#62;&#10;        private void ReceiveMessage()&#10;        &#123;&#10;            //&#35774;&#32622;&#24490;&#29615;&#26631;&#24535;&#20301;&#10;            bool flag = true;&#10;            while (flag)&#10;            &#123;&#10;                try&#10;                &#123;&#10;                    //&#33719;&#21462;&#25968;&#25454;&#38271;&#24230;&#10;                    int receiveLength = this.mClientSocket.Receive(result);&#10;                    //&#33719;&#21462;&#26381;&#21153;&#22120;&#28040;&#24687;&#10;                    string serverMessage = Encoding.UTF8.GetString(result, 0, receiveLength);&#10;                    //&#36755;&#20986;&#26381;&#21153;&#22120;&#28040;&#24687;&#10;                    Console.WriteLine(serverMessage);&#10;                &#125;&#10;                catch (Exception e)&#10;                &#123;&#10;                    //&#20572;&#27490;&#28040;&#24687;&#25509;&#25910;&#10;                    flag = false;&#10;                    //&#26029;&#24320;&#26381;&#21153;&#22120;&#10;                    this.mClientSocket.Shutdown(SocketShutdown.Both);&#10;                    //&#20851;&#38381;&#22871;&#25509;&#23383;&#10;                    this.mClientSocket.Close();&#10;&#10;                    //&#37325;&#26032;&#23581;&#35797;&#36830;&#25509;&#26381;&#21153;&#22120;&#10;                    this.isConnected = false;&#10;                    ConnectToServer();&#10;                &#125;&#10;            &#125;&#10;            &#10;        &#125;&#10;&#10;        /// &#60;summary&#62;&#10;        /// &#21457;&#36865;&#28040;&#24687;&#10;        /// &#60;/summary&#62;&#10;        /// &#60;param name=&#34;msg&#34;&#62;&#28040;&#24687;&#25991;&#26412;&#60;/param&#62;&#10;        public void SendMessage(string msg)&#10;        &#123;&#10;            if(msg==string.Empty || this.mClientSocket==null) return;&#10;&#10;            mClientSocket.Send(Encoding.UTF8.GetBytes(msg));&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>同样地，我们现在来运行客户端程序，这样客户端就可以和服务端进行通信了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System;&#10;using System.Collections.Generic;&#10;using System.Text;&#10;using TCPLib;&#10;using System.Net;&#10;using System.Net.Sockets;&#10;&#10;namespace TCPLib.Test&#10;&#123;&#10;    class Program&#10;    &#123;&#10;        static void Main(string[] args)&#10;        &#123;&#10;            //&#20445;&#35777;&#31471;&#21475;&#21495;&#21644;&#26381;&#21153;&#31471;&#19968;&#33268;&#10;            TCPLib.TCPClient c = new TCPClient(&#34;127.0.0.1&#34;,6001);&#10;            //&#25191;&#34892;Start&#26041;&#27861;&#10;            c.Start();&#10;            while(true)&#10;            &#123;&#10;                //&#35835;&#21462;&#23458;&#25143;&#31471;&#36755;&#20837;&#30340;&#28040;&#24687;&#10;                string msg = Console.ReadLine();&#10;                //&#21457;&#36865;&#28040;&#24687;&#21040;&#26381;&#21153;&#31471;&#10;                c.SendMessage(msg);&#10;            &#125;&#10;        &#10;        &#125;&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意要先运行服务端的程序、再运行客户端的程序，不然程序会报错，嘿嘿！好了，下面是今天的效果演示图：</p>
+<p><img src="http://7wy477.com1.z0.glb.clouddn.com/qinyuanpei_imgs_聊天窗口演示.png" alt="聊天窗口效果演示"></p>
+<p><img src="http://7wy477.com1.z0.glb.clouddn.com/qinyuanpei_imgs_客户端下线后聊天窗口演示.png" alt="客户端下线效果演示"></p>
+<h1 id="总结">总结</h1><p>今天我们基本上写出了一个可以使用的用例，不过这个例子目前还存在以下问题：</p>
+<ul>
+<li>这里仅仅实现了发送字符串的功能，如何让这个程序支持更多的类型，从基础的int、float、double、string、single等类型到structure、class甚至是二进制文件的类型？</li>
+<li>如何让这个用例更具有扩展性，我们发现所有的Socket编程流程都是一样的，唯一不同就是在接收到数据以后该如何去处理，因为能不能将核心功能和自定义功能分离开来？</li>
+<li>在今天的这个用例中，数据传输的缓冲区大小我们人为设定为1024，那么如果碰到比这个设定更大的数据类型，这个用例该怎么来写？</li>
+</ul>
+<p>好了，这就是今天的内容了，希望大家喜欢，同时希望大家关注我的博客！</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/03/15/csharp-socket-programing-part-1/" data-title="C#中Socket通信编程的同步实现" data-url="http://qinyuanpei.com/2015/03/15/csharp-socket-programing-part-1/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

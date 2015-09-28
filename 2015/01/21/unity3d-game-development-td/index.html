@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>Unity3D塔防游戏开发项目讲解(下) | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Unity3D塔防游戏开发项目讲解(下) | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Unity3D塔防游戏开发项目讲解(下) | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/01/21/unity3d-game-development-td/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-01-21T05:50:48.000Z" class="post-list__meta--date date">2015-01-21</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/Unity3D/">Unity3D</a>, <a class="tag-link" href="/tags/塔防/">塔防</a>, <a class="tag-link" href="/tags/游戏开发/">游戏开发</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">Unity3D塔防游戏开发项目讲解(下)</h1>
+  </header>
+
+  <section class="post">
+    <p>各位朋友，大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是<a href="http://blog.csdn.net/qinyuanpei" target="_blank" rel="external">http://blog.csdn.net/qinyuanpei</a>。我们知道一个完整的塔防游戏由地图、敌人、防守单位三个部分组成，在上一篇文章中我们已经对地图这块儿进行了全面的讲解，今天我们来说说敌人和防守单位。</p>
+<a id="more"></a>
+<h1 id="敌人篇">敌人篇</h1><h2 id="敌人自动寻路的实现">敌人自动寻路的实现</h2><p>敌人在游戏中有一个基本的行为，即沿着寻路路径向我方阵地移动并发起攻击。在地图篇中，我们详细地介绍了敌人寻路路径的生成原理。既然有了敌人寻路的路线，那么怎么让敌人沿着路线移动呢？其实只要指定敌人寻路的起点就可以了，因为在寻路路径的设计中，我们使用的是一个类似于链表的结构，这样我们就能根据每个结点获取它的目标结点，从而实现敌人沿着寻路路径移动的效果了。因为敌人寻路的路线是定义在PathNode类中的，因此我们可以写出下面这样的代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void Move()&#10;&#123;&#10;&#9;Vector3 mPos1=this.transform.position;&#10;&#9;Vector3 mPos2=this.StartNode.transform.position;&#10;&#9;//&#35745;&#31639;&#25932;&#20154;&#19982;&#36335;&#24452;&#33410;&#28857;&#38388;&#30340;&#36317;&#31163;&#10;&#9;float mDis=Vector2.Distance(new Vector2(mPos1.x,mPos1.y),new Vector2(mPos2.x,mPos2.y));&#10;&#9;if(mDis&#60;0.1F)&#123;&#10;&#9;&#9;if(StartNode.ThatNode==null)&#123;&#10;&#9;&#9;&#9;//&#23545;&#38450;&#23432;&#38453;&#22320;&#36827;&#34892;&#25703;&#27585;&#10;&#9;&#9;&#9;GameManager.Instance.PlayerHP-=20;&#10;&#9;&#9;&#9;//&#20174;&#25932;&#20154;&#21015;&#34920;&#20013;&#31227;&#38500;&#33258;&#36523;&#10;&#9;&#9;&#9;GameManager.Instance.Enemys.Remove(this);&#10;&#9;&#9;&#9;//&#38144;&#27585;&#33258;&#36523;&#10;&#9;&#9;&#9;Destroy(this.gameObject);&#10;&#9;&#9;&#9;//&#38144;&#27585;&#34880;&#26465;&#10;&#9;&#9;&#9;Destroy(mHPBar.gameObject);&#10;&#9;&#9;&#9;&#125;else&#123;&#10;&#9;&#9;&#9;StartNode=StartNode.ThatNode;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#9;//&#35745;&#31639;&#25932;&#20154;&#30340;&#31227;&#21160;&#26041;&#21521;&#10;&#9;Vector3 mDir=new Vector3(mPos2.x-mPos1.x,mPos2.y-mPos1.y,0).normalized;&#10;&#9;transform.Translate(mDir * MoveSpeed * Time.deltaTime);&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，现在我们来一起分析这段代码。首先，我们计算了敌人与路径结点间的距离，这里我们用0.1来近似地表示敌人已经到了路径结点上，此时如果该结点的目标结点为null则表示此时敌人已经到了最后一个结点处，所以敌人会对我方的阵地造成20点的伤害并销毁敌人。在GameManager我们使用了一个列表来管理和维护当前场景中的所有敌人，因此当当前敌人销毁时需要从列表中移除，GameManager类是一个静态类，负责对游戏的全局维护，这个类我们放到稍后来讲啊。那么如果敌人没有走到最后一个结点怎么办呢？我们只需要将StartNode指向StartNode的目标节点，这样我们就可以对整个路径结点实现遍历。这里是不是有种数据结构的感觉呢？哈哈，数据结构和算法是编程中最基础、最重要的内容，这些内容到了游戏开发领域同样是适用的。那么，好了，既然知道敌人是怎么移动的，现在我们就来对敌人进行移动吧，这里是采用计算移动方向的方式来实现，这个很简单啦。</p>
+<p>好了，现在我们来说说敌人的血条吧，我们知道当怪物沿着寻路路径向我方阵地发起攻击的时候，我方防守单位会自动地对敌人进行防御性攻击，那么此时血条就可以显示敌人的实时血量，从而方便玩家根据战场的情况来调整兵力部署情况。我们知道从Unity4.6以后Unity开始使用全新的GUI系统UGUI，因为博主在之前的项目中一直使用NGUI，加上博主不是很喜欢做UI，所以每次用NGUI的时候整个人的心情都是不好的，有段时间被NGUI虐得体无完肤，感觉整个人都不好了。好了，既然现在我们有了新的选择UGUI，那么就让我们先睹为快吧！如图，全新的NGUI位于GameObect-&gt;UI菜单下，基本覆盖了常用的如Button、Image、Slider、ScrollBar等控件，因为UGUI刚推出不久，所以博主希望大家还是能客观、公正的对待UGUI和NGUI，博主认为在短期内这两个GUI系统将处于共存的状态，不存在相互替代的可能性。<br><img src="http://img.blog.csdn.net/20150301184316413" alt="UGUI"><br> 好了，UGUI所有的控件都是放到一个叫做Canvas的父控件下的，这一点和NGUI的UIRoot有些类似吧！Canvas提供了三种模式的UI系统，即Screen Space-Overlay、Screen Space-Camera、World Space。第一种Screen Space-Overlay它是完全以当前屏幕的像素大小创建的一个矩形范围，即控件是以屏幕坐标来绘制的；第二种Screen Space-Camera它是根据相机的视线范围来确定的一个矩形范围，其控件是根据Camera的ViewPortPoint坐标来绘制的;第三种从名称我们就可以知道，它是完全3D化的UI,使用的是常用的世界坐标。博主是刚开始研究UGUI,如果有不对的地方还希望大家能够原谅啊。好了，下面我们正式来做血条吧，在这里我们使用的是默认的Slider控件，用Slider控件来制作血条需要将Slider控件自带的滑块删除，然后我们通过改变value就可以实现一个简单的血条了。在UGUI中所有的图片素材都是以Sprite的形式来出现的，所以UGUI可以自己生成图集，不需要像NGUI在做UI前首先要生成图集。这是博主做的一个简单的血条。现在血条做好了，可是问题来了：这UGUI的所有控件都必须要放到Canvas下面啊，所以我们没法像NGUI一样直接把做好的血条放到怪物下面。怎么办呢？既然不能放到怪物下面，那我们就放到Canvas下面吧，不过我们需要自己计算血条的位置。好了，下面来看代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class Enemy : MonoBehaviour &#10;&#123;&#10;&#10;&#9;//&#25932;&#20154;&#30340;&#29983;&#21629;&#20540;&#10;&#9;public float MaxHP;&#10;&#9;public float HP;&#10;&#10;&#9;//&#25932;&#20154;&#30340;&#21021;&#22987;&#36335;&#24452;&#33410;&#28857;&#10;&#9;public PathNode StartNode;&#10;&#9;//&#25932;&#20154;&#30340;&#31227;&#21160;&#36895;&#24230;&#10;&#9;public float MoveSpeed=0.15F;&#10;&#9;//&#25932;&#20154;&#30340;&#26059;&#36716;&#36895;&#24230;&#10;&#9;public float RotateSpeed=0.3F;&#10;&#10;&#9;//&#25932;&#20154;&#34880;&#26465;&#39044;&#21046;&#20214;&#10;&#9;public GameObject HPBar;&#10;&#9;//&#25932;&#20154;&#34880;&#26465;&#32452;&#20214;&#10;&#9;private Slider mHPBar;&#10;&#10;&#9;//public EnemySpawn mSpawn;&#10;&#10;&#9;void Awake()&#10;&#9;&#123;&#10;&#9;&#9;//&#22312;&#25932;&#20154;&#21015;&#34920;&#20013;&#22686;&#21152;&#19968;&#20010;&#25932;&#20154;&#10;&#9;&#9;GameManager.Instance.Enemys.Add(this.GetComponent&#60;Enemy&#62;());&#10;&#9;&#9;//&#26597;&#25214;UI&#10;&#9;&#9;Transform mUiRoot=GameObject.Find(&#34;UIManager&#34;).transform;&#10;&#9;&#9;//&#35745;&#31639;&#34880;&#26465;&#20301;&#32622;&#10;&#9;&#9;Vector3 mPos=this.transform.FindChild(&#34;EnemyHP&#34;).transform.position;&#10;&#9;&#9;//mPos=Camera.main.WorldToViewportPoint(mPos);&#10;&#9;&#9;mPos.z=-5;&#10;&#9;&#9;//&#29983;&#25104;&#34880;&#26465;&#10;&#9;&#9;GameObject go=(GameObject)Instantiate(HPBar,mPos,Quaternion.identity);&#10;&#9;&#9;//&#20351;&#34880;&#26465;&#25104;&#20026;Canvas&#30340;&#23376;&#29289;&#20307;&#10;&#9;&#9;go.transform.parent=mUiRoot;&#10;&#9;&#9;//&#23545;&#34880;&#26465;&#36827;&#34892;&#25918;&#32553;&#10;&#9;&#9;go.GetComponent&#60;RectTransform&#62;().localScale=new Vector3(0.5F,0.30F,1);&#10;&#9;&#9;//&#33719;&#21462;Slider&#10;&#9;&#9;mHPBar=go.transform.GetComponent&#60;Slider&#62;();&#10;&#9;&#125;&#10;&#10;&#9;void Move()&#10;&#9;&#123;&#10;&#9;&#9;Vector3 mPos1=this.transform.position;&#10;&#9;&#9;Vector3 mPos2=this.StartNode.transform.position;&#10;&#9;&#9;//&#35745;&#31639;&#25932;&#20154;&#19982;&#36335;&#24452;&#33410;&#28857;&#38388;&#30340;&#36317;&#31163;&#10;&#9;&#9;float mDis=Vector2.Distance(new Vector2(mPos1.x,mPos1.y),new Vector2(mPos2.x,mPos2.y));&#10;&#9;&#9;if(mDis&#60;0.1F)&#123;&#10;&#9;&#9;&#9;if(StartNode.ThatNode==null)&#123;&#10;&#9;&#9;&#9;&#9;//&#23545;&#38450;&#23432;&#38453;&#22320;&#36827;&#34892;&#25703;&#27585;&#10;&#9;&#9;&#9;&#9;GameManager.Instance.PlayerHP-=20;&#10;&#9;&#9;&#9;&#9;//&#20174;&#25932;&#20154;&#21015;&#34920;&#20013;&#31227;&#38500;&#33258;&#36523;&#10;&#9;&#9;&#9;&#9;GameManager.Instance.Enemys.Remove(this);&#10;&#9;&#9;&#9;&#9;//&#38144;&#27585;&#33258;&#36523;&#10;&#9;&#9;&#9;&#9;Destroy(this.gameObject);&#10;&#9;&#9;&#9;&#9;//&#38144;&#27585;&#34880;&#26465;&#10;&#9;&#9;&#9;&#9;Destroy(mHPBar.gameObject);&#10;&#9;&#9;&#9;&#125;else&#123;&#10;&#9;&#9;&#9;&#9;StartNode=StartNode.ThatNode;&#10;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#125;&#10;&#9;&#9;//&#35745;&#31639;&#25932;&#20154;&#30340;&#31227;&#21160;&#26041;&#21521;&#10;&#9;&#9;Vector3 mDir=new Vector3(mPos2.x-mPos1.x,mPos2.y-mPos1.y,0).normalized;&#10;&#9;&#9;transform.Translate(mDir * MoveSpeed * Time.deltaTime);&#10;&#9;&#125; &#10;&#10;&#9;void Rotate()&#10;&#9;&#123;&#10;&#9;&#9;//&#21021;&#22987;&#35282;&#24230;&#10;&#9;&#9;float mStartAngle=this.transform.eulerAngles.z;&#10;&#9;&#9;transform.LookAt(StartNode.transform);&#10;&#9;&#9;//&#30446;&#26631;&#35282;&#24230;&#10;&#9;&#9;float mTargetAngle=this.transform.eulerAngles.z;&#10;&#9;&#9;//&#35745;&#31639;&#26059;&#36716;&#37327;&#10;&#9;&#9;float mAngle=Mathf.MoveTowardsAngle(mStartAngle,mTargetAngle,RotateSpeed *Time.deltaTime);&#10;&#9;&#9;this.transform.eulerAngles = new Vector3(0,0,mAngle);&#10;&#9;&#125;&#10;&#10;&#9;void Update () &#10;&#9;&#123;&#10;&#9;&#9;Move();&#10;&#9;&#9;UpdateHPBar();&#10;&#9;&#125;&#10;&#10;&#9;private void UpdateHPBar()&#10;&#9;&#123;&#10;&#9;&#9;//&#26356;&#26032;&#34880;&#26465;&#20301;&#32622;&#10;&#9;&#9;Vector3 mPos=this.transform.FindChild(&#34;EnemyHP&#34;).transform.position;&#10;&#9;&#9;//&#20351;&#34880;&#26465;&#20301;&#20110;&#39030;&#23618;&#10;&#9;&#9;mPos.z=-5;&#10;&#9;&#9;mHPBar.transform.position=mPos;&#10;&#9;&#9;//&#26356;&#26032;&#34880;&#37327;&#10;&#9;&#9;mHPBar.value=(float)HP/MaxHP;&#10;&#9;&#125;&#10;&#10;&#9;public void SetDamage(int mValue)&#10;&#9;&#123;&#10;&#9;&#9;HP-=mValue;&#10;&#9;&#9;if(HP&#60;=0)&#123;&#10;&#9;&#9;  Destroy(this.gameObject);&#10;&#9;&#9;  Destroy(mHPBar.gameObject);&#10;&#9;&#9;  GameManager.Instance.Enemys.Remove(this.GetCopmonent&#60;Enemy&#62;());&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里我们做了三件事情：</p>
+<ul>
+<li>第一，在Awake方法中我们首先计算出血条的位置然后在这个位置生成血条，并取得相关的变量备用。</li>
+<li>第二，在Update方法中增加一个UpdateHPBar方法以实现对血条血量的更新。</li>
+<li>第三，增加了一个SetDamage方法，当敌人血量为0时销毁自身、销毁血条、从敌人列表中移除敌人</li>
+</ul>
+<h2 id="敌人按波次进攻的实现">敌人按波次进攻的实现</h2><p>好了，到现在为止，对于敌人的逻辑我们就全部实现了。可是我们知道在塔防游戏中敌人通常是一波一波出现的，所以我们需要一个敌人生成器EnemySpawn。那么，怎么来生成敌人呢，这里我们使用Xml文件来配置要生成的敌人列表，首先我们来构建一个Xml文件：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml <span class="variable">version=</span><span class="string">"1.0"</span> <span class="variable">encoding=</span><span class="string">"utf-8"</span> <span class="variable">standalone=</span><span class="string">"yes"</span>?&gt;</span><br><span class="line">&lt;Enemies&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"1"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"1"</span> <span class="variable">Wait=</span><span class="string">"0.5"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"2"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"2"</span> <span class="variable">Wait=</span><span class="string">"0.45"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"2"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"2"</span> <span class="variable">Wait=</span><span class="string">"0.45"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"3"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"3"</span> <span class="variable">Wait=</span><span class="string">"0.4"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"3"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"3"</span> <span class="variable">Wait=</span><span class="string">"0.4"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"3"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"3"</span> <span class="variable">Wait=</span><span class="string">"0.4"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"4"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"4"</span> <span class="variable">Wait=</span><span class="string">"0.35"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"4"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"4"</span> <span class="variable">Wait=</span><span class="string">"0.35"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"4"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"4"</span> <span class="variable">Wait=</span><span class="string">"0.35"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"4"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"4"</span> <span class="variable">Wait=</span><span class="string">"0.35"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"5"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"5"</span> <span class="variable">Wait=</span><span class="string">"0.3"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"5"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"5"</span> <span class="variable">Wait=</span><span class="string">"0.3"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"5"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"5"</span> <span class="variable">Wait=</span><span class="string">"0.3"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"5"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"5"</span> <span class="variable">Wait=</span><span class="string">"0.3"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"5"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"5"</span> <span class="variable">Wait=</span><span class="string">"0.3"</span>/&gt;</span><br><span class="line">	&lt;Enemy <span class="variable">Wave=</span><span class="string">"6"</span> <span class="variable">EnemyName=</span><span class="string">"Enemy"</span> <span class="variable">Level=</span><span class="string">"99"</span> <span class="variable">Wait=</span><span class="string">"0.15"</span>/&gt;</span><br><span class="line">&lt;/Enemies&gt;</span><br></pre></td></tr></table></figure></p>
+<p>从这个Xml文件中我们可以看到这样一个结构：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;&#10;using System.Collections;&#10;using System.Collections.Generic;&#10;using System.Xml;&#10;&#10;&#10;public class SpawnData &#10;&#123;&#10;&#9;//&#25932;&#20154;&#36827;&#25915;&#27874;&#25968;&#10;&#9;public int Wave;&#10;&#9;///&#25932;&#20154;&#21517;&#31216;&#65292;&#25105;&#20204;&#23558;&#26681;&#25454;&#36825;&#20010;&#21517;&#31216;&#26469;&#29983;&#25104;&#19981;&#21516;&#30340;&#25932;&#20154;&#10;&#9;public string EnemyName;&#10;&#9;//&#25932;&#20154;&#31561;&#32423;&#65292;&#25105;&#20204;&#23558;&#26681;&#25454;&#36825;&#20010;&#20540;&#26469;&#35843;&#25972;&#25932;&#20154;&#30340;&#29983;&#21629;&#20540;&#21644;&#31227;&#21160;&#36895;&#24230;&#10;&#9;public int Level;&#10;&#10;&#9;public float Wait;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在SpawnData这个结构中，我们可以得到敌人攻击的波数、敌人的名称、敌人等级、敌人生成需要等待的时间，因为博主在游戏中只有一种敌人，所以敌人的名称都是一样的。好了，现在我们可以开始解析Xml了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#35299;&#26512;Xml&#25991;&#20214;&#10;void ReadXml()&#10;&#123;&#10;&#9;//&#21019;&#24314;&#19968;&#20010;&#23383;&#20856;&#20197;&#23384;&#20648;&#25932;&#20154;&#21015;&#34920;&#10;&#9;mEnemyDatas=new List&#60;SpawnData&#62;();&#10;&#9;//&#21152;&#36733;Xml&#25991;&#26723;&#10;&#9;XmlDocument mDocument=new XmlDocument();&#10;&#9;mDocument.LoadXml(ConfigFile.text);&#10;&#9;XmlElement mRoot=mDocument.DocumentElement;&#10;&#9;//&#35299;&#26512;Xml&#25991;&#26723;&#10;&#9;XmlNodeList mNodes=mRoot.SelectNodes(&#34;/Enemies/Enemy&#34;);&#10;&#9;foreach(XmlNode mNode in mNodes)&#10;&#9;&#123;&#10;&#9;&#9;//&#20026;&#27599;&#19968;&#20010;SpawnData&#36171;&#20540;&#10;&#9;&#9;SpawnData mData=new SpawnData();&#10;&#9;&#9;mData.Wave=int.Parse(mNode.Attributes[0].Value);&#10;&#9;&#9;mData.EnemyName=mNode.Attributes[1].Value;&#10;&#9;&#9;mData.Level=int.Parse(mNode.Attributes[2].Value);&#10;&#9;&#9;mData.Wait=float.Parse(mNode.Attributes[3].Value);&#10;&#10;&#9;&#9;mEnemyDatas.Add(mData);&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么好了，在解析完Xml后我们得到了所有的敌人数据，接下来我们只需要按照顺序生成敌人就可以了。具体怎么做呢，我们知道在塔防游戏中生成敌人有两种情况：</p>
+<ul>
+<li>一个是要生成的敌人和当前敌人是同一波的，这种情况只要继续生成就好了。</li>
+<li>一个是要生成的敌人的波数大于当前波数，这种情况需要等待这一波敌人被消灭完。</li>
+</ul>
+<p>好了，现在来写代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;&#10;using System.Collections;&#10;using System.Collections.Generic;&#10;using System.Xml;&#10;&#10;public class EnemySpawn : MonoBehaviour &#123;&#10;&#10;&#9;//&#25932;&#20154;&#23547;&#36335;&#36215;&#28857;&#10;&#9;public PathNode SpawnPath;&#10;&#9;//&#25932;&#20154;&#39044;&#21046;&#20214;&#10;&#9;public GameObject Enemy;&#10;&#9;//Xml&#25991;&#20214;&#10;&#9;public TextAsset ConfigFile;&#10;&#10;&#9;//&#23384;&#25918;&#25932;&#20154;&#30340;&#25968;&#32452;&#10;&#9;private List&#60;SpawnData&#62; mEnemyDatas;&#10;&#10;&#9;//&#24403;&#21069;&#25932;&#20154;&#36827;&#25915;&#27874;&#25968;&#10;&#9;private int mWave=0;&#10;&#9;//&#24403;&#21069;&#25932;&#20154;&#32034;&#24341;&#10;&#9;private int mIndex=0;&#10;&#9;//&#24403;&#21069;&#31561;&#24453;&#30340;&#26102;&#38388;&#10;&#9;private float mWait;&#10;&#10;&#9;void Start()&#10;&#9;&#123;&#10;&#9;&#9;//&#35835;&#21462;Xml&#25968;&#25454;&#10;&#9;&#9;ReadXml();&#10;&#9;&#9;Debug.Log(mEnemyDatas.Count);&#10;&#9;&#9;//&#21021;&#22987;&#21270;&#25915;&#20987;&#27874;&#25968;&#10;&#9;&#9;SpawnData mData=mEnemyDatas[mIndex];&#10;&#9;&#9;//&#35774;&#32622;&#25915;&#20987;&#27874;&#25968;&#21644;&#31561;&#24453;&#26102;&#38388;&#10;&#9;&#9;mWave=mData.Wave;&#10;&#9;&#9;mWait=mData.Wait;&#10;&#9;&#9;GameManager.Instance.AttackWave=mWave;&#10;&#9;&#9;//&#29983;&#25104;&#31532;&#19968;&#20010;&#25932;&#20154;&#10;&#9;&#9;CreateEnemy(mData);&#10;&#9;&#9;mIndex+=1;&#10;&#9;&#125;&#10;&#10;&#9;void CreateEnemy(SpawnData mData)&#10;&#9;&#123;&#10;&#9;&#9;GameObject go=(GameObject)Instantiate(Enemy,SpawnPath.transform.position,Quaternion.identity);&#10;&#9;&#9;Enemy _Enemy=go.GetComponent&#60;Enemy&#62;();&#10;&#9;&#9;//&#26681;&#25454;Level&#35745;&#31639;&#25932;&#20154;&#30340;&#29983;&#21629;&#20540;&#21644;&#31227;&#21160;&#36895;&#24230;&#10;&#9;&#9;_Enemy.MaxHP= (float)mData.Level*0.25F * 100;&#10;&#9;&#9;_Enemy.HP= (float)mData.Level*0.25F * 100;&#10;&#9;&#9;go.GetComponent&#60;Enemy&#62;().MoveSpeed=(float)mData.Level * 0.15F;&#10;&#9;&#9;go.GetComponent&#60;Enemy&#62;().StartNode=SpawnPath;&#10;&#9;&#125;&#10;&#10;&#9;void Update () &#10;&#9;&#123;&#10;&#9;   if(mIndex&#60;=mEnemyDatas.Count-1)&#123;&#10;&#9;     SpawnEnemy();&#10;&#9;   &#125;else&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;//&#24403;&#32034;&#24341;&#25968;&#30446;&#22823;&#20110;&#25932;&#20154;&#21015;&#34920;&#20013;&#30340;&#25968;&#30446;&#26102;&#65292;&#34920;&#31034;&#25152;&#26377;&#25932;&#20154;&#20197;&#21450;&#29983;&#25104;&#23436;&#27605;&#65292;&#27492;&#26102;&#10;&#9;&#9;&#9;//&#22914;&#26524;&#25152;&#26377;&#30340;&#25932;&#20154;&#37117;&#34987;&#28040;&#28781;&#65292;&#21017;&#34920;&#31034;&#29609;&#23478;&#33719;&#32988;&#12290;&#10;&#9;&#9;&#9;if(GameManager.Instance.Enemys.Count==0)&#123;&#10;&#9;&#9;&#9;&#9;GameManager.Instance.IsWin=true;&#10;&#9;&#9;&#9;&#9;Debug.Log(&#34;&#29609;&#23478;&#32988;&#34;);&#10;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#10;&#9;private void SpawnEnemy()&#10;&#9;&#123;&#10;&#9;&#9;//&#21462;&#24471;&#19979;&#19968;&#20010;&#29983;&#25104;&#30340;&#25932;&#20154;&#30340;&#25968;&#25454;&#10;&#9;&#9;SpawnData mData=mEnemyDatas[mIndex];&#10;&#10;&#9;&#9;//&#24320;&#22987;&#35745;&#26102;&#10;&#9;&#9;mWait-=Time.deltaTime;&#10;&#9;&#9;if(mWait&#60;=0 )&#123;&#10;&#9;&#9;&#9;//&#22914;&#26524;&#24403;&#21069;&#26159;&#21516;&#19968;&#27874;&#25932;&#20154;&#65292;&#21017;&#32487;&#32493;&#29983;&#25104;&#25932;&#20154;&#10;&#9;&#9;    if(mWave==mData.Wave)&#123;&#10;&#9;&#9;&#9;   //&#35774;&#32622;&#31561;&#24453;&#26102;&#38388;&#10;&#9;&#9;&#9;   mWait=mEnemyDatas[mIndex].Wait;&#10;&#9;&#9;&#9;   //&#35774;&#32622;&#36827;&#25915;&#27874;&#25968;&#10;&#9;&#9;&#9;   mWave=mEnemyDatas[mIndex].Wave;&#10;&#9;&#9;&#9;   GameManager.Instance.AttackWave=mWave;&#10;&#9;&#9;&#9;   //&#29983;&#25104;&#19968;&#20010;&#25932;&#20154;&#10;&#9;&#9;&#9;   if(mData!=null)&#123;&#10;&#9;&#9;&#9;   CreateEnemy(mData);&#10;&#9;&#9;&#9;   &#125;&#10;&#9;&#9;&#9;   mIndex+=1;&#10;&#9;&#9;&#9;&#125;//&#22914;&#26524;&#26159;&#19979;&#19968;&#27874;&#25932;&#20154;&#65292;&#21017;&#38656;&#35201;&#31561;&#24453;&#36825;&#19968;&#27874;&#25932;&#20154;&#20840;&#37096;&#27515;&#20129;&#21518;&#20877;&#29983;&#25104;&#10;&#9;&#9;&#9;else if(mWave&#60;mData.Wave &#38;&#38; GameManager.Instance.Enemys.Count==0)&#123;&#10;&#9;&#9;&#9;&#9;//&#35774;&#32622;&#31561;&#24453;&#26102;&#38388;&#10;&#9;&#9;&#9;&#9;mWait=mData.Wait;&#10;&#9;&#9;&#9;&#9;//&#35774;&#32622;&#36827;&#25915;&#27874;&#25968;&#10;&#9;&#9;&#9;&#9;mWave=mData.Wave;&#10;&#9;&#9;&#9;&#9;GameManager.Instance.AttackWave=mWave;&#10;&#9;&#9;&#9;&#9;//&#29983;&#25104;&#19968;&#20010;&#25932;&#20154;&#10;&#9;&#9;&#9;&#9;CreateEnemy(mData);&#10;&#9;&#9;&#9;&#9;mIndex+=1;&#10;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#10;&#9;//&#35299;&#26512;Xml&#25991;&#20214;&#10;&#9;void ReadXml()&#10;&#9;&#123;&#10;&#9;&#9;//&#21019;&#24314;&#19968;&#20010;&#23383;&#20856;&#20197;&#23384;&#20648;&#25932;&#20154;&#21015;&#34920;&#10;&#9;&#9;mEnemyDatas=new List&#60;SpawnData&#62;();&#10;&#9;&#9;//&#21152;&#36733;Xml&#25991;&#26723;&#10;&#9;&#9;XmlDocument mDocument=new XmlDocument();&#10;&#9;&#9;mDocument.LoadXml(ConfigFile.text);&#10;&#9;&#9;XmlElement mRoot=mDocument.DocumentElement;&#10;&#9;&#9;//&#35299;&#26512;Xml&#25991;&#26723;&#10;&#9;&#9;XmlNodeList mNodes=mRoot.SelectNodes(&#34;/Enemies/Enemy&#34;);&#10;&#9;&#9;foreach(XmlNode mNode in mNodes)&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;//&#20026;&#27599;&#19968;&#20010;SpawnData&#36171;&#20540;&#10;&#9;&#9;&#9;SpawnData mData=new SpawnData();&#10;&#9;&#9;&#9;mData.Wave=int.Parse(mNode.Attributes[0].Value);&#10;&#9;&#9;&#9;mData.EnemyName=mNode.Attributes[1].Value;&#10;&#9;&#9;&#9;mData.Level=int.Parse(mNode.Attributes[2].Value);&#10;&#9;&#9;&#9;mData.Wait=float.Parse(mNode.Attributes[3].Value);&#10;&#10;&#9;&#9;&#9;mEnemyDatas.Add(mData);&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以注意到，到现在为止敌人相关的内容博主都已经为大家讲解完了，这里博主和大家开了一个小玩笑，不知道大家有没有发现，在敌人的Xml配置文件中博主最后设计了一个等级为99级的敌人，哈哈，这个敌人在游戏中的特点大家要自己从代码中来探索了，大家可以按照博主的思路做出这个塔防游戏然后自己去试试看，相信大家会更加深刻地理解数值平衡的重要性吧！</p>
+<h1 id="防守单位篇">防守单位篇</h1><p>防守单位是塔防游戏中玩家可以支配和控制的一种资源，玩家通过合理地分布防守单位的位置来对玩家的防守阵地进行防御，当玩家的防守阵地被摧毁时玩家将无法继续部署防守单位。这就是防守单位在游戏中的主要作用。通常为了增加游戏的可玩性，游戏设计者往往会设计多种防守单位，在博主的这个小游戏中，我们只设计了一种防守单位，更多的防守单位的设计大家可以参考《保卫萝卜》和《植物大战僵尸》这两个游戏。好了，说了这么多，那么防守单位在整个塔防游戏中主要的作用是什么呢？答案就是防守，哈哈，这是一句不折不扣的废话。可是就是这样一句废话，却足以让我们知道防守单位需要对敌人进行自动攻击，这就要涉及到简单的AI算法了。好了，我们来看下面的脚本：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;&#10;using System.Collections;&#10;&#10;public class Defender : MonoBehaviour &#123;&#10;&#10;&#9;//&#30446;&#26631;&#25932;&#20154;&#10;&#9;private Enemy mTarget;&#10;&#9;//&#25915;&#20987;&#21322;&#24452;&#10;&#9;public float AttackArea=2.5F;&#10;&#9;//&#19982;&#25932;&#20154;&#30340;&#36317;&#31163;&#10;&#9;private float mDistance=0;&#10;&#9;//&#38450;&#23432;&#21333;&#20301;&#30340;&#26059;&#36716;&#36895;&#24230;&#10;&#9;public float RotateSpeed=1.5F;&#10;&#9;//&#38450;&#23432;&#21333;&#20301;&#25915;&#20987;&#38388;&#38548;&#10;&#9;public float AttakTime=2.5F;&#10;&#9;//&#38450;&#23432;&#21333;&#20301;&#25915;&#20987;&#38388;&#38548;&#10;&#9;private float mTime=0.0F;&#10;&#10;&#9;//&#28846;&#24377;&#39044;&#35774;&#10;&#9;public GameObject BulletObject;&#10;&#10;&#9;void Start () &#10;&#9;&#123;&#10;&#9;&#9;//&#21021;&#22987;&#21270;&#38450;&#23432;&#21333;&#20301;&#25915;&#20987;&#38388;&#38548;&#10;&#9;&#9;mTime=AttakTime;&#10;&#9;&#125;&#10;&#10;&#9;//&#26597;&#25214;&#25915;&#20987;&#33539;&#22260;&#20869;&#30340;&#25932;&#20154;&#10;&#9;void FindEnemy()&#10;&#9;&#123;&#10;&#9;&#9;//&#21021;&#22987;&#21270;&#30446;&#26631;&#25932;&#20154;&#10;&#9;&#9;mTarget=null;&#10;&#9;&#9;//&#33719;&#21462;&#25932;&#20154;&#21015;&#34920;&#10;&#9;&#9;ArrayList mEnemys=GameManager.Instance.Enemys;&#10;&#9;&#9;//&#36941;&#21382;&#27599;&#20010;&#25932;&#20154;&#10;&#9;&#9;foreach(Enemy _enemy in mEnemys)&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;//&#24573;&#30053;&#29983;&#21629;&#20540;&#20026;0&#30340;&#25932;&#20154;&#10;&#9;&#9;&#9;if(_enemy.HP==0) continue;&#10;&#9;&#9;&#9;//&#35745;&#31639;&#38450;&#23432;&#21333;&#20301;&#19982;&#25932;&#20154;&#38388;&#30340;&#36317;&#31163;&#10;&#9;&#9;&#9;Vector3 mPos1=transform.position;&#10;&#9;&#9;&#9;Vector3 mPos2=_enemy.transform.position;&#10;&#9;&#9;&#9;float mDis=Vector2.Distance(new Vector2(mPos1.x,mPos1.y),new Vector2(mPos2.x,mPos2.y));&#10;&#9;&#9;&#9;if(mDis&#62;AttackArea)&#123;&#10;&#9;&#9;&#9;&#9;//Debug.Log(&#34;&#25932;&#20154;&#34; + _enemy.transform.name + &#34;&#26410;&#36827;&#20837;&#25915;&#20987;&#33539;&#22260;,&#36317;&#31163;&#20026;:&#34; + mDis);&#10;&#9;&#9;&#9;&#9;//return;&#10;&#9;&#9;&#9;&#125;else&#123;&#10;&#9;&#9;&#9;&#9;//Debug.Log(&#34;&#25932;&#20154;&#34; + _enemy.transform.name + &#34;&#24050;&#36827;&#20837;&#25915;&#20987;&#33539;&#22260;,&#36317;&#31163;&#20026;:&#34; + mDis);&#10;&#9;&#9;&#9;&#9;//&#36873;&#25321;&#26368;&#36817;&#30340;&#25932;&#20154;&#10;&#9;&#9;&#9;&#9;if(mDistance==0 || mDistance &#62; mDis)&#123;&#10;&#9;&#9;&#9;&#9;&#9;mTarget=_enemy;&#10;&#9;&#9;&#9;&#9;&#9;mDistance=mDis;&#10;&#9;&#9;&#9;&#9;&#125;&#10;&#10;&#9;&#9;&#9;&#9;/*//&#36873;&#25321;&#29983;&#21629;&#20540;&#26368;&#20302;&#30340;&#25932;&#20154;&#10;&#9;&#9;&#9;&#9;if(mLife==0 || mLife &#62; _enemy.HP)&#123;&#10;&#9;&#9;&#9;&#9;&#9;mTarget=_enemy;&#10;&#9;&#9;&#9;&#9;&#9;mLife=_enemy.HP;&#10;&#9;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#9;&#9;*/&#10;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#125;&#10;&#9;&#9;mDistance=0;&#10;&#9;&#125;&#10;&#10;&#9;void RotateTo()&#10;&#9;&#123;&#10;&#9;&#9;//&#21028;&#26029;&#30446;&#26631;&#25932;&#20154;&#26159;&#21542;&#20026;&#31354;&#10;&#9;&#9;if(mTarget==null) return;&#10;&#9;&#9;//&#35745;&#31639;&#35201;&#26059;&#36716;&#21040;&#25932;&#20154;&#26041;&#21521;&#30340;&#35282;&#24230;&#10;&#9;&#9;Vector3 mPos1=this.transform.position;&#10;&#9;&#9;Vector3 mPos2=mTarget.transform.position;&#10;&#9;&#9;Vector3 mDir=(mPos2-mPos1).normalized;&#10;&#9;&#9;//&#20351;&#24471;&#20004;&#21521;&#37327;&#20849;&#38754;&#10;&#9;&#9;mDir.z=0;&#10;&#9;&#9;//&#35745;&#31639;&#20004;&#21521;&#37327;&#35282;&#24230;&#10;&#9;&#9;float mAngle=getAngle(Vector3.up,mDir);&#10;&#9;&#9;this.transform.eulerAngles=new Vector3(0,0,mAngle) * RotateSpeed;&#10;&#10;&#9;&#125;&#10;&#10;&#9;//&#26681;&#25454;&#21521;&#37327;&#25968;&#23398;&#35745;&#31639;&#35282;&#24230;&#10;&#9;private float getAngle(Vector3 v1,Vector3 v2)&#10;&#9;&#123;&#10;&#9;&#9;float mDot=Vector3.Dot(v1,v2);&#10;&#9;&#9;float mv1=Mathf.Sqrt(v1.x*v1.x+v1.y*v1.y+v1.z*v1.z);&#10;&#9;&#9;float mv2=Mathf.Sqrt(v2.x*v2.x+v2.y*v2.y+v2.z*v2.z);&#10;&#9;&#9;if(v2.x&#62;v1.x)&#123;&#10;&#9;&#9;&#9;return -Mathf.Acos(mDot/(mv1*mv2))* Mathf.Rad2Deg ;&#10;&#9;&#9;&#125;else&#123;&#10;&#9;&#9;&#9;return Mathf.Acos(mDot/(mv1*mv2))* Mathf.Rad2Deg ;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#10;&#9;void Attack()&#10;&#9;&#123;&#10;&#9;&#9;RotateTo();&#10;&#9;&#9;if(mTarget==null) return;&#10;&#9;&#9;//&#20197;&#19979;&#28155;&#21152;&#25915;&#20987;&#36923;&#36753;&#10;&#9;&#9;mTime-=Time.deltaTime;&#10;&#9;&#9;if(mTime&#60;0)&#123;&#10;&#9;&#9;&#9;Vector3 _angle=transform.Find(&#34;Bullet&#34;).eulerAngles;&#10;&#9;&#9;&#9;Vector3 _pos=new Vector3(this.transform.position.x,this.transform.position.y,-2);&#10;&#9;&#9;&#9;Instantiate(BulletObject,_pos,Quaternion.Euler(_angle));&#10;&#9;&#9;&#9;mTime=AttakTime;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#10;&#9;void Update () &#10;&#9;&#123;&#10;&#9;&#9;FindEnemy();&#10;&#9;&#9;Attack();&#10;&#9;&#125;&#10;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>防守单位的脚本定义在Defender这个类中，主要的行为有两个，即发现敌人后转向敌人、向敌人发射炮弹，这块的代码较为简单，大家自己去领会就好啦。我们知道在塔防游戏中玩家可以通过点击屏幕来自由地增加或移动防守单位，这部分的内容主要是和GUI相关的，因为目前博主对UGUI掌握地还不是很熟，所以就等以后博主有时间了再来补充吧！好了，这个塔防游戏的讲解教程就是这样了，希望大家能够喜欢，我知道大家等这篇下篇已经好久了，哈哈！<br><img src="http://img.blog.csdn.net/20150301190040972" alt="效果演示"><br>最后想说的是，博主的独立博客<a href="http://qinyuanpei.github.io" target="_blank" rel="external">http://qinyuanpei.github.io</a>正式开始使用了，以后发表的文章会在独立博客和CSDN同时更新，希望大家能继续关注博主的博客！谢谢大家</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/01/21/unity3d-game-development-td/" data-title="Unity3D塔防游戏开发项目讲解(下)" data-url="http://qinyuanpei.com/2015/01/21/unity3d-game-development-td/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

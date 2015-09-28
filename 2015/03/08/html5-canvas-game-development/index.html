@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>HTML5游戏开发技术基础整理 | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="HTML5游戏开发技术基础整理 | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="HTML5游戏开发技术基础整理 | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/03/08/html5-canvas-game-development/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-03-08T11:14:44.000Z" class="post-list__meta--date date">2015-03-08</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/HTML5/">HTML5</a>, <a class="tag-link" href="/tags/技术/">技术</a>, <a class="tag-link" href="/tags/游戏/">游戏</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">HTML5游戏开发技术基础整理</h1>
+  </header>
+
+  <section class="post">
+    <p>随着HTML5标准最终敲定，HTML5将有望成为游戏开发领域的的热门平台。HTML5游戏能够运行于包括iPhone系列和iPad系列在内的计算机、智能手机以及平板电脑上，是目前跨平台应用开发的最佳实施方案。本文系根据[HML5 Canvas游戏开发实战]一书中的内容整理而成，是了解和学习HTML5游戏开发的基础内容，希望能够帮助到那些和博主一样致力于游戏开发的朋友们！<br><a id="more"></a></p>
+<h2 id="JavaScript中的面向对象编程">JavaScript中的面向对象编程</h2><p>对于游戏开发来说，面向对象编程(OOP)是一种重要而且必要的方法，所以在了解HTML5游戏开发前，首先应该了解JavaScript中的面向对象编程。JavaScript是一种基于对象的语言，可它并不是一种真正的面向对象的编程语言，因为在JavaScript的语法中不存在类(Class)的概念。下面我们将分析和解决在JavaScript中实现封装、继承等面向对象的问题。</p>
+<h3 id="在JavaScript中函数(function)就是就是一个类(class)">在JavaScript中函数(function)就是就是一个类(class)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">//实例化一个对象</span></span><br><span class="line"><span class="keyword">var</span> cls1 = <span class="keyword">new</span> MyClass();</span><br></pre></td></tr></table></figure>
+<h3 id="使用this关键字就可以为类增加属性">使用this关键字就可以为类增加属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个类并定义其构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params">name,age</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age  = age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//实例化一个对象</span></span><br><span class="line"><span class="keyword">var</span> cls1 = <span class="keyword">new</span> MyClass(<span class="string">"张三"</span>,<span class="number">20</span>)</span><br><span class="line"><span class="comment">//输出cls1的两个属性值</span></span><br><span class="line">alert(<span class="string">"name="</span> + cls1.name + <span class="string">"&amp;"</span> + cls1.age)</span><br></pre></td></tr></table></figure>
+<h3 id="使用prototype属性可以为类添加方法">使用prototype属性可以为类添加方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个类并定义其构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params">name,age</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age  = age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//为MyClass增加方法</span></span><br><span class="line">MyClass.prototype=</span><br><span class="line">&#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        alert(<span class="string">"name="</span> + <span class="keyword">this</span>.name + <span class="string">"&amp;"</span> + <span class="keyword">this</span>.age)</span><br><span class="line">    &#125;,</span><br><span class="line">    getName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        alert(<span class="string">"name="</span> + <span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    getAge:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        alert(<span class="string">"age="</span> + <span class="keyword">this</span>.age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使用apply方法实现属性和方法的继承">使用apply方法实现属性和方法的继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个父类People</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params"></span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.type=<span class="string">"人"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//为父类定义一个方法</span></span><br><span class="line">People.prototype=</span><br><span class="line">&#123;</span><br><span class="line">    getType:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        alert(<span class="string">"type="</span> + <span class="keyword">this</span>.type)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个子类Student</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name,age,sex</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="comment">//继承父类的属性type</span></span><br><span class="line">   People.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">   <span class="keyword">this</span>.name = name;</span><br><span class="line">   <span class="keyword">this</span>.age = age;</span><br><span class="line">   <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个Student实例</span></span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">20</span>,<span class="string">"男"</span>)；</span><br><span class="line"><span class="comment">//输出type</span></span><br><span class="line">alert(stu.type)</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面我们来了解下如何继承父类的方法，继承父类方法主要通过循环使用父对象的prototype进行复制来实现，如</span></span><br><span class="line"><span class="comment">//重新定义子类Student</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name,age,sex</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="comment">//继承父类的属性type</span></span><br><span class="line">   People.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">   <span class="comment">//继承父类的方法，略显抽象</span></span><br><span class="line">   <span class="keyword">var</span> prop;</span><br><span class="line">   <span class="keyword">for</span>(prop <span class="keyword">in</span> People.prototype)</span><br><span class="line">   &#123;</span><br><span class="line">        <span class="keyword">var</span> proto = <span class="keyword">this</span>.constructor.prototype;</span><br><span class="line">        <span class="keyword">if</span>(!proto[prop])</span><br><span class="line">        &#123;</span><br><span class="line">            proto[prop] = People.prototype[prop];</span><br><span class="line">        &#125;</span><br><span class="line">        proto[prop][<span class="string">"super"</span>] = People.prototype;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//属性定义</span></span><br><span class="line">   <span class="keyword">this</span>.name = name;</span><br><span class="line">   <span class="keyword">this</span>.age = age;</span><br><span class="line">   <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例化Student对象</span></span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">20</span>,<span class="string">"男"</span>);</span><br><span class="line">stu.getType();</span><br></pre></td></tr></table></figure>
+<h3 id="静态类的实现">静态类的实现</h3><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">staticClass</span><span class="params">()</span></span><br><span class="line">&#123;</span></span><br><span class="line">    staticClass.name = <span class="string">"张三"</span>;</span><br><span class="line">    staticClass.toString=<span class="function"><span class="keyword">function</span></span><br><span class="line">    &#123;</span></span><br><span class="line">        alert<span class="params">(<span class="string">"name="</span> + staticClass.name )</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert<span class="params">(staticClass.name)</span>;</span><br><span class="line">staticClass.toString<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Canvas绘图基础">Canvas绘图基础</h2><p>HTML5提供了图像、视频、音频、表单、位置、本地数据库、离线存储、websocket等各种全新的特性，对于HTML游戏开发而言，我们主要关注图像、音频、本地数据库以及websocket等，首先我们来了解下Canavs绘图的基础内容。</p>
+<p>Canvas是HTML5为我们提供的一张画布，可以让我们在HTML上直接绘制图形，因此Canvas可以作为HTML5游戏开发的基本元素，即HTML5游戏引擎的底层都是以Canvas元素来驱动的。Canvas本身没有绘图的能力，需要借助于JavaScript来实现绘图的功能。使用Canvas元素只需要在网页中添加canvas标记即可，如<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"myCanavs"</span> <span class="attribute">width</span>=<span class="value">"800"</span> <span class="attribute">height</span>=<span class="value">"480"</span>&gt;</span><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来我们通过JavaScript来获取这个Canvas并通过相关API实现绘图环境的初始化<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取Canvas元素</span></span><br><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'myCanvas'</span>);</span><br><span class="line"><span class="comment">//检查canvas合法性</span></span><br><span class="line"><span class="keyword">if</span>(canvas &amp;&amp; canvas.getContext)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//获取当前上下文</span></span><br><span class="line">    <span class="keyword">var</span> ctx = canvas.getContext(<span class="string">'2d'</span>)    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为目前Canvas只支持2D绘图，因此，这里的参数暂时只能为2d。因为Cnavas绘图的API都封装在ctx这个实例中，因此下面的所有操作都是基于ctx来实现的：</p>
+<h3 id="使用Canvas绘制线">使用Canvas绘制线</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置线宽</span></span><br><span class="line">ctx.lineWidth = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//设置画笔颜色</span></span><br><span class="line">ctx.strokeStyle = <span class="string">"red"</span>;</span><br><span class="line"><span class="comment">//创建一个路径</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line"><span class="comment">//路径起点</span></span><br><span class="line">ctx.moveTo(<span class="number">10</span>,<span class="number">10</span>);</span><br><span class="line"><span class="comment">//路径终点</span></span><br><span class="line">ctx.lineTo(<span class="number">150</span>,<span class="number">50</span>);</span><br><span class="line"><span class="comment">//绘制路径</span></span><br><span class="line">ctx.stroke();</span><br></pre></td></tr></table></figure>
+<h3 id="使用Cnavas绘制矩形">使用Cnavas绘制矩形</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置线宽</span></span><br><span class="line">ctx.lineWidth=<span class="number">5</span>;</span><br><span class="line"><span class="comment">//设置画笔颜色</span></span><br><span class="line">ctx.strokeStyle-<span class="string">"red"</span></span><br><span class="line"><span class="comment">//创建路径</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line"><span class="comment">//绘制矩形</span></span><br><span class="line">ctx.strokeRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">70</span>,<span class="number">40</span>);</span><br></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义矩形</span></span><br><span class="line">ctx.rect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">70</span>,<span class="number">40</span>);</span><br><span class="line"><span class="comment">//绘制矩形</span></span><br><span class="line">ctx.stroke();</span><br></pre></td></tr></table></figure></p>
+<p>如果需要对矩形进行填充<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建路径</span></span><br><span class="line">ctx.beginPath()</span><br><span class="line"><span class="comment">//绘制矩形</span></span><br><span class="line">ctx.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">70</span>,<span class="number">40</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用Canvas绘制圆">使用Canvas绘制圆</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建路径</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line"><span class="comment">//定义圆</span></span><br><span class="line">ctx.arc(<span class="number">100</span>,<span class="number">100</span>,<span class="number">50</span>,<span class="number">0</span>,<span class="number">360</span>*<span class="built_in">Math</span>.PI/<span class="number">180</span>,<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//绘制圆</span></span><br><span class="line">ctx.stroke();</span><br></pre></td></tr></table></figure>
+<p>同样地，可以使用fill进行填充绘制<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建路径</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line"><span class="comment">//定义圆</span></span><br><span class="line">ctx.arc(<span class="number">100</span>,<span class="number">100</span>,<span class="number">50</span>,<span class="number">0</span>,<span class="number">360</span>*<span class="built_in">Math</span>.PI/<span class="number">180</span>,<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//绘制圆</span></span><br><span class="line">ctx.fill();</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用Canvas绘制圆角矩形">使用Canvas绘制圆角矩形</h3><p>绘制圆角矩形需要arcTo函数配合lineTo来完成<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建路径</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line">ctx.moveTo(<span class="number">40</span>,<span class="number">20</span>);</span><br><span class="line">ctx.lineTo(<span class="number">100</span>,<span class="number">20</span>);</span><br><span class="line">ctx.arcTo(<span class="number">100</span>,<span class="number">20</span>,<span class="number">120</span>,<span class="number">40</span>,<span class="number">20</span>);</span><br><span class="line">ctx.lineTo(<span class="number">120</span>,<span class="number">70</span>);</span><br><span class="line">ctx.arcTo(<span class="number">120</span>,<span class="number">90</span>,<span class="number">100</span>,<span class="number">90</span>,<span class="number">20</span>);</span><br><span class="line">ctx.lineTo(<span class="number">40</span>,<span class="number">90</span>);</span><br><span class="line">ctx.arcTo(<span class="number">20</span>,<span class="number">90</span>,<span class="number">100</span>,<span class="number">70</span>,<span class="number">20</span>);</span><br><span class="line">ctx.lineTo(<span class="number">20</span>,<span class="number">40</span>);</span><br><span class="line">ctx.arcTo(<span class="number">20</span>,<span class="number">20</span>,<span class="number">40</span>,<span class="number">20</span>,<span class="number">20</span>);</span><br><span class="line"><span class="comment">//绘制圆角矩形</span></span><br><span class="line">ctx.stroke();</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用Canvas绘制复杂图形">使用Canvas绘制复杂图形</h3><p>在HTML5中可以通过quadraticCurveTo函数绘制二次贝塞尔曲线，通过bezierCurveTo函数绘制三次贝塞尔曲线,具体代码请参考API文档。</p>
+<h3 id="使用Canvas绘制文字">使用Canvas绘制文字</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置字体</span></span><br><span class="line">ctx.font=<span class="string">"30px Arial"</span>;</span><br><span class="line"><span class="comment">//绘制文字</span></span><br><span class="line">ctx.strokeText(<span class="string">"Hello HTML5"</span>,<span class="number">100</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="使用Canvas绘制图片">使用Canvas绘制图片</h3><p>绘制图片使用drawImage函数，其函数原型如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drawImage(image,dx,dy);</span><br></pre></td></tr></table></figure></p>
+<p>其中image可以是HTML中的<img>标签或者是JavaScript中的Image对象。如<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//定义一个img标签</span><br><span class="line"><span class="tag">&lt;<span class="title">img</span> <span class="attribute">id</span>=<span class="value">"img_source"</span> <span class="attribute">src</span>=<span class="value">"source.jpg"</span> <span class="attribute">width</span>=<span class="value">"240"</span> <span class="attribute">height</span>=<span class="value">"240"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来通过getElementById来取得图像数据，并将其绘制出来<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img=<span class="built_in">document</span>.getElementById(<span class="string">"img_source"</span>);</span><br><span class="line">ctx.draw(img,<span class="number">200</span>,<span class="number">200</span>);</span><br></pre></td></tr></table></figure></p>
+<p>如果直接使用JavaScript代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img=<span class="keyword">new</span> Image();</span><br><span class="line">img.src=<span class="string">"source.jpg"</span>;</span><br><span class="line">ctx.draw(img,<span class="number">200</span>,<span class="number">200</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="图形的平移操作">图形的平移操作</h3><p>使用translate函数实现在水平和垂直方向上的平移</p>
+<h3 id="图形的旋转操作">图形的旋转操作</h3><p>使用rotate函数实现旋转，需要注意的是传入的参数是弧度</p>
+<h3 id="图形的伸缩操作">图形的伸缩操作</h3><p>使用scale函数实现伸缩，当参数为负值时表示在该方向上翻转</p>
+<h3 id="图形高级特效">图形高级特效</h3><p>这里主要介绍线性渐变、径向渐变、颜色反转、灰度。</p>
+<h4 id="线性渐变">线性渐变</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个线性渐变容器</span></span><br><span class="line"><span class="keyword">var</span> grd=ctx.createLinearGradient(<span class="number">0</span>,<span class="number">0</span>,<span class="number">200</span>,<span class="number">0</span>);</span><br><span class="line"><span class="comment">//添加颜色</span></span><br><span class="line">grd.addColorStop(<span class="number">0.2</span>,<span class="string">"#00ff00"</span>);</span><br><span class="line">grd.addColorStop(<span class="number">0.8</span>,<span class="string">"#ff0000"</span>);</span><br><span class="line"><span class="comment">//应用渐变</span></span><br><span class="line">ctx.fillStyle=grd;</span><br></pre></td></tr></table></figure>
+<h4 id="径向渐变">径向渐变</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个径向渐变容器</span></span><br><span class="line"><span class="keyword">var</span> grd=ctx.createRadialGradient(<span class="number">100</span>,<span class="number">100</span>,<span class="number">10</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">50</span>);</span><br><span class="line"><span class="comment">//添加颜色</span></span><br><span class="line">grd.addColorStop(<span class="number">0</span>,<span class="string">"#00ff00"</span>);</span><br><span class="line">grd.addColorStop(,<span class="string">"#ff0000"</span>);</span><br><span class="line"><span class="comment">//应用渐变</span></span><br><span class="line">ctx.fillStyle=grd;</span><br></pre></td></tr></table></figure>
+<h4 id="颜色反转">颜色反转</h4><p>遍历每个像素并对RGB值进行取反</p>
+<h4 id="灰度">灰度</h4><p>灰度计算公式：gary=red<em>0.3+green</em>0.59+blue*0.11</p>
+<p>基础的内容就是这些了，以后如果碰到需要HTML5的地方可以回过头来看看。</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/03/08/html5-canvas-game-development/" data-title="HTML5游戏开发技术基础整理" data-url="http://qinyuanpei.com/2015/03/08/html5-canvas-game-development/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

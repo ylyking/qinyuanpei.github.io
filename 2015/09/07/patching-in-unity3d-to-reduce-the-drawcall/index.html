@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>Unity3D游戏场景优化系列之批处理 | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Unity3D游戏场景优化系列之批处理 | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Unity3D游戏场景优化系列之批处理 | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/09/07/patching-in-unity3d-to-reduce-the-drawcall/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-09-07T02:59:13.000Z" class="post-list__meta--date date">2015-09-07</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/Unity3D/">Unity3D</a>, <a class="tag-link" href="/tags/优化/">优化</a>, <a class="tag-link" href="/tags/游戏/">游戏</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">Unity3D游戏场景优化系列之批处理</h1>
+  </header>
+
+  <section class="post">
+    <blockquote>
+<p>喜欢我的博客请记住我的名字：<strong>秦元培</strong>，我的博客地址是：<a href="http://qinyuanpei.com">http://qinyuanpei.com</a><br>转载请注明出处，本文作者：<strong>秦元培</strong>， 本文出处：<a href="http://blog.csdn.net/qinyuanpei/article/details/48262583" target="_blank" rel="external">http://blog.csdn.net/qinyuanpei/article/details/48262583</a></p>
+</blockquote>
+<p>&emsp;&emsp;各位朋友大家好，我是<strong>秦元培</strong>，欢迎大家关注我的博客，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。</p>
+<p>&emsp;&emsp;最近开始研究Unity3D游戏场景优化，每次提及游戏优化这个话题的时候，我的脑海中都会浮现出《仙剑奇侠传六》这个让四路泰坦都光荣陨落的神奇游戏，作为一个使用Unity3D引擎进行游戏开发的仙剑玩家，我曾经天真的以为，这款使用Unity3D引擎打造的仙剑二十周年献礼之作，会让我对《仙剑奇侠传》这个系列游戏的未来充满更多期待，然而当游戏真正呈现在我眼前的时候，我感受到了在历代仙剑游戏中从未有过的尴尬和失望，我尴尬的是Unity3D这样一个比较强大的游戏引擎硬生生地被北软玩成了这个鬼样子，我失望的是这部游戏除了剧情和跳跳乐以外并没有什么让人看到希望的东西。</p>
+<p><img src="http://img.blog.csdn.net/20150907104113665" alt="仙剑奇侠传六"></p>
+<p><img src="http://img.blog.csdn.net/20150907104145004" alt="不到20帧的优化"></p>
+<p>&emsp;&emsp;我知道我这样说会有一堆仙剑玩家指责我说，仙剑本来就是玩剧情的嘛，所以只要剧情好其它的都可以原谅啦。然而我们每一个人都清楚《仙剑奇侠传》是一个RPG游戏，它不是每隔三年出一次新番的GAL动漫、不是每隔三年更新一次的言情小说、更不是每隔三年播放一次的偶像电影。两年前的今天我可以耐着性子玩通关《仙剑奇侠传五》，但是这一次我真的玩不下去了。当一个游戏因为优化问题而获得《仙剑奇侠传六：泰坦陨落》称号的时候，作为一个玩家我真的不想再为这个游戏洗白什么，虽然我曾经深爱过这个游戏。所以言归正传，作为一个程序员，我们还是来做点程序员该做的事情，那么我们今天说什么呢，我们来说说Unity3D里的<a href="http://docs.unity3d.com/Manual/DrawCallBatching.html" target="_blank" rel="external">批处理</a>！</p>
+<h3 id="一、什么是批处理？">一、什么是批处理？</h3><p>&emsp;&emsp;我们知道Unity3D在屏幕上绘制一个图形本质上调用<strong>OpneGL</strong>或者<strong>DirectX</strong>这样的API，因此在这个过程中会产生一定程度上的性能消耗。DrawCall是OpenGL中描述绘制次数的一个量，例如一个基本的OpenGL绘制流程是<strong>设置颜色</strong>-&gt;<strong>绘图方式</strong>-&gt;<strong>顶点坐标</strong>-&gt;<strong>绘制</strong>-&gt;<strong>结束</strong>，在绘制的过程中每帧都会重复这个过程，这就是一次DrawCall，所以当游戏中的绘制过程变得复杂的时候，就会带来DrawCall的急剧增加，进而带来游戏的性能问题，反映到游戏表现上就变成了优化问题。那么在Unity3D中采取了什么样的措施来降低DrawCall呢？这就是我们今天要说的批处理，换句话说Unity3D使用了批处理来达到降低DrawCall的目的，批处理希望通过对物体网格的重组来获得更高的绘制效率，试想以下如果将多个物体合并为一个物体，那么在绘制的时候只需要绘制一次就够了，因此从这个角度上来讲这样做肯定是可以降低DrawCall的，更深刻的一种理解是这里体现了一种资源循环调用的思想，接触过Android开发的朋友们一定知道ListView控件可以对其元素进行“缓存”从而提高效率，因为我们可以发现其实ListView是对列表项进行某种程度上的“复用”从而提高了效率，在Unity3D这里同样遵循了这个原理。在Unity3D中进行批处理的一个前提是相同材质的物体可以被合并，如果这些物体使用不同的材质，那么当我们把这些材质对应的纹理打成“图集”以后可以对其进行合并，并且在合并的时候应该是用<strong>Renderer.sharedMaterial</strong> 而非 <strong>Renderer.material</strong>以保证材质是可以共享的。关于DrawCall的相关细节大家从<a href="http://www.zhihu.com/question/29730328" target="_blank" rel="external">这里</a>来了解,博主并未对图形学领域有过深入的研究，因此就不在这里班门弄斧了啊，哈哈！</p>
+<h3 id="二、Unity3D中批处理的两种方式">二、Unity3D中批处理的两种方式</h3><p>&emsp;&emsp;在Unity3D中有静态批处理和动态批处理两种方式，下面我们就来分别说说这两种不同的批处理方式！</p>
+<h4 id="静态批处理"><strong>静态批处理</strong></h4><p>&emsp;&emsp;静态批处理其实大家都是知道的。为什么这样说呢？因为我们在使用Unity3D的过程中无形中培养了这样一个习惯，那就是将场景中相对来说“静态”的物体都勾选Static选项，这在Unity3D中称为<strong>Static GameObjects</strong>，并且因为这一特性和<a href="http://docs.unity3d.com/Manual/GIIntro.html" target="_blank" rel="external">Lightmapping</a>、<a href="http://docs.unity3d.com/Manual/Navigation.html" target="_blank" rel="external">Navigation</a>、<a href="http://docs.unity3d.com/Manual/class-OffMeshLink.html" target="_blank" rel="external">Off-meshLinks</a>、<a href="http://docs.unity3d.com/Manual/class-ReflectionProbe.html" target="_blank" rel="external">ReflectionProbe</a>、<a href="http://docs.unity3d.com/Manual/OcclusionCulling.html" target="_blank" rel="external">Occluder and Occludee</a>等内容均有着密切的联系，因此说静态批处理大家都是知道的其实一点都为过，和场景优化相关的内容博主会在后续的博客中涉及，希望大家能及时关注我的博客更新。静态批处理允许游戏引擎尽可能多的去降低绘制任意大小的物体所产生的DrawCall，它会占用更多的内存资源和更少的CPU资源，因为它需要额外的内存资源来存储合并后的几何结构，如果在静态批处理之前，如果有几个对象共享相同的几何结构，那么将为每个对象创建一个几何图形，无论是在编辑器还是在运行时。这看起来是个艰难的选择，你需要在内存性能和渲染性能间做出最为正确的选择。在内部，静态批处理是通过将静态对象转换为世界空间，并为它们构建一个大的顶点+索引缓冲区。然后，在同一批中，一系列的“便宜”画调用，一系列的“便宜”，几乎没有任何状态变化之间的。所以在技术上它并不保存“三维的调用”，但它可以节省它们之间的状态变化（这是昂贵的部分）。使用静态批处理非常简单啦，只要勾选物体的Static选项即可！</p>
+<h4 id="动态批处理"><strong>动态批处理</strong></h4><p>&emsp;&emsp;相对静态批处理而言，动态批处理的要求更为严格一些，它要求批处理的动态对象具有一定的顶点，所以动态批处理只适用于包含小于900个顶点属性的网格。如果你的着色器使用顶点位置，法线和单光，然后你可以批处理300个顶点的动态对象；而如果你的着色器使用顶点位置，法线，uv0，UV1和切线，那么只能处理180个顶点的动态对象。接下来最为重要的一点，<strong>如果动态对象使用的是不同的材质，那么即使进行了动态批处理从效率上来讲并不会有太大的提升。</strong>如果动态对象采用的是多维子材质，那么批处理是无效的。如果动态对象接收实时光影，同样批处理是无效的。下面展示的是一个将多个物体合并为一个物体的脚本示例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[MenuItem(&#34;ModelTools/&#23558;&#22810;&#20010;&#29289;&#20307;&#21512;&#24182;&#20026;&#19968;&#20010;&#29289;&#20307;&#34;)]&#10;    static void CombineMeshs2()&#10;    &#123;&#10;        //&#22312;&#32534;&#36753;&#22120;&#19979;&#36873;&#20013;&#30340;&#25152;&#26377;&#29289;&#20307;&#10;        object[] objs=Selection.gameObjects;&#10;        if(objs.Length&#60;=0) return;&#10;&#10;        //&#32593;&#26684;&#20449;&#24687;&#25968;&#32452;&#10;        MeshFilter[] meshFilters =new MeshFilter[objs.Length];&#10;        //&#28210;&#26579;&#22120;&#25968;&#32452;&#10;        MeshRenderer[] meshRenderers = new MeshRenderer[objs.Length];&#10;        //&#21512;&#24182;&#23454;&#20363;&#25968;&#32452;&#10;        CombineInstance[] combines = new CombineInstance[objs.Length];&#10;        //&#26448;&#36136;&#25968;&#32452;&#10;        Material[] mats = new Material[objs.Length];&#10;&#10;        for (int i = 0; i &#60; objs.Length; i++)&#10;        &#123;&#10;            //&#33719;&#21462;&#32593;&#26684;&#20449;&#24687;&#10;            meshFilters[i]=((GameObject)objs[i]).GetComponent&#60;MeshFilter&#62;();&#10;            //&#33719;&#21462;&#28210;&#26579;&#22120;&#10;            meshRenderers[i]=((GameObject)objs[i]).GetComponent&#60;MeshRenderer&#62;();&#10;&#10;            //&#33719;&#21462;&#26448;&#36136;&#10;            mats[i] = meshRenderers[i].sharedMaterial;   &#10;            //&#21512;&#24182;&#23454;&#20363;           &#10;            combines[i].mesh = meshFilters[i].sharedMesh;&#10;            combines[i].transform = meshFilters[i].transform.localToWorldMatrix;&#10;        &#125;&#10;&#10;        //&#21019;&#24314;&#26032;&#29289;&#20307;&#10;        GameObject go = new GameObject();&#10;        go.name = &#34;CombinedMesh_&#34; + ((GameObject)objs[0]).name;&#10;&#10;        //&#35774;&#32622;&#32593;&#26684;&#20449;&#24687;&#10;        MeshFilter filter = go.transform.GetComponent&#60;MeshFilter&#62;();&#10;        if (filter == null)&#10;            filter = go.AddComponent&#60;MeshFilter&#62;();&#10;       filter.sharedMesh = new Mesh();&#10;       filter.sharedMesh.CombineMeshes(combines,false);&#10;&#10;       //&#35774;&#32622;&#28210;&#26579;&#22120;&#10;       MeshRenderer render = go.transform.GetComponent&#60;MeshRenderer&#62;();&#10;       if (render == null)&#10;           render = go.AddComponent&#60;MeshRenderer&#62;();&#10;        //&#35774;&#32622;&#26448;&#36136;&#10;        render.sharedMaterials = mats;&#10;    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这段脚本的核心是CombineMeshes()方法，该方法有三个参数，第一个参数是合并实例的数组，第二个参数是是否对子物体的网格进行合并，第三个参数是是否共享材质，如果希望物体共享材质则第三个参数为true，否则为false。在我测试的过程中发现，如果选择了对子物体的网格进行合并，那么每个子物体都不能再使用单独的材质，默认会以第一个材质作为合并后物体的材质，下面演示的是合并前的多个物体和合并后的一个物体的对比：</p>
+<p><img src="http://img.blog.csdn.net/20150907103347856" alt="合并前"></p>
+<p><img src="http://img.blog.csdn.net/20150907103419424" alt="合并后"></p>
+<h3 id="三、批处理效率分析">三、批处理效率分析</h3><p>&emsp;&emsp;那么批处理对游戏效率提升究竟有怎样的作用呢？我们来看下面几组测试对比：</p>
+<p>&emsp;&emsp;1、三个不同的物体使用同一种材质，不做静态批处理，不做动态批处理：<strong>DrawCall为4、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;2、三个不同的物体使用同一种材质，只做静态批处理，不做动态批处理：<strong>DrawCall为2、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;3、三个不同的物体使用不同的材质，不做静态批处理，不做动态批处理：<strong>DrawCall为4、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;4、三个不同的物体使用不同的材质，只做静态批处理，不做动态批处理：<strong>DrawCall为4、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;5、三个不同的物体使用不同的材质，不做静态批处理，只做动态批处理：<strong>DrawCall为4、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;6、三个不同的物体使用不同的材质，做静态批处理，做动态批处理：<strong>DrawCall为4、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;7、三个不同的物体使用同一种材质，不做静态批处理，只做动态批处理：：<strong>DrawCall为4、面数为584、顶点数为641</strong></p>
+<p>&emsp;&emsp;大家可以注意到各组测试结果中，只有第二组的DrawCall降低，这说明只有当不同的物体使用同一种材质时通过批处理可以从一定程度上降低DrawCall，即我们在文章开始提到的尽可能地保证材质共享。昨天下午兴冲冲地将游戏场景里的某些物体进行了动态批处理，但是实际测试的过程中发现DrawCall非常地不稳定，但是在场景中的某些地方DrawCall却可以降得非常低，如果静态批处理和动态批处理都不能对场景产生较好的优化，那么Unity3D游戏场景的优化究竟要从哪里抓起呢？我觉得这是我们每一个人都该用心去探索的地方，毕竟游戏做出来首先要保证能让玩家流畅的玩下去吧，一味的强调引擎、强调画面，却时常忽略引擎使用者的主观能动性，希望把一切问题都交给引擎去解决，这样的思路是错误而落后的，仙剑六的问题完全是用不用心的问题，我常常看到有人在公开场合说仙剑以后要换虚幻三，其实按照北软现在这样的状态，给他们一个虚幻四也不过是然并卵。我在<a href="http://www.zhihu.com/question/29403861" target="_blank" rel="external">知乎</a>上看到了号称15岁就开发次时代游戏的高中生妹子，做出个能称为DEMO的游戏就觉得自己可以搞引擎了，更有甚者随便用DirectX或者OpenGL封装若干函数就敢说自己会做游戏引擎了，呵呵，你确定你的游戏能在别人的电脑或者手机上运行起来吗？优化的重要性可见一斑。</p>
+<h3 id="四、小结">四、小结</h3><p>&emsp;&emsp;好了，通过今天这篇文章，我们可以整理出以下观点：<br>&emsp;&emsp;<strong>1、如果不同的物体间共享材质，则可以直接通过静态批处理降低DrawCall</strong><br>&emsp;&emsp;<strong>2、动态批处理并不能降低DrawCall、面数和顶点数（我不会告诉你我昨天傻呵呵地合并了好多场景中的模型，结果面数和顶点数并没有降下来，23333）</strong><br>&emsp;&emsp;<strong>3、不管是静态批处理还是动态批处理都会影响Culiing，这同样是涉及到场景优化的一个概念，好吧，为了让场景的DrawCall降下来我最近可能要研究好多涉及的优化的内容……</strong><br>&emsp;&emsp;那么今天的内容就是这样子了，希望对大家学习Unity3D有所帮助，欢迎大家和我交流这些问题来相互促进，毕竟这才是我写博客最初的目的嘛，哈哈！</p>
+<blockquote>
+<p>喜欢我的博客请记住我的名字：<strong>秦元培</strong>，我的博客地址是：<a href="http://qinyuanpei.com">http://qinyuanpei.com</a><br>转载请注明出处，本文作者：<strong>秦元培</strong>， 本文出处：<a href="http://blog.csdn.net/qinyuanpei/article/details/48262583" target="_blank" rel="external">http://blog.csdn.net/qinyuanpei/article/details/48262583</a></p>
+</blockquote>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/09/07/patching-in-unity3d-to-reduce-the-drawcall/" data-title="Unity3D游戏场景优化系列之批处理" data-url="http://qinyuanpei.com/2015/09/07/patching-in-unity3d-to-reduce-the-drawcall/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

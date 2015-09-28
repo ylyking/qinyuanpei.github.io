@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>使用Mecanim动画系统来控制2D动画 | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="使用Mecanim动画系统来控制2D动画 | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="使用Mecanim动画系统来控制2D动画 | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/02/11/unity2d-game-development-mecanim/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-02-11T05:35:58.000Z" class="post-list__meta--date date">2015-02-11</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/Mecanim/">Mecanim</a>, <a class="tag-link" href="/tags/Unity3D/">Unity3D</a>, <a class="tag-link" href="/tags/动画/">动画</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">使用Mecanim动画系统来控制2D动画</h1>
+  </header>
+
+  <section class="post">
+    <p>各位朋友，大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是<a href="http://blog.csdn.net/qinyuanpei" target="_blank" rel="external">http://blog.csdn.net/qinyuanpei</a>。今天我想和大家分享的话题是在Unity3D中使用Mecanim动画系统来控制2D动画。</p>
+<a id="more"></a>
+<p>相信在大家的印象中，Mecanim动画系统主要运用在3D动画中，因为Mecanim动画系统提供了像动画重定向、人体骨骼动画等3D动画的特性，那么Unity3D的Mecanim动画系统能不能用来控制2D动画呢？如果在以前，博主和大家的理解是一样的，认为Mecanim只能运用到3D动画中，对于2D动画只能使用传统的逐帧动画和骨骼动画。可是前不久有位朋友问我，为什么不使用动画组件来控制2D动画呢？博主心想啊，这Mecanim动画系统真的能控制2D动画吗？经过博主查找大量资料和亲身实践，发现Mecanim是可以用来控制2D动画的，而且由于状态机的引入，我们对动画状态的控制会变得更为简单，从写代码的角度来看，这样可以减少我们的代码量便于维护。那么好了，今天我们就来一起学习下如何使用Mecanim动画系统来控制2D动画吧！</p>
+<h1 id="传统2D动画的实现方式">传统2D动画的实现方式</h1><p>在Unity3D中传统2D动画的实现方式是基于逐帧动画的原理实现的，这种实现方式在Unity3D没有推出Unity2D前甚至在Unity2D推出后相当长的一段时间内，基本上我们最为常用的实现方式，博主在刚开始学习Unity3D的时候通常是以2D形式来展开的，因为博主认为2D和3D在原理上基本是相通的，如果我们掌握了2D游戏的基本原理，那么在实现3D游戏的时候就会相对容易些。我们来看看一个最简单的2D动画的脚本实现：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#31934;&#28789;&#28210;&#26579;&#22120;&#10;private SpriteRenderer mRenderer;&#10;//&#31934;&#28789;&#38598;&#21512;&#10;public Sprite[] Sprites;&#10;//FPS,&#21363;&#27599;&#31186;&#38047;&#30340;&#30011;&#38754;&#24103;&#25968;&#10;public float FPS = 24;&#10;//&#31934;&#28789;&#32034;&#24341;&#10;private int index = 0;&#10;//&#24403;&#21069;&#26102;&#38388;&#10;private float currentTime = 0;&#10;&#10;void Start () &#10;&#123;&#10;    mRenderer = GetComponent&#60;SpriteRenderer&#62;();&#10;&#125;&#10;&#9;&#10;void Update () &#10;&#123;&#10;    //&#33719;&#21462;&#24403;&#21069;&#26102;&#38388;&#10;    currentTime += Time.deltaTime;&#10;    //&#22914;&#26524;&#36798;&#21040;&#20102;&#26356;&#26032;&#30011;&#38754;&#30340;&#26102;&#38388;&#10;    if(currentTime &#62;= 1 / FPS)&#10;    &#123;&#10;        //&#20351;&#32034;&#24341;&#22686;&#21152;&#10;        index += 1;&#10;        //&#28165;&#38500;&#26102;&#38388;&#35760;&#24405;&#10;        currentTime = 0;&#10;        //&#24403;&#32034;&#24341;&#26356;&#26032;&#21040;&#26368;&#21518;&#19968;&#24103;&#26102;,&#32034;&#24341;&#37325;&#32622;&#10;        if(index &#62;= Sprites.Length)&#10;        &#123;&#10;            index = 0;&#10;        &#125;&#10;    &#125;&#10;&#10;    //&#26356;&#26032;&#30011;&#38754;&#10;    mRenderer.sprite = Sprites[index];&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过分析，我们可以发现这段脚本存在以下问题：</p>
+<ul>
+<li>动画维护困难：每增加一个动画就需要添加一个数组，不仅增加了动画的维护难度，同时降低了脚本的效率。</li>
+<li>状态维护困难：因为在Update方法里实现的是一个动画，因此当我们需要在各个动画状态间进行切换的时候，我们需要使用更多的代码来维护相关逻辑。</li>
+</ul>
+<h1 id="使用Mecanim动画系统的实现方式">使用Mecanim动画系统的实现方式</h1><p>为了解决传统的2D动画实现方式中存在的动画维护困难、状态维护困难这两个问题，我们需要一种更好的方案来实现2D动画的控制，这种方案需要提供较为方便的动画维护功能，即各个动画是独立的，当改变了某一个动画时，其余的动画不会发生改变。其次，这种方案需要提供较为方便的状态维护功能，即各个动画状态切换是方便的，我们可以更好地从这一种状态切换到另一种状态。关于动画状态切换，大家可以去了解下有限状态机(FSM)的概念，这里我们不做深入的探究，这里我们选择Unity3D的Mecanim动画系统，因为Mecanim动画系统正好解决了这两个问题。好了，下面我们来一起学习一个2D动画的实例：<br>首先我们在场景中创建一个名为PlayerController的空物体，然后在该物体的下面增加一个精灵组件(Sprite),并将其命名为PlayerSprite，这样做的好处是Unity3D将为我们自动创建较为规范的命名。好了，现在我们选择PlayerController这个物体，然后通过Window-&gt;Animation菜单打开Animation窗口：</p>
+<p><img src="http://img.blog.csdn.net/20150301180418811" alt="创建第一个动画"></p>
+<p>首先我们点击AddCurve按钮，此时将弹出一个对话框让我们保存动画文件，这里我们存储为Player@Idle.anim,并将其保存在项目目录下的Animations\Player目录下，这样可以方便我们维护和查找特定的动画文件。在保存完动画文件后，此时会弹出如下的界面，我们选择PlayerSprite节点下的SpriteRenderer，然后选择Sprite，因为这里我们的2D动画主要是通过改变SpriteRenderer的Sprite属性来实现的，最后我们点击Sprite节点后面的加号来完成对象的选取。此时会在动画窗口中显示时间轴和刻度线，我们将在这里完成动画的编辑。大家可以注意到默认情况下，动画面板添加了两帧，即第1帧和最后一帧，其总时间是1秒，同时我们注意到这里有一个采样率(Sample),其实这就是当前动画的FPS了。好了，现在我们开始制作第一个动画：</p>
+<p><img src="http://img.blog.csdn.net/20150301180502756" alt="动画序列"></p>
+<p>在资源文件夹中，我们可以找到当前动画的图片素材，注意到这个图片中总共有12帧画面，因此我们可以按照0.05s的间隔来分配整个时间轴，所以我们可以这样添加帧：</p>
+<p><img src="http://img.blog.csdn.net/20150301180533660" alt="为Idle动画添加帧"></p>
+<p>好了，现在我们就完成了一个Idle动画的制作，现在打开角色的动画控制器PlayerController，这是Unity3D为我们自动创建的一个动画控制器，因为我们现在只有一个Idle动画，所以在Animaotr窗口中我们可以看到只有一个Idle状态，现在我们将这个状态设为默认状态。好了，现在我们可以直接运行游戏，发现在场景中角色开始循环播放Idle动画了。好了，现在让我们重复刚才的步骤，来完成角色的其余动画。</p>
+<p><img src="http://img.blog.csdn.net/20150301180634110" alt="Idle动画效果演示"></p>
+<p>经过一番努力，我们现在已经完成了角色所有动画的制作，现在我们来设计角色的动画状态机：</p>
+<p><img src="http://img.blog.csdn.net/20150301180705294" alt="玩家角色控制器设计"></p>
+<p>设计好角色的动画状态机后我们开始来编写脚本，以实现角色动画的控制：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;&#10;using System.Collections;&#10;&#10;public class PlayerController : MonoBehaviour &#123;&#10;&#10;    public enum PlayerState&#10;    &#123;&#10;        Idle,&#10;        Move,&#10;        LightAttack,&#10;        WeightAttack&#10;    &#125;&#10;&#10;    public PlayerState State=PlayerState.Idle;&#10;    //&#29609;&#23478;&#31227;&#21160;&#36895;&#24230;&#10;    public float WalkSpeed = 0.75f;&#10;    public float RunSpeed = 1.5f;&#10;    //&#29609;&#23478;&#36339;&#36291;&#21147;&#30340;&#24378;&#24230;&#10;    public float JumpForce = 200f;&#10;&#10;    //&#20301;&#32622;&#38480;&#21046;&#10;    public float MinX = -5.80f;&#10;    public float MaxX =  5.80f;&#10;    public float MinY = -1.80f;&#10;    public float MaxY =  0.35f;&#10;&#10;    //&#29609;&#23478;&#26397;&#21521;&#65292;&#40664;&#35748;&#26397;&#21491;&#10;    public bool isFaceRight = true;&#10;&#10;    //&#21160;&#30011;&#32452;&#20214;&#10;    private Animator mAnim;&#10;    //2D&#21018;&#20307;&#10;    private Rigidbody2D mRig2D;&#10;&#10;&#10;    void Start () &#10;    &#123;&#10;        mAnim=GetComponent&#60;Animator&#62;();&#10;        mRig2D=GetComponent&#60;Rigidbody2D&#62;();&#10;    &#125;&#10;&#10;    void Update()&#10;    &#123;&#10;        SpriteMove();&#10;        SpriteAttack();&#10;        SpriteJump();&#10;        SpriteIdle();&#10;    &#125;&#10;&#10;    /// &#60;summary&#62;&#10;    /// &#31934;&#28789;Idle&#10;    /// &#60;/summary&#62;&#10;    private void SpriteIdle()&#10;    &#123;&#10;        //&#24403;&#29609;&#23478;&#26080;&#20219;&#20309;&#25805;&#20316;&#26102;&#24674;&#22797;&#21040;Idle&#29366;&#24577;&#10;        if (!Input.anyKey)&#10;        &#123;&#10;            mAnim.SetBool(&#34;Jump&#34;, false);&#10;            mAnim.SetBool(&#34;Attack&#34;, false);&#10;            mAnim.SetBool(&#34;BigAttack&#34;, false);&#10;            mAnim.SetBool(&#34;Skill&#34;, false);&#10;            mAnim.SetBool(&#34;BigSkill&#34;, false);&#10;            State=PlayerState.Idle;&#10;        &#125;&#10;    &#125;&#10;&#10;    /// &#60;summary&#62;&#10;    /// &#31934;&#28789;&#25915;&#20987;&#10;    /// &#60;/summary&#62;&#10;    private void SpriteAttack()&#10;    &#123;&#10;        //&#36731;&#20987;&#65292;&#38190;&#20301;J&#10;        if(Input.GetKey(KeyCode.J))&#10;        &#123;&#10;            mAnim.SetBool(&#34;Attack&#34;, true);&#10;            State=PlayerState.LightAttack;&#10;        &#125;&#10;&#10;        //&#37325;&#20987;&#65292;&#38190;&#20301;K&#10;        if(Input.GetKey(KeyCode.K))&#10;        &#123;&#10;            mAnim.SetBool(&#34;BigAttack&#34;, true);&#10;            State=PlayerState.WeightAttack;&#10;        &#125;&#10;&#10;    &#125;&#10;&#10;    /// &#60;summary&#62;&#10;    /// &#31934;&#28789;&#36339;&#36291;&#10;    /// &#60;/summary&#62;&#10;    private void SpriteJump()&#10;    &#123;&#10;        if (Input.GetKey(KeyCode.I))&#10;        &#123;&#10;            mAnim.SetBool(&#34;Jump&#34;, true);&#10;            mRig2D.AddForce(new Vector2(0, Time.deltaTime * JumpForce), ForceMode2D.Impulse);&#10;        &#125;&#10;    &#125;&#10;&#10;    private void SpriteMove()&#10;    &#123;&#10;        float h = Input.GetAxis(&#34;Horizontal&#34;);&#10;        float v = Input.GetAxis(&#34;Vertical&#34;);&#10;&#10;        Vector2 mPos = mRig2D.position;&#10;&#10;        mAnim.SetFloat(&#34;Speed&#34;, Mathf.Sqrt(h * h + v * v));&#10;&#10;        float mPosX, mPosY;&#10;&#10;        if (Mathf.Sqrt(h * h + v * v) &#62; 0.5f)&#123;&#10;            mPosX = mPos.x + h * Time.deltaTime * RunSpeed;&#10;            mPosY = mPos.y + v * Time.deltaTime * RunSpeed;&#10;        &#125;else&#123;&#10;            mPosX = mPos.x + h * Time.deltaTime * WalkSpeed;&#10;            mPosY = mPos.y + v * Time.deltaTime * WalkSpeed;&#10;        &#125;&#10;&#10;&#10;        mRig2D.MovePosition(new Vector2(mPosX, mPosY));&#10;&#10;        if (h &#62; 0 &#38;&#38; !isFaceRight)&#10;        &#123;&#10;            FlipSrite();&#10;        &#125;&#10;        else if (h &#60; 0 &#38;&#38; isFaceRight)&#10;        &#123;&#10;            FlipSrite();&#10;        &#125;&#10;    &#125;&#10;&#10;&#10;    void FlipSrite()&#10;    &#123;&#10;        if(isFaceRight)&#123;&#10;            transform.rotation=Quaternion.Euler(0,180,0);&#10;            isFaceRight=false;&#10;        &#125;else&#123;&#10;            transform.rotation=Quaternion.Euler(0,0,0);&#10;            isFaceRight=true;&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，现在我们可以来看看最终的效果，博主这里是想利用这些素材来制作一个横板过关的游戏，可是因为文章篇幅有限，所以这部分内容只能留到以后再和大家分享了。</p>
+<p><img src="http://img.blog.csdn.net/20150301180829879" alt="最终效果演示"></p>
+<h1 id="Mecanim动画系统应用扩展">Mecanim动画系统应用扩展</h1><p>好了，到现在为止，基于Mecanim动画系统的2D动画控制基本上讲解完了。下面我们说说Mecaanim动画系统应用扩展。通过前面的学习，我们知道Unity2D使用的Mecanim动画系统主要是通过改变游戏体的属性来实现某种特定的动画效果的，例如我们这里的动画是通过改变角色精灵附加的SpriteRenderer组件的Sprite属性来实现的，因此从本质上来说Unity2D的动画控制器是一种属性动画。总体来说，Unity2D可以实现以下类型的动画：</p>
+<ul>
+<li>位移动画：通过Transform组件的Position属性实现</li>
+<li>旋转动画：通过Transform组件的Rotation属性实现</li>
+<li>伸缩动画：通过Transform组件的Scale属性实现</li>
+<li>渐变动画：通过更改指定组件的颜色或材质实现</li>
+<li>脚本动画：通过更改指定脚本的变量或字段实现</li>
+</ul>
+<p>好了，这就是今天这篇文章的全部内容了，希望大家喜欢！</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/02/11/unity2d-game-development-mecanim/" data-title="使用Mecanim动画系统来控制2D动画" data-url="http://qinyuanpei.com/2015/02/11/unity2d-game-development-mecanim/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>在Windows下使用Visual Studio编译Lua5.3 | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="在Windows下使用Visual Studio编译Lua5.3 | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="在Windows下使用Visual Studio编译Lua5.3 | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/04/16/building-lua5-3-with-visual-studio-2012-in-windows/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-04-16T06:50:35.000Z" class="post-list__meta--date date">2015-04-16</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/Lua/">Lua</a>, <a class="tag-link" href="/tags/Visual-Studio/">Visual Studio</a>, <a class="tag-link" href="/tags/编译/">编译</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">在Windows下使用Visual Studio编译Lua5.3</h1>
+  </header>
+
+  <section class="post">
+    <p>Lua5.3已经发布好长时间了，可是因为<a href="http://files.luaforge.net/releases/luaforwindows/luaforwindows" target="_blank" rel="external">LuaForWindows</a>的Lua版本无法和官方保持一致，所以想尝试下编译Lua5.3的源代码，因为作为一名合格的程序员，是应该要懂得编译原理的相关内容的啊(可是我真的没有学过编译原理啊!…..)。好了，那么今天博主将在文章中和大家分享自己编译Lua5.3的过程，希望能够对大家学习和使用Lua有些帮助吧！</p>
+<a id="more"></a>
+<p>我们知道Lua由三部分组成，即</p>
+<ul>
+<li>Lua链接库</li>
+<li>Lua解释器</li>
+<li>Lua编译器</li>
+</ul>
+<p>因此，对于Lua源代码的编译主要就是编译Lua链接库、Lua解释器和Lua编译器</p>
+<h1 id="编译Lua链接库">编译Lua链接库</h1><ul>
+<li>使用Visual Studio创建一个VC++项目，项目命名为Lua53，项目类型为静态库、不设置预编译头。</li>
+<li>删除Visual Studio自动创建的.cpp文件及其对应的.h文件。</li>
+<li>将下载的Lua代码解压，将src目录下的全部文件拷贝到项目中，然后删除lua.c、luac.c和lua.hpp这三个文件。</li>
+<li>编译项目会得到一个Lua53.lib的文件，这就是我们编译得到的Lua链接库。</li>
+</ul>
+<h1 id="编译Lua解释器">编译Lua解释器</h1><p>我们知道Lua解释器是一个可以直接运行Lua代码的可执行文件，因此</p>
+<ul>
+<li>在同一个解决方案下继续创建VC++项目，项目命名为Lua，项目类型为控制台应用程序、需设置预编译头。</li>
+<li>删除Visual Studio自动创建的.cpp文件及其对应的.h文件。</li>
+<li>将下载的Lua代码解压，将src目录下的全部文件拷贝到项目中，然后删除luac.c这个文件。</li>
+<li>设置当前项目依赖于Lua53项目</li>
+<li>编译项目会得到一个Lua.exe文件，这就是我们编译得到的Lua解释器。</li>
+</ul>
+<p>运行该程序，我们可以看到下面的结果：</p>
+<p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_Lua1.png" alt="Lua解释器程序"></p>
+<p>好了，现在我们来写一个简单的Lua程序：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">io</span>.write(<span class="string">"Hello I get a powerful program language called Lua \n"</span>)</span><br><span class="line"><span class="built_in">io</span>.write(<span class="built_in">string</span>.format(<span class="string">"This Lua is %s and now is %s \n"</span>,<span class="built_in">_VERSION</span>,<span class="built_in">os</span>.date()))</span><br></pre></td></tr></table></figure></p>
+<p>程序运行结果为：</p>
+<blockquote>
+<p>Hello I get a powerful program language called Lua<br>This Lua is Lua5.3 and now is 04/16/15 16:06:43</p>
+</blockquote>
+<h1 id="编译Lua编译器">编译Lua编译器</h1><p>和Lua类似地，</p>
+<ul>
+<li>在同一个解决方案下继续创建VC++项目，项目命名为Lua，项目类型为控制台应用程序、需设置预编译头。</li>
+<li>删除Visual Studio自动创建的.cpp文件及其对应的.h文件。</li>
+<li>将下载的Lua代码解压，将src目录下的全部文件拷贝到项目中，然后删除lua.c这个文件。</li>
+<li>设置当前项目依赖于Lua53项目</li>
+<li>编译项目会得到一个Luac.exe文件，这就是我们编译得到的Lua解释器。</li>
+</ul>
+<p>使用Lua编译器需要在环境变量中增加对Lua编译器路径地引用，比如Luac.exe放在D:\Program Files\Lua\build\这个目录下，就在PATH这个变量中增加：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">D</span>:<span class="value">\Program Files\Lua\build</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>因为每个人的Lua编译器存放的位置都不同，所以这个就不再赘述了。</p>
+<p>好了，今天的内容就是这样了。</p>
+<h1 id="链接">链接</h1><ul>
+<li><a href="http://pan.baidu.com/s/1hqs1fX6" target="_blank" rel="external">本文编译的Lua</a></li>
+<li><a href="http://joedf.users.sourceforge.net/luabuilds/" target="_blank" rel="external">官方编译的Lua</a></li>
+</ul>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/04/16/building-lua5-3-with-visual-studio-2012-in-windows/" data-title="在Windows下使用Visual Studio编译Lua5.3" data-url="http://qinyuanpei.com/2015/04/16/building-lua5-3-with-visual-studio-2012-in-windows/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>Unity3D游戏开发之在iTween中使用事件机制 | 秦元培</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="做单纯的人，走幸福的路。">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Unity3D游戏开发之在iTween中使用事件机制 | 秦元培">
+    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Unity3D游戏开发之在iTween中使用事件机制 | 秦元培">
+    <meta property="og:description" content="做单纯的人，走幸福的路。">
+
+    
+    <meta name="author" content="秦元培">
+    
+    <link rel="stylesheet" href="/css/vno.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
+
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    
+
+    <link rel="canonical" href="http://qinyuanpei.com/2015/04/09/unity3d-game-development-itween-event/"/>
+
+    
+</head>
+
+<body class="home-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">目标就是给梦想一个期限</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              <li class="navigation__item"><a href="/archives">文章归档</a></li>
+            
+              <li class="navigation__item"><a href="/links">友情链接</a></li>
+            
+              <li class="navigation__item"><a href="/about">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  <li class="navigation__item">
+    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-04-08T16:17:37.000Z" class="post-list__meta--date date">2015-04-09</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
+  <a class="tag-link" href="/tags/Unity3D/">Unity3D</a>, <a class="tag-link" href="/tags/iTween/">iTween</a>, <a class="tag-link" href="/tags/事件/">事件</a>
+阅读(<span id="busuanzi_value_page_pv"></span>)</span>
+    </div>
+    <h1 class="post-title">Unity3D游戏开发之在iTween中使用事件机制</h1>
+  </header>
+
+  <section class="post">
+    <p>今天我们来说说在iTween中使用事件机制，众所周知iTween是Unity3D平台上一个优秀的第三方插件，通过这个插件呢，我们可以快速地实现诸如位移、伸缩、旋转、渐变等等一系列的动画，而不用专门再去为每一种效果去写脚本。说句实话啊，博主其实是不喜欢给游戏中加Duang特技的，因为游戏的本质是好玩，如果不去关心游戏的核心玩法，整天就把精力放到各种各样炫酷的特效上去，我觉得这游戏就算做出来了估计都没人玩吧。</p>
+<a id="more"></a>
+<p>最近大宇资讯和中国手游联手推出的仙剑奇侠传3D复刻版本，尽管从各种宣传中我们得知该游戏是使用了Unity3D引擎开发，以Q版3D造型还原仙剑初代经典剧情，然后游戏聘请国内一线声优全程配音，甚至音乐和技能都是在初代游戏的基础上使用新技术重新进行了还原。可是呢，当这款游戏真正到了我们手中的时候，我们发现这完全就是一个卡牌的回合制游戏，与之前大宇和腾讯合作的仙剑奇侠传官方手游如出一辙。好了，接下来我们再来说说这游戏的玩法吧，让历代仙剑的主角们组队打怪我可以接受，可是你把仙剑初代剧情搞得跟刷副本似的，我就不明白你是想干嘛了。用一个3D游戏引擎做出一个2D的回合制卡牌游戏，我想说这件事情就是Duang特技瞎折腾的吧！</p>
+<p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_551e73c3491dd.jpg" alt="游戏截图1"><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_551e73ccd8a13.jpg" alt="游戏截图2"><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_551e73d696524.jpg" alt="游戏截图3"></p>
+<p>可是话说回来，现在大家玩游戏不都是奔着画面和特效去的吗？到了手游时代，估计鲜有像博主这样抱着手机将一部游戏打通关的人了吧。因为大家玩游戏的心态早就变了，尤其是当国内游戏越来越缺乏创新精神的时候，大家玩游戏都是奔着娱乐和休闲的目的去的，我们扪心自问，现在你还能再打通关几部游戏？更不要说是手游这种信息高度碎片化时代下的产物了。游戏运营者们深谙此道啊，所以像什么每天定时登陆领取体力啊、掉落物品抽奖啊、迷宫里自动寻路啊、挂机自动战斗啊这些伎俩在各种各样的游戏中都成了标准配置。好了，闲话咱先扯这么多，虽然国内游戏的大环境是这样，可是谁让我们入了游戏开发这个坑呢，今天我们就来说说因为加Duang特技而不得不研究iTween的事件机制这件事情吧！</p>
+<p>我们还是以《水果忍者》这个游戏为例吧，因为这段时间基本上都在研究这个游戏在Unity3D引擎下的实现，所以我们还是以这个游戏为例，相信大家都记得在这个游戏中，当玩家碰到炸弹后炸弹爆炸，屏幕会由原来的背景渐变成白色然后再由白色渐变成原来的背景，当整个渐变过程结束后，游戏画面中央会缓缓出现GameOver字样，当玩家手势再次经过GameOver时，GameOver会渐渐地变小直至最后消失，GameOver消失后音乐响起并返回到主菜单。好了，现在我们来分析下这样一个过程：</p>
+<ul>
+<li>画面透明度由0到255的渐变过程</li>
+<li>画面透明度由255到0的渐变过程</li>
+<li>加载GameOver，游戏结束</li>
+<li>玩家触发GameOver伸缩变化过程</li>
+<li>音乐响起返回主菜单</li>
+</ul>
+<p>通过对这几个过程的分析，可以很明显地看出这几个过程其实是相关关联的，就是说一个过程结束了会触发另一个过程的开始。比如说画面透明度从0变到255后将触发画面透明度从255变到0的过程。因为这些过程是属性变化的过程，因此我们理所当然的会想到使用itween来实现，那么好了，现在终于到正题了，iTween中的事件机制！</p>
+<p>我们都知道iTween是一个补间动画的插件，可是同时它是一个有状态的动画插件，在iTween中我们可以通过回调函数来获得这些状态并执行某些方法，如onstart、onupdate和oncomplete等。相信熟悉iTween的朋友一定知道在使用iTween前需要为其配置一个Hashable，在这个HashTable中我们可以配置补间动画的初始和最终状态以及完成整个状态变化的时间等信息，那么类似地，当我们需要在iTween中使用事件机制的时候，只要在配置HashTable的时候增加：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#21019;&#24314;&#19968;&#20010;&#21704;&#24076;&#34920;&#10;private HashTable table=new HashTable();&#10;//&#22686;&#21152;&#30456;&#20851;&#20107;&#20214;&#10;table.Add(&#34;onstart&#34;,&#34;OnStart&#34;);&#10;table.Add(&#34;onupdate&#34;,&#34;OnUpdate&#34;);&#10;table.Add(&#34;oncomplete&#34;,&#34;OnComplete&#34;);</span><br></pre></td></tr></table></figure></p>
+<p>因为我们增加了对onstart、onupdate和oncomplete这三个事件，所以我们需要在同一个脚本中定义三个对应的方法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private void OnStart()&#10;&#123;&#10;&#9;Debug.log(&#34;iTween Start&#34;)&#10;&#125;&#10;&#10;private void OnUpdate()&#10;&#123;&#10;&#9;Debug.log(&#34;iTween Update&#34;)&#10;&#125;&#10;&#10;private void OnComplete()&#10;&#123;&#10;&#9;Debug.log(&#34;iTween Complete&#34;)&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就能在不同的状态中响应不同的事件，好了，现在回到我们一开始的问题，我们一开始要解决的问题是在一个动画结束了以后执行第二个动画，因此我们可以按照这样的思路来实现这个功能：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;&#10;using System.Collections;&#10;&#10;public class FadeAnimaiton : MonoBehaviour &#10;&#123;&#10;&#9;public GameObject _GameOver;&#10;&#9;/// &#60;summary&#62;&#10;&#9;/// &#28176;&#20986;&#21160;&#30011;&#21442;&#25968;&#10;&#9;/// &#60;/summary&#62;&#10;&#9;private Hashtable mFadeOut;&#10;&#9;/// &#60;summary&#62;&#10;&#9;/// &#28176;&#20837;&#21160;&#30011;&#21442;&#25968;&#10;&#9;/// &#60;/summary&#62;&#10;&#9;private Hashtable mFadeIn;&#10;&#10;&#9;private void Start()&#10;&#9;&#123;&#10;&#9;&#9;//&#28176;&#20986;&#21160;&#30011;&#37197;&#32622;&#10;&#9;&#9;mFadeOut=new Hashtable();&#10;&#9;&#9;mFadeOut.Add(&#34;alpha&#34;,0);&#10;&#9;&#9;mFadeOut.Add(&#34;time&#34;,2.0f);&#10;&#9;&#9;mFadeOut.Add(&#34;oncomplete&#34;,&#34;FadeIn&#34;);&#10;&#9;&#9;//&#28176;&#20837;&#21160;&#30011;&#37197;&#32622;&#10;&#9;&#9;mFadeIn=new Hashtable();&#10;&#9;&#9;mFadeIn.Add(&#34;alpha&#34;,0);&#10;&#9;&#9;mFadeIn.Add(&#34;time&#34;,2.0f);&#10;&#9;&#9;mFadeIn.Add(&#34;oncomplete&#34;,&#34;OnComplete&#34;);&#10;&#10;&#9;&#9;FadeOut();&#10;&#9;&#125;&#10;&#10;&#9;/// &#60;summary&#62;&#10;&#9;/// &#28176;&#20986;&#10;&#9;/// &#60;/summary&#62;&#10;&#9;public void FadeOut()&#10;&#9;&#123;&#10;&#9;&#9;iTween.FadeFrom(this.gameObject,mFadeOut);&#10;&#9;&#125;&#10;&#10;&#9;/// &#60;summary&#62;&#10;&#9;/// &#28176;&#20837;&#10;&#9;/// &#60;/summary&#62;&#10;&#9;private void FadeIn()&#10;&#9;&#123;&#10;&#9;&#9;//&#33719;&#21462;&#20840;&#37096;&#30340;&#29305;&#25928;&#10;&#9;&#9;GameObject[] effects=GameObject.FindGameObjectsWithTag(&#34;BoomEffect&#34;);&#10;&#9;&#9;foreach(GameObject effect in effects)&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;//&#31227;&#38500;&#29305;&#25928;&#10;&#9;&#9;&#9;Destroy(effect);&#10;&#9;&#9;&#125;&#10;&#10;&#9;&#9;iTween.FadeTo(this.gameObject,mFadeIn);&#10;&#9;&#125;&#10;&#10;&#9;/// &#60;summary&#62;&#10;&#9;/// &#21160;&#30011;&#32467;&#26463;&#20107;&#20214;&#9;&#10;&#9;/// &#60;/summary&#62;&#10;&#9;private void OnComplete()&#10;&#9;&#123;&#10;&#9;&#9;//&#26174;&#31034;GameOver&#10;&#9;&#9;Instantiate(_GameOver,Vector3.zero,Quaternion.identity);&#10;&#9;&#9;//&#20801;&#35768;&#29609;&#23478;&#25511;&#21046;&#10;&#9;&#9;GameManager.Instance.isPlay=true;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这段脚本中主要使用了oncomplete事件，主要有3个过程：</p>
+<ul>
+<li>背景渐出过程</li>
+<li>背景渐出过程结束后，移除场景中的特效，背景渐入过程开始</li>
+<li>背景渐入过程完成后，显示GameOver，允许玩家控制</li>
+</ul>
+<p>好了，下面我们来看看具体的效果吧！</p>
+<p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_切水果.gif" alt="屏幕震动效果演示"></p>
+<p>今天的内容就是这样了，仅此而已！</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/04/09/unity3d-game-development-itween-event/" data-title="Unity3D游戏开发之在iTween中使用事件机制" data-url="http://qinyuanpei.com/2015/04/09/unity3d-game-development-itween-event/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer class="footer">
+    <span class="footer__copyright">
+        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
+        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+     
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-42596364-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>
