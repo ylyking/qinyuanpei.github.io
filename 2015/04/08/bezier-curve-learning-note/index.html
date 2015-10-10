@@ -1,164 +1,126 @@
-<!DOCTYPE html>
-<html>
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    
+  <meta charset="UTF-8">
+  
     <title>贝塞尔曲线学习笔记 | 秦元培</title>
-    <meta name="renderer" content="webkit">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <meta name="description" content="做单纯的人，走幸福的路。">
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="贝塞尔曲线学习笔记 | 秦元培">
-    <meta name="twitter:description" content="做单纯的人，走幸福的路。">
-
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="贝塞尔曲线学习笔记 | 秦元培">
-    <meta property="og:description" content="做单纯的人，走幸福的路。">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="秦元培">
     
-    <link rel="stylesheet" href="/css/vno.css" type="text/css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css">
 
     
-    <link rel="icon" href="/images/favicon.png">
-    
+    <meta name="description" content="&amp;emsp;&amp;emsp;贝塞尔曲线(Bezier Curve)是由法国工程师皮埃尔·贝塞尔(Pierre Bezier)于1962年提出的一种曲线。在数学的数值分析领域中，贝塞尔曲线是计算机图形学中相当重要的参数曲线，其主要意义在于无论是直线还是曲线都能在数学上予以描述。最早贝塞尔曲线被用来对汽车主体进行设计，现在贝塞尔曲线被广泛地运用到计算机图形软件(如Photoshop、Flash等)中，是计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贝塞尔曲线学习笔记">
+<meta property="og:url" content="http://qinyuanpei.com/2015/04/08/bezier-curve-learning-note/index.html">
+<meta property="og:site_name" content="秦元培">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;贝塞尔曲线(Bezier Curve)是由法国工程师皮埃尔·贝塞尔(Pierre Bezier)于1962年提出的一种曲线。在数学的数值分析领域中，贝塞尔曲线是计算机图形学中相当重要的参数曲线，其主要意义在于无论是直线还是曲线都能在数学上予以描述。最早贝塞尔曲线被用来对汽车主体进行设计，现在贝塞尔曲线被广泛地运用到计算机图形软件(如Photoshop、Flash等)中，是计">
+<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_一次贝塞尔曲线效果演示.gif">
+<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_二次贝塞尔曲线原理.png">
+<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_二次贝塞尔曲线效果演示.gif">
+<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_三次贝塞尔曲线原理.png">
+<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_三次贝塞尔曲线.gif">
+<meta property="og:updated_time" content="2015-10-09T09:02:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="贝塞尔曲线学习笔记">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;贝塞尔曲线(Bezier Curve)是由法国工程师皮埃尔·贝塞尔(Pierre Bezier)于1962年提出的一种曲线。在数学的数值分析领域中，贝塞尔曲线是计算机图形学中相当重要的参数曲线，其主要意义在于无论是直线还是曲线都能在数学上予以描述。最早贝塞尔曲线被用来对汽车主体进行设计，现在贝塞尔曲线被广泛地运用到计算机图形软件(如Photoshop、Flash等)中，是计">
 
-    <meta name="generator" content="hexo"/>
     
-    <link rel="alternate" type="application/rss+xml" title="秦元培" href="/atom.xml">
+    <link rel="alternative" href="/atom.xml" title="秦元培" type="application/atom+xml">
     
-
-    <link rel="canonical" href="http://qinyuanpei.com/2015/04/08/bezier-curve-learning-note/"/>
-
     
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
-<body class="home-template no-js">
-
-    <span class="mobile btn-mobile-menu">
-        <i class="fa fa-list btn-mobile-menu__icon"></i>
-        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="秦元培">秦元培</a></h1>
+				<h2 class="blog-motto">做单纯的人，走幸福的路。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/lab">实验室</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:qinyuanpei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
-  <div class="panel-main">
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
-        <a href="/" title="秦元培"><img src="/images/logo.jpg"  width="100" alt="秦元培 logo" class="panel-cover__logo logo" /></a>
-        <h1 class="panel-cover__title panel-title"><a href="/" title="秦元培">秦元培</a></h1>
-        <hr class="panel-cover__divider" />
-        <p class="panel-cover__description">目标就是给梦想一个期限</p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-
-        <div class="navigation-wrapper">
-          <div>
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-            
-              <li class="navigation__item"><a href="/archives">文章归档</a></li>
-            
-              <li class="navigation__item"><a href="/links">友情链接</a></li>
-            
-              <li class="navigation__item"><a href="/about">关于我</a></li>
-            
-            </ul>
-          </nav>
-          </div>
-          <div>
-          <nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-  <!-- Weibo-->
-  
-  <li class="navigation__item">
-    <a href="http://weibo.com/u/1278609231" title="新浪微博" target="_blank">
-      <i class='social fa fa-weibo'></i>
-      <span class="label">Weibo</span>
-    </a>
-  </li> 
-
-
-  <!-- Github -->
-  
-  <li class="navigation__item">
-    <a href="https://github.com/qinyuanpei" title="GitHub主页" target="_blank">
-      <i class='social fa fa-github'></i>
-      <span class="label">Github</span>
-    </a>
-  </li>
-
-
-
-  <li class="navigation__item">
-    <a href="/atom.xml" title="RSS" target="_blank">
-      <i class='social fa fa-rss'></i>
-      <span class="label">RSS</span>
-    </a>
-  </li>
-
-
-
-  <li class="navigation__item">
-    <a href="mailto:qinyuanpei@163.com" title="发送邮件" target="_blank">
-      <i class='social fa fa-envelope'></i>
-      <span class="label">Email</span>
-    </a>
-  </li>
-
-
-  </ul>
-</nav>
-
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="panel-cover--overlay cover-blue"></div>
-  </div>
+      <a href="/2015/04/08/bezier-curve-learning-note/" title="贝塞尔曲线学习笔记" itemprop="url">贝塞尔曲线学习笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="秦元培" target="_blank" itemprop="author">秦元培</a>
+		
+  <p class="article-time">
+    <time datetime="2015-04-08T04:25:28.000Z" itemprop="datePublished"> 发表于 2015-04-08</time>
+    
+  </p>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner">
-            <article class="post-container post-container--single">
-
-  <header class="post-header">
-    <div class="post-meta">
-      <time datetime="2015-04-08T04:25:28.000Z" class="post-list__meta--date date">2015-04-08</time> &#8226; <span class="post-meta__tags tags">由<a href="http://qinyuanpei.com">秦元培</a>发布于&nbsp;
-  <a class="tag-link" href="/tags/数学/">数学</a>, <a class="tag-link" href="/tags/计算机图形/">计算机图形</a>, <a class="tag-link" href="/tags/贝塞尔曲线/">贝塞尔曲线</a>
-阅读(<span id="busuanzi_value_page_pv"></span>)</span>
-    </div>
-    <h1 class="post-title">贝塞尔曲线学习笔记</h1>
-  </header>
-
-  <section class="post">
-    <p>贝塞尔曲线(Bezier Curve)是由法国工程师皮埃尔·贝塞尔(Pierre Bezier)于1962年提出的一种曲线。在数学的数值分析领域中，贝塞尔曲线是计算机图形学中相当重要的参数曲线，其主要意义在于无论是直线还是曲线都能在数学上予以描述。最早贝塞尔曲线被用来对汽车主体进行设计，现在贝塞尔曲线被广泛地运用到计算机图形软件(如Photoshop、Flash等)中，是计算机图形领域重要的一个数学曲线。</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#贝塞尔曲线主要内容"><span class="toc-number">1.</span> <span class="toc-text">贝塞尔曲线主要内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一次贝塞尔曲线"><span class="toc-number">1.1.</span> <span class="toc-text">一次贝塞尔曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二次贝塞尔曲线"><span class="toc-number">1.2.</span> <span class="toc-text">二次贝塞尔曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三次贝塞尔曲线"><span class="toc-number">1.3.</span> <span class="toc-text">三次贝塞尔曲线</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码示例"><span class="toc-number">2.</span> <span class="toc-text">代码示例</span></a></li></ol>
+		
+		</div>
+		
+		<p>&emsp;&emsp;贝塞尔曲线(Bezier Curve)是由法国工程师皮埃尔·贝塞尔(Pierre Bezier)于1962年提出的一种曲线。在数学的数值分析领域中，贝塞尔曲线是计算机图形学中相当重要的参数曲线，其主要意义在于无论是直线还是曲线都能在数学上予以描述。最早贝塞尔曲线被用来对汽车主体进行设计，现在贝塞尔曲线被广泛地运用到计算机图形软件(如Photoshop、Flash等)中，是计算机图形领域重要的一个数学曲线。</p>
 <a id="more"></a>
-<h1 id="贝塞尔曲线主要内容">贝塞尔曲线主要内容</h1><p>贝塞尔曲线就是这样的一条曲线，它是依据四个位置任意的点坐标绘制出的一条光滑曲线。在历史上，研究贝塞尔曲线的人最初是按照已知曲线参数方程来确定四个点的思路设计出这种矢量曲线绘制法。贝塞尔曲线的有趣之处更在于它的皮筋效应，也就是说，随着点有规律地移动，曲线将产生皮筋伸引一样的变换，带来视觉上的冲击。1962年，法国数学家Pierre Bezier第一个研究了这种矢量绘制曲线的方法，并给出了详细的计算公式，因此按照这样的公式绘制出来的曲线就用他的姓氏来命名是为贝塞尔曲线。贝塞尔曲线按照阶数可以从一次扩展到n次，这里例举出常见的一次贝塞尔曲线、二次贝塞尔曲线和三次贝塞尔曲线。</p>
-<h2 id="一次贝塞尔曲线">一次贝塞尔曲线</h2><p>一次贝塞尔曲线，即线性贝塞尔曲线，其定义是:给定点P0、P1，贝塞尔曲线是两点间的一条直线。线性贝塞尔曲线由下列公式给出：</p>
+<h1 id="贝塞尔曲线主要内容">贝塞尔曲线主要内容</h1><p>&emsp;&emsp;贝塞尔曲线就是这样的一条曲线，它是依据四个位置任意的点坐标绘制出的一条光滑曲线。在历史上，研究贝塞尔曲线的人最初是按照已知曲线参数方程来确定四个点的思路设计出这种矢量曲线绘制法。贝塞尔曲线的有趣之处更在于它的皮筋效应，也就是说，随着点有规律地移动，曲线将产生皮筋伸引一样的变换，带来视觉上的冲击。1962年，法国数学家Pierre Bezier第一个研究了这种矢量绘制曲线的方法，并给出了详细的计算公式，因此按照这样的公式绘制出来的曲线就用他的姓氏来命名是为贝塞尔曲线。贝塞尔曲线按照阶数可以从一次扩展到n次，这里例举出常见的一次贝塞尔曲线、二次贝塞尔曲线和三次贝塞尔曲线。</p>
+<h2 id="一次贝塞尔曲线">一次贝塞尔曲线</h2><p>&emsp;&emsp;一次贝塞尔曲线，即线性贝塞尔曲线，其定义是:给定点P0、P1，贝塞尔曲线是两点间的一条直线。线性贝塞尔曲线由下列公式给出：</p>
 <blockquote>
 <p>B(t)=P0+(P1-P0)<em>t=(1-t)P0+t</em>P1,其中t是一个0到1之间的数值</p>
 </blockquote>
-<p>该公式等同于对P1,P0两点进行线性插值。</p>
+<p>&emsp;&emsp;该公式等同于对P1,P0两点进行线性插值。</p>
 <p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_一次贝塞尔曲线效果演示.gif" alt="一次贝塞尔曲线"></p>
-<h2 id="二次贝塞尔曲线">二次贝塞尔曲线</h2><p>二次贝塞尔曲线的路径由给定点P0、P1、P2的函数B(t)给出:</p>
+<h2 id="二次贝塞尔曲线">二次贝塞尔曲线</h2><p>&emsp;&emsp;二次贝塞尔曲线的路径由给定点P0、P1、P2的函数B(t)给出:</p>
 <blockquote>
 <p>B(t)=(1-t)^2P0+2t(1-t)P1+t^2P2,其中t是一个0到1之间的数值</p>
 </blockquote>
-<p>为构建二次贝塞尔曲线，可以中介点Q0和Q1作为由0至1的t:</p>
+<p>&emsp;&emsp;为构建二次贝塞尔曲线，可以中介点Q0和Q1作为由0至1的t:</p>
 <ul>
 <li>由P0至P1的连续点Q0，描述一条线性贝塞尔曲线。</li>
 <li>由P1至P2的连续点Q1，描述一条线性贝塞尔曲线。</li>
@@ -166,88 +128,691 @@
 </ul>
 <p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_二次贝塞尔曲线原理.png" alt="二次贝塞尔曲线原理图"></p>
 <p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_二次贝塞尔曲线效果演示.gif" alt="二次贝塞尔曲线演示效果"></p>
-<h2 id="三次贝塞尔曲线">三次贝塞尔曲线</h2><p>P0、P1、P2、P3四个点在平面或在三维空间中定义了三次方贝塞尔曲线。曲线起始于P0走向P1，并从P2的方向来到P3。P0和P1之间的间距，决定了曲线在转而趋进P3之前，走向P2方向的“长度有多长”。三次贝塞尔曲线的公式是:</p>
+<h2 id="三次贝塞尔曲线">三次贝塞尔曲线</h2><p>&emsp;&emsp;P0、P1、P2、P3四个点在平面或在三维空间中定义了三次方贝塞尔曲线。曲线起始于P0走向P1，并从P2的方向来到P3。P0和P1之间的间距，决定了曲线在转而趋进P3之前，走向P2方向的“长度有多长”。三次贝塞尔曲线的公式是:</p>
 <blockquote>
 <p>B(t)=P0(1-t)^3+3P1t(1-t)^2+3P2t^2(1-t)+P3t^3,其中t是一个0到1之间的数值</p>
 </blockquote>
 <p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_三次贝塞尔曲线原理.png" alt="三次贝塞尔曲线原理图"></p>
-<p>三次贝塞尔曲线的绘制这里采取的是一种已知曲线参数方程来确定四个点的方法，这种方法称为矢量曲线绘制法。这里以二维平面为例(如需三维空间同理构造出z(t)即可):</p>
+<p>&emsp;&emsp;三次贝塞尔曲线的绘制这里采取的是一种已知曲线参数方程来确定四个点的方法，这种方法称为矢量曲线绘制法。这里以二维平面为例(如需三维空间同理构造出z(t)即可):</p>
 <blockquote>
 <p>x(t)=ax<em>t^3+bx</em>t^2+cx<em>t+x0<br>y(t)=ay</em>t^3+by<em>t^2+cy</em>t+y0</p>
 </blockquote>
-<p>因为x0、y0已知，因此我们可以用下列公式计算出剩余三个点的坐标:</p>
+<p>&emsp;&emsp;因为x0、y0已知，因此我们可以用下列公式计算出剩余三个点的坐标:</p>
 <blockquote>
 <p>x1 = x0 + cx / 3<br>x2 = x1 + ( cx + bx ) / 3<br>x3 = x0 + cx + bx + ax</p>
 <p>y1 = y0 + cy / 3<br>y2 = y1 + ( cy + by ) / 3<br>y3 = y0 + cy + by + ay</p>
 </blockquote>
-<p>在x0、y0已知的前提下，可以通过变换得到:</p>
+<p>&emsp;&emsp;在x0、y0已知的前提下，可以通过变换得到:</p>
 <blockquote>
 <p>cx = 3 <em> ( x1 - x0 )<br>bx = 3 </em> ( x2 - x1 ) - cx<br>ax = x3 - x0 - cx - bx</p>
 <p>cy = 3 <em> ( y1 - y0 )<br>by = 3 </em> ( y2 - y1 ) - cy<br>ay = y3 - y0 - cy - by</p>
 </blockquote>
-<p>因此只要给定四个点，总能构造出一条三次贝塞尔曲线，这种方法是一种较为实用和可靠的方法。</p>
+<p>&emsp;&emsp;因此只要给定四个点，总能构造出一条三次贝塞尔曲线，这种方法是一种较为实用和可靠的方法。</p>
 <p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_三次贝塞尔曲线.gif" alt="三次贝塞尔曲线效果演示"></p>
-<p>下面我们来看一个简单的示例，该示例以Unity3D为基础建立，希望对大家理解贝塞尔曲线有所帮助。</p>
+<p>&emsp;&emsp;下面我们来看一个简单的示例，该示例以Unity3D为基础建立，希望对大家理解贝塞尔曲线有所帮助。</p>
 <h1 id="代码示例">代码示例</h1><p>(尝试着实现了下，发现暂时有些问题，等实现了再更新上来吧！)</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
 
-  </section>
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+</div>
 
-</article>
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数学/">数学</a><a href="/tags/计算机图形/">计算机图形</a><a href="/tags/贝塞尔曲线/">贝塞尔曲线</a>
+  </div>
+
+</div>
 
 
-<section class="post-comments">
-  <!-- 多说评论框 start -->
-  <div class="ds-thread" data-thread-key="http://qinyuanpei.com/2015/04/08/bezier-curve-learning-note/" data-title="贝塞尔曲线学习笔记" data-url="http://qinyuanpei.com/2015/04/08/bezier-curve-learning-note/"></div>
-  <!-- 多说评论框 end -->
-  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-  <script type="text/javascript">
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://qinyuanpei.com/2015/04/08/bezier-curve-learning-note/" data-title="贝塞尔曲线学习笔记 | 秦元培" data-tsina="1278609231" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/04/09/unity3d-game-screen-shake-effect/" title="Unity3D游戏开发之屏幕震动效果的实现">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Unity3D游戏开发之屏幕震动效果的实现</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/04/03/unpackage-the-unity3d-game-resources-with-disunity/"  title="Unity3D游戏开发之使用disunity提取Unity3D游戏资源">
+ <strong>下一篇：</strong><br/> 
+ <span>Unity3D游戏开发之使用disunity提取Unity3D游戏资源
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/04/08/bezier-curve-learning-note/" data-title="贝塞尔曲线学习笔记" data-url="http://qinyuanpei.com/2015/04/08/bezier-curve-learning-note/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#贝塞尔曲线主要内容"><span class="toc-number">1.</span> <span class="toc-text">贝塞尔曲线主要内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一次贝塞尔曲线"><span class="toc-number">1.1.</span> <span class="toc-text">一次贝塞尔曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二次贝塞尔曲线"><span class="toc-number">1.2.</span> <span class="toc-text">二次贝塞尔曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三次贝塞尔曲线"><span class="toc-number">1.3.</span> <span class="toc-text">三次贝塞尔曲线</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码示例"><span class="toc-number">2.</span> <span class="toc-text">代码示例</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+	<p class="asidetitle">名片</p>
+	<div class="github-card">
+	<div class="github-card user-card">
+		<div class="header User"></div>
+		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="../img/author.jpg" alt="qinyuanpei"></a>
+		<div class="content"><h1>秦元培</h1>
+		<ul class="status">
+		  <li><a href="../archives" target="_top"><strong>41</strong>文章</a></li>
+		  <li><a href="../categories" target="_top"><strong>9</strong>分类</a></li>
+		  <li><a href="../tags" target="_top"><strong>84</strong>标签</a></li></ul></div></div>
+	  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Unity3D/" title="Unity3D">Unity3D<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/单机游戏/" title="单机游戏">单机游戏<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/开发工具/" title="开发工具">开发工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活感悟/测试分类/" title="测试分类">测试分类<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/游戏开发/" title="游戏开发">游戏开发<sup>17</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活感悟/" title="生活感悟">生活感悟<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言/" title="编程语言">编程语言<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li></ul>
+  </div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Unity3D/" title="Unity3D">Unity3D<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏/" title="游戏">游戏<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏开发/" title="游戏开发">游戏开发<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/梦想/" title="梦想">梦想<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/技术/" title="技术">技术<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDL/" title="SDL">SDL<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编辑器/" title="编辑器">编辑器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AssetBundle/" title="AssetBundle">AssetBundle<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/优化/" title="优化">优化<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/事件/" title="事件">事件<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/资源提取/" title="资源提取">资源提取<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mecanim/" title="Mecanim">Mecanim<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动画/" title="动画">动画<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生感悟/" title="人生感悟">人生感悟<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/平凡/" title="平凡">平凡<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2014/" title="2014">2014<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sublime/" title="Sublime">Sublime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDE/" title="IDE">IDE<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/塔防/" title="塔防">塔防<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/特效/" title="特效">特效<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人文/" title="人文">人文<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/思维/" title="思维">思维<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/价值/" title="价值">价值<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据/" title="数据">数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/状态/" title="状态">状态<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQLite/" title="SQLite">SQLite<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JSON/" title="JSON">JSON<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/加密/" title="加密">加密<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/部署/" title="部署">部署<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://blog.codingnow.com/" target="_blank" title="云风">云风</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/poem_qianmo" target="_blank" title="毛星云">毛星云</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.xuanyusong.com/" target="_blank" title="宣雨松">宣雨松</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/musicvs" target="_blank" title="笨木头">笨木头</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/kakashi8841" target="_blank" title="卡卡西">卡卡西</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/amazonzx" target="_blank" title="Amazonzx">Amazonzx</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1278609231&verifier=23b91096&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">订阅博客</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hi, I&#39;m Qin Yuanpei. I&#39;m a game developer. <br/>
+			We cannot do great things on this earth, only small things with great love.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1278609231" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/qinyuanpei" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/qinyuanpei" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:qinyuanpei@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/by-nc-nd/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc-nd.svg" alt="Creative Commons" />
+          </a>
+        </div>
+    
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="秦元培">秦元培</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
   var duoshuoQuery = {short_name:"qinyuanpei"};
   (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.src = '//static.duoshuo.com/embed.js';
     ds.charset = 'UTF-8';
     (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
   })();
-  </script>
-<!-- 多说公共JS代码 end -->
-</section>
+</script> 
 
 
 
-            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-<footer class="footer">
-    <span class="footer__copyright">
-        本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
-    </span>
-    <span class="footer__copyright">
-        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
-    </span>
-    <span class="footer__copyright">
-        &copy; 2015 - 本站由 <a href="/">秦元培</a> 创建,
-        基于<https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">hexo-theme-vno</a>主题修改,
-    总访问量<span id="busuanzi_value_site_pv"></span>次
-    </span>
-</footer>
 
-        </div>
-    </div>
 
-    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="/js/main.js" type="text/javascript"></script>
 
-     
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-42596364-1', 'auto');
-	ga('send', 'pageview');
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
 </script>
 
-</body>
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
 </html>
