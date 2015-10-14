@@ -858,19 +858,22 @@ header nav ul li a:hover {
 .post,
 .page,
 .link,
-.photo {
+.photo,
+.wiki {
   background: #fafafa;
 }
 .post a,
 .page a,
 .link a,
-.photo a {
+.photo a,
+.wiki a {
   color: #2ca6cb;
 }
 .post a:hover,
 .page a:hover,
 .link a:hover,
-.photo a:hover {
+.photo a:hover,
+.wiki a:hover {
   color: #ea6753;
 }
 @media only screen and (min-width: 768px) {
