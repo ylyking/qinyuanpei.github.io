@@ -2185,8 +2185,8 @@ footer {
 }
 .user-card img {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
 }
 .user-card h1 {
   letter-spacing: -0.06em;
