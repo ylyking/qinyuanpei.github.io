@@ -4,26 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Unity3D游戏开发之屏幕震动效果的实现 | 秦元培</title>
+    <title>EasyAR尝鲜系列教程之Hello EasyAR | 秦元培</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="秦元培">
     
 
     
-    <meta name="description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天我们来说说在Unity3D中如何实现屏幕震动效果。屏幕震动效果在某些游戏场景中，对于提升游戏的真实感有较大的帮助。比如在《水果忍者》这个游戏中，当玩家碰到炸弹的时候屏幕会出现强烈的震动效果，同时手机自身发出震动，这样就大大地增强了玩家在碰到炸弹这一瞬间的游戏体验">
+    <meta name="description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。从今天起博主将为大家带来EasyAR尝鲜系列教程，本教程适用的对象是增强现实应用开发者和Unity3D游戏开发者，在阅读本教程前请确保具备增强现实应用开发及Unity3D游戏开发的相关基础知识。在本节及后续内容中，博主将以国产增强现实引擎EasyAR为主要开发平台来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3D游戏开发之屏幕震动效果的实现">
-<meta property="og:url" content="http://qinyuanpei.com/2015/04/09/unity3d-game-screen-shake-effect/index.html">
+<meta property="og:title" content="EasyAR尝鲜系列教程之Hello EasyAR">
+<meta property="og:url" content="http://qinyuanpei.com/2015/10/30/have-a-taste-of-easyar-01/index.html">
 <meta property="og:site_name" content="秦元培">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天我们来说说在Unity3D中如何实现屏幕震动效果。屏幕震动效果在某些游戏场景中，对于提升游戏的真实感有较大的帮助。比如在《水果忍者》这个游戏中，当玩家碰到炸弹的时候屏幕会出现强烈的震动效果，同时手机自身发出震动，这样就大大地增强了玩家在碰到炸弹这一瞬间的游戏体验">
-<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_Fruit-Ninja.png">
-<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_Swordigo.png">
-<meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_切水果.gif">
-<meta property="og:updated_time" content="2015-10-09T09:27:40.000Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。从今天起博主将为大家带来EasyAR尝鲜系列教程，本教程适用的对象是增强现实应用开发者和Unity3D游戏开发者，在阅读本教程前请确保具备增强现实应用开发及Unity3D游戏开发的相关基础知识。在本节及后续内容中，博主将以国产增强现实引擎EasyAR为主要开发平台来">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030091422528">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030002039184">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030002211382">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030000059604">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030000451675">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030001126077">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030084253279">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030084315043">
+<meta property="og:image" content="http://img.blog.csdn.net/20151030084210601">
+<meta property="og:updated_time" content="2015-10-30T01:51:51.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3D游戏开发之屏幕震动效果的实现">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天我们来说说在Unity3D中如何实现屏幕震动效果。屏幕震动效果在某些游戏场景中，对于提升游戏的真实感有较大的帮助。比如在《水果忍者》这个游戏中，当玩家碰到炸弹的时候屏幕会出现强烈的震动效果，同时手机自身发出震动，这样就大大地增强了玩家在碰到炸弹这一瞬间的游戏体验">
+<meta name="twitter:title" content="EasyAR尝鲜系列教程之Hello EasyAR">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。从今天起博主将为大家带来EasyAR尝鲜系列教程，本教程适用的对象是增强现实应用开发者和Unity3D游戏开发者，在阅读本教程前请确保具备增强现实应用开发及Unity3D游戏开发的相关基础知识。在本节及后续内容中，博主将以国产增强现实引擎EasyAR为主要开发平台来">
 
     
     <link rel="alternative" href="/atom.xml" title="秦元培" type="application/atom+xml">
@@ -85,14 +91,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/04/09/unity3d-game-screen-shake-effect/" title="Unity3D游戏开发之屏幕震动效果的实现" itemprop="url">Unity3D游戏开发之屏幕震动效果的实现</a>
+      <a href="/2015/10/30/have-a-taste-of-easyar-01/" title="EasyAR尝鲜系列教程之Hello EasyAR" itemprop="url">EasyAR尝鲜系列教程之Hello EasyAR</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="秦元培" target="_blank" itemprop="author">秦元培</a>
 		
     <p class="article-time">
-    <time datetime="2015-04-08T16:16:06.000Z" itemprop="datePublished"> 发表于 2015-04-09</time>
+    <time datetime="2015-10-30T01:44:18.000Z" itemprop="datePublished"> 发表于 2015-10-30</time>
     
   </p>
 </header>
@@ -101,24 +107,58 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#场景固定的情况下震动摄像机"><span class="toc-number">1.</span> <span class="toc-text">场景固定的情况下震动摄像机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#摄像机固定的情况下震动场景"><span class="toc-number">2.</span> <span class="toc-text">摄像机固定的情况下震动场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目实例"><span class="toc-number">3.</span> <span class="toc-text">项目实例</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是增强现实？"><span class="toc-number">1.</span> <span class="toc-text">什么是增强现实？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#增强现实应用现状"><span class="toc-number">2.</span> <span class="toc-text">增强现实应用现状</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国产增强现实引擎EasyAR"><span class="toc-number">3.</span> <span class="toc-text">国产增强现实引擎EasyAR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hello_EasyAR"><span class="toc-number">4.</span> <span class="toc-text">Hello EasyAR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题汇总"><span class="toc-number">5.</span> <span class="toc-text">问题汇总</span></a></li></ol>
 		
 		</div>
 		
-		<p>&emsp;&emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。今天我们来说说在Unity3D中如何实现屏幕震动效果。屏幕震动效果在某些游戏场景中，对于提升游戏的真实感有较大的帮助。比如在《水果忍者》这个游戏中，当玩家碰到炸弹的时候屏幕会出现强烈的震动效果，同时手机自身发出震动，这样就大大地增强了玩家在碰到炸弹这一瞬间的游戏体验。</p>
+		<p>&emsp;&emsp;各位朋友，大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。从今天起博主将为大家带来EasyAR尝鲜系列教程，本教程适用的对象是增强现实应用开发者和Unity3D游戏开发者，在阅读本教程前请确保具备增强现实应用开发及Unity3D游戏开发的相关基础知识。在本节及后续内容中，博主将以国产增强现实引擎EasyAR为主要开发平台来带领大家一起走进增强现实应用开发的世界，希望大家能够喜欢！</p>
 <a id="more"></a>
-<p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_Fruit-Ninja.png" alt="水果忍者游戏截图"></p>
-<p>&emsp;&emsp;再比如《Swordigo》这个游戏是博主一直比较喜欢的一款手机游戏，在这个游戏中玩家将扮演一个少年剑客，跨过重重阻隔、经历种种磨难，收集剑柄、剑刃、剑心最终打败魔王。这是一个完完全全的RPG游戏，在游戏当中玩家将会在不同风格的迷宫中探索、然后消灭各种各样的敌人，是一款相当出色的手机游戏，如果大家感兴趣的话，可以去下载下来玩一玩哦！在这个游戏中有一个火属性的敌人，它会向玩家投掷一种火球，当火球接触到地面时，整个地面会发生剧烈的震动，这同样是为了体现出一种真实的游戏体验。</p>
-<p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_Swordigo.png" alt="Swordigo游戏截图"></p>
-<p>&emsp;&emsp;我们知道在3D世界里空间的大小是可以无限延伸的，而我们的视线所能触及到的空间则是相对有限的。我们常常说要开阔眼界，因为开阔眼界能够让我们看到的内容更多。那么这句话在游戏世界里该如何解释呢？我们知道在3D世界里摄像机扮演着和人的眼睛相同的角色，因此我们在3D世界里能够看到多少内容完全取决于摄像机。好了，了解了这一点，我们大致可以找到两类实现屏幕震动的方法：</p>
-<h1 id="场景固定的情况下震动摄像机">场景固定的情况下震动摄像机</h1><p>&emsp;&emsp;第一类方法实现起来较为简单，而且这种方法更容易让人接受。因为我们平时在拍照或者摄像的过程中难免会出现因为拍摄者身体或者手部发生抖动而引起的画面震动效果，因此现在的摄像设备如DV或者数码相机甚至是智能手机，都会有图像防抖动功能。这就是第一类实现屏幕震动的方法在生活中的现实例子，因此基于这种思路，实现屏幕震动只要让相机震动即可。</p>
-<h1 id="摄像机固定的情况下震动场景">摄像机固定的情况下震动场景</h1><p>&emsp;&emsp;第二类方法是对真实世界的一种模拟，主要模拟的是地球上的地震灾害。这种方式主要运用在3D游戏中，通过使游戏中的虚拟地面发生震动，来达到一种使画面震动的效果。可是因为这种方法可能涉及到场景中的其它物体以及主要运用在3D游戏这一局限性，因此在2D和3D游戏中主要通过第一类方法来实现屏幕震动效果。</p>
-<h1 id="项目实例">项目实例</h1><p>&emsp;&emsp;这里以在Unity3D引擎下实现《水果忍者》这个游戏为例，这是博主最近在研究的一个项目吧。在这个游戏中档玩家碰到炸弹的时候是有一个屏幕震动的效果的，所以这里我们就以这个功能的实现为例来讲解今天的内容吧！</p>
-<p>&emsp;&emsp;首先给出第一种方法，通过调整相机的Rect视口范围实现屏幕震动，该方法是博主在这个游戏中使用的方法。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/// &#22312;&#36825;&#20010;&#33050;&#26412;&#20013;&#20027;&#35201;&#23454;&#29616;&#30340;&#21151;&#33021;&#26159;&#30456;&#26426;&#30340;&#38663;&#21160;&#25928;&#26524;&#10;/// &#26102;&#38388;&#65306;2015&#24180;4&#26376;8&#26085;&#10;&#10;///&#26159;&#21542;&#38663;&#21160;&#30456;&#26426;&#10;public bool isShake=false;&#10;&#10;/// &#60;summary&#62;&#10;/// &#38663;&#21160;&#38388;&#38548;&#10;/// &#60;/summary&#62;&#10;public float ShakeTime=1.0f;&#10;&#10;/// &#60;summary&#62;&#10;/// &#38663;&#21160;&#22686;&#37327;&#10;/// &#60;/summary&#62;&#10;public float ShakeDelta=0.1f;&#10;&#10;/// &#60;summary&#62;&#10;/// &#35760;&#24405;&#24403;&#21069;&#24103;&#26102;&#38388;&#10;/// &#60;/summary&#62;&#10;private float frameTime=0.0f;&#10;&#10;/// &#60;summary&#62;&#10;/// FPS &#10;/// &#60;/summary&#62;&#10;private float fps=20.0f;&#10;&#10;/// &#60;summary&#62;&#10;/// &#20174;&#24320;&#22987;&#38663;&#21160;&#35745;&#26102;&#10;/// &#60;/summary&#62;&#10;private float time=0.0f;&#10;&#10;/// &#60;summary&#62;&#10;/// &#30456;&#26426;&#38663;&#21160;&#30340;&#26041;&#27861;&#10;/// &#60;/summary&#62;&#10;private void ShakeCamera()&#10;&#123;&#10;    if(isShake)&#123;&#10;        time+=Time.deltaTime;&#10;        if(ShakeTime&#62;0)&#123;&#10;            ShakeTime-=Time.deltaTime;&#10;            if(ShakeTime&#60;=0)&#123;&#10;                //&#37325;&#32622;&#30456;&#26426;&#10;                transform.camera.rect=new Rect(0.0f,0.0f,1.0f,1.0f);&#10;                //&#37325;&#32622;&#38663;&#21160;&#38388;&#38548;&#10;                ShakeTime=1.0f;&#10;            &#125;else&#123;&#10;                //&#20026;&#20102;&#20351;&#30456;&#26426;&#38663;&#21160;&#24179;&#31283;&#32780;&#22343;&#21248;&#35774;&#35745;&#19968;&#20010;&#24103;&#26102;&#38388;&#10;                frameTime+=Time.deltaTime;&#10;                //&#21482;&#26377;&#24103;&#26102;&#38388;&#22823;&#20110;FPS&#26102;&#38663;&#21160;&#10;                if(frameTime&#62;=1/fps)&#123;&#10;                    //&#37325;&#32622;&#24103;&#26102;&#38388;&#10;                    frameTime=0;&#10;                    //&#38543;&#26426;&#35843;&#25972;&#30456;&#26426;&#30697;&#24418;&#10;                    transform.camera.rect = &#10;                        new Rect(0.1f * (-ShakeDelta + 2.0f * Random.value),&#10;                        0.1f * (-ShakeDelta + 2.0f * Random.value)&#10;                        , 1.0f, 1.0f);&#10;                &#125;&#10;            &#125;&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;当然，我们可以采取简单粗暴的办法，让相机的位置不断地改变即可，因此我们可以采用的第二种方法是：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    public bool isShake=false;&#10;    //&#23450;&#20041;&#30456;&#26426;&#30340;&#38663;&#24133;&#10;    private float shakeDelta=0.75f;&#10;    //&#38663;&#21160;&#38388;&#38548;&#10;    public float ShakeTime=1.0f;&#10;&#10;    void Update () &#10;    &#123;&#10;        if(isShake)&#10;        &#123;   &#10;            if(ShakeTime&#62;0)&#10;            &#123;&#10;                ShakeTime-=Time.deltaTime;&#10;                if(ShakeTime&#60;=0)&#123;&#10;                    ShakeTime=1.0f;&#10;                    transform.position=new Vector3(0,0,transform.position.z);&#10;                &#125;else&#123;&#10;                    transform.position=new Vector3(-shakeDelta+ 1 * Random.value,&#10;                                                   -shakeDelta+ 1 * Random.value,transform.position.z);&#10;                &#125;&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;不过从实际的效果对比来看，第一种实现方法要比第二种要好些，或许是博主自己写的不好吧，哈哈。好了，现在我们来看看实际的效果吧！</p>
-<p><img src="http://7wy477.com1.z0.glb.clouddn.com/imgs_切水果.gif" alt="屏幕震动效果演示"></p>
-<p>&emsp;&emsp;如果大家有更好的方法或者思路，欢迎大家在文章下面留言，今天的内容就是这样了，希望大家喜欢！</p>
+<h1 id="什么是增强现实？">什么是增强现实？</h1><p>&emsp;&emsp;为了让更多的人了解增强现实，所以在开始本文教程前，我们首先来了解下什么是增强现实。增强现实(Augmented Reality，简称 AR)，它是一种将真实世界信息和虚拟世界信息进行融合和集成的新技术，这种技术的目标是在屏幕上把虚拟世界和现实世界进行叠加并在此基础上进行互动。增强现实是真实世界和虚拟世界的信息集成，具有实时交互性，是在三维尺度空间中增添定位虚拟物体。增强现实技术可广泛应用到军事、医疗、建筑、教育、工程、影视、娱乐等领域。增强现实是新型的人机交互和三维仿真工具，目前已发挥出了重要的作用，具有巨大的应用潜力。</p>
+<p><img src="http://img.blog.csdn.net/20151030091422528" alt="增强现实概念图"></p>
+<h1 id="增强现实应用现状">增强现实应用现状</h1><p>&emsp;&emsp;目前，增强现实在国内尚处在起步阶段。2012年4月Google发布的Google Class是全球唯一一款真正意义上实现增强现实技术的硬件设备。随着移动设备的普及和相关技术的成熟，增强现实开始逐渐地走进人们的生活。如国内首款聚合了目前移动互联最新增强现实技术的智能手机应用《城市镜头》以及中视典数字科技研发的VRP系统等。AR技术在人工智能、CAD、图形仿真、虚拟通讯、遥感、娱乐、模拟训练等许多领域带来了革命性的变化。<br>目前增强现实相关技术主要有开源社区的<a href="http://www.hitl.washington.edu/artoolkit/" target="_blank" rel="external">ARToolkit</a>、面向商业化解决方案的<a href="http://www.metaio.com/" target="_blank" rel="external">Metaio</a>和<a href="http://developer.vuforia.com/" target="_blank" rel="external">Vuforia</a>等。</p>
+<h1 id="国产增强现实引擎EasyAR">国产增强现实引擎EasyAR</h1><p>&emsp;&emsp;EasyAR(Easy Augmented Reality)是视辰信息科技（上海）有限公司的增强现实解决方案系列的子品牌，其含义是希望让增强现实变得简单易实施。EasyAR提供了诸如手机APP互动营销、户外大屏幕互动活动、网络营销互动等形式在内的增强现实互动营销技术和解决方案。著作权归作者所有。EasyAR无需授权、无水印、无识别次数的限制，开放后可免费下载，无需任何费用，是一款完全免费的AR引擎。EasyAR具有强大的跨平台特性可支持Windows、 Mac OS、 Android和iOS等主流平台。从目前的情况来看，EasyAR的SDK是目前市场上同类产品中最为简单易用的，唯一的不足是产品刚发布不久尚未能提供完整的技术文档。</p>
+<h1 id="Hello_EasyAR">Hello EasyAR</h1><p>&emsp;&emsp;好了，下面我们以<a href="http://www.easyar.cn/view/index.html" target="_blank" rel="external">EasyAR</a>提供的Unity3D版本SDK为例来学习EasySDK的使用。在开始前请确保你的计算机上正确安装了以下开发工具或者硬件：</p>
+<ul>
+<li>Unity3D(必选)：主要的开发环境</li>
+<li>JDK相关工具(必选)：编译Android应用所需环境</li>
+<li>Android SDK(必选)：编译Android应用所需环境</li>
+<li>摄像头(可选)：如使用手机进行调试则不需要</li>
+</ul>
+<p>在完成以上准备工作后：</p>
+<ul>
+<li>打开<a href="http://www.easyar.cn/view/index.html" target="_blank" rel="external">EasyAR官网</a>并登录官网，我们将在登陆后创建应用以获得开发所需的密钥以及SDK。如果尚未注册可以在注册后完成这一步骤。</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20151030002039184" alt="创建应用"></p>
+<ul>
+<li>点击创建应用，并在这里填入应用的名称和包的名称，此处以“EasyAR测试”和“com.easyar.first”为例，在创建完应用后可以在应用列表中找到当前创建的应用，点击显示可以查看当前应用对应的密钥。</li>
+<li>点击“下载EasyAR SDK v1.0.1”完成SDK的下载。</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20151030002211382" alt="下载SDK"></p>
+<ul>
+<li>解压下载的SDK压缩包，找到vc_redist目录安装对应平台的VC++运行库。请注意，即使在你的计算机上安装了VC++运行库，这里依然需要安装。Win8及Win8.1请先使用磁盘清理工具清理系统垃圾，否则可能会出现无法安装的问题。建议使用64位操作系统且安装x86和x64的VC++运行库。</li>
+<li>找到SDK压缩包内的package/unity目录下的EasyAR.unitypackage文件并将其导入到Unity3D中。</li>
+<li>在Unity3D中找到Scenes目录下的easyar场景并打开该场景，然后找到EasyAR节点名称，在右侧属性窗口中填入应用对应的密钥。</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20151030000059604" alt="填入应用程序密钥"></p>
+<ul>
+<li>打开BuildSetting-&gt;PlayerSetting在右侧属性窗口中填入应用对应的包名。</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20151030000451675" alt="填入应用程序包名"></p>
+<ul>
+<li>SDK默认提供了三张识别图片，我们选择每个人都有的身份证照片作为识别目标，在场景中找到ImageTargetDataSet-idback这个物体，找到它的子节点Cube。这意味着如果我们识别到了身份证照片，那么就会在身份证照片上显示一个Cube。如果大家手头上有自己喜欢的模型，可以将Cube隐藏，然后将模型添加进来，并为其添加VideoPlayerBehaviour.cs脚本。如手头上没有模型，这一步可以忽略。如图是我现在的场景效果：</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20151030001126077" alt="加入自定义模型后的效果"></p>
+<p>&emsp;&emsp;好了，现在编译程序，将其导出为APK安装包，这样我们就可以在手机上测试EasyAR的效果啦。假如一切顺利的话，在手机上将会看到这样的画面。下面放点运行情况截图供大家参考：</p>
+<p><img src="http://img.blog.csdn.net/20151030084253279" alt="截图1"></p>
+<p><img src="http://img.blog.csdn.net/20151030084315043" alt="截图2"></p>
+<h1 id="问题汇总">问题汇总</h1><p>&emsp;&emsp;作为一款国产的增强现实引擎，目前EasyAR的表现我还是比较满意的，虽然在识别的准确度上无法和国外的同类产品相比，但是它的简单易用确实是做得不错。作为一个程序员尝鲜更像是吃螃蟹，目前发现的问题及解决方案有：</p>
+<ul>
+<li>编辑器提示DllNotFoundException错误，请安装SDK中对应的VC++运行库。</li>
+<li>视频导入失败，Unity3D导入视频需要依赖苹果公司的QuickTime播放器，所以请安装最新版的QuickTime后重试。</li>
+<li>在64位计算机上编译的Android应用可以正常运行，在32位计算机上编译的Android应用无法正常运行。具体表现如图</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20151030084210601" alt="32位计算机下的问题"></p>
+<p>&emsp;&emsp;好了，作为整个系列的第一篇文章，我们至此对EasyAR有了一个较为直观的印象。在接下来的内容中，我们将对SDK中的内容进行更加深入的了解，因此希望大家继续关注我的博客，谢谢大家！</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -126,13 +166,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/游戏开发/">游戏开发</a>
+  <a class="article-category-link" href="/categories/Unity3D/">Unity3D</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Unity3D/">Unity3D</a><a href="/tags/特效/">特效</a>
+  <span></span> <a href="/tags/AR/">AR</a><a href="/tags/Unity3D/">Unity3D</a><a href="/tags/增强现实/">增强现实</a>
   </div>
 
 </div>
@@ -141,7 +181,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://qinyuanpei.com/2015/04/09/unity3d-game-screen-shake-effect/" data-title="Unity3D游戏开发之屏幕震动效果的实现 | 秦元培" data-tsina="1278609231" class="share clearfix">
+	  <div data-url="http://qinyuanpei.com/2015/10/30/have-a-taste-of-easyar-01/" data-title="EasyAR尝鲜系列教程之Hello EasyAR | 秦元培" data-tsina="1278609231" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -154,19 +194,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/04/09/unity3d-game-development-itween-event/" title="Unity3D游戏开发之在iTween中使用事件机制">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Unity3D游戏开发之在iTween中使用事件机制</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/04/08/bezier-curve-learning-note/"  title="贝塞尔曲线学习笔记">
+<a href="/2015/10/30/step-by-step-to-create-virtual-joystick/"  title="教你一步步实现一个虚拟摇杆">
  <strong>下一篇：</strong><br/> 
- <span>贝塞尔曲线学习笔记
+ <span>教你一步步实现一个虚拟摇杆
 </span>
 </a>
 </div>
@@ -175,7 +207,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/04/09/unity3d-game-screen-shake-effect/" data-title="Unity3D游戏开发之屏幕震动效果的实现" data-url="http://qinyuanpei.com/2015/04/09/unity3d-game-screen-shake-effect/"></div>
+	<div class="ds-thread" data-thread-key="2015/10/30/have-a-taste-of-easyar-01/" data-title="EasyAR尝鲜系列教程之Hello EasyAR" data-url="http://qinyuanpei.com/2015/10/30/have-a-taste-of-easyar-01/"></div>
 </section>
 
 
@@ -185,7 +217,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#场景固定的情况下震动摄像机"><span class="toc-number">1.</span> <span class="toc-text">场景固定的情况下震动摄像机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#摄像机固定的情况下震动场景"><span class="toc-number">2.</span> <span class="toc-text">摄像机固定的情况下震动场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目实例"><span class="toc-number">3.</span> <span class="toc-text">项目实例</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是增强现实？"><span class="toc-number">1.</span> <span class="toc-text">什么是增强现实？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#增强现实应用现状"><span class="toc-number">2.</span> <span class="toc-text">增强现实应用现状</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国产增强现实引擎EasyAR"><span class="toc-number">3.</span> <span class="toc-text">国产增强现实引擎EasyAR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hello_EasyAR"><span class="toc-number">4.</span> <span class="toc-text">Hello EasyAR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题汇总"><span class="toc-number">5.</span> <span class="toc-text">问题汇总</span></a></li></ol>
  
   </div>
 
