@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20150709094136317">
 <meta property="og:image" content="http://img.blog.csdn.net/20150709094212852">
 <meta property="og:image" content="http://img.blog.csdn.net/20150709094346962">
-<meta property="og:updated_time" content="2015-10-09T08:57:32.000Z">
+<meta property="og:updated_time" content="2015-11-03T00:11:23.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity3D游戏开发之SQLite让数据库开发更简单">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友大家好，欢迎大家关注我的博客，我是秦元培，我是博客地址是http://blog.csdn.net/qinyuanpei。在经历了一段时间的忙碌后，博主终于有时间来研究新的东西啦，今天博客向和大家一起交流的内容是在Unity3D游戏开发中使用SQLite进行数据库开发，坦白来讲，在我的技术体系中Web和数据库是相对薄弱的两个部分，因此正好这段时间项目需要和服务器、数据">
@@ -155,6 +155,7 @@
 <p>&emsp;&emsp;作为一个强大的数据库怎么能没有图形化的数据库管理工具呢？所以这里博主向大家推荐一个免安装的小工具SqliteStudio，使用这个工具可以帮助我们方便地管理Sqlite数据库里的数据，这样是不是比较方便呢？哈哈！这个工具可以从<a href="http://pan.baidu.com/s/1hqldZ3A" target="_blank" rel="external">这里</a>下载哦！</p>
 <p><img src="http://img.blog.csdn.net/20150709094346962" alt="SQLiteStudio界面演示"></p>
 <p>&emsp;&emsp;好了，今天的内容就是这样了，为了写这篇文章花了三个晚上准备，希望大家喜欢啊！如果大家觉得这篇文章有用，请继续关注我的博客，我是秦元培，我的博客地址是<a href="http://blog.csdn.net/qinyuanpei" target="_blank" rel="external">http://blog.csdn.net/qinyuanpei</a>。</p>
+<p>&emsp;&emsp;<strong>2015年11月3日更新内容如下</strong>：不同平台上的数据库存储路径<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//各平台下数据库存储的绝对路径(通用)</span><br><span class="line">//PC：<span class="variable">sql =</span> new SQLiteHelper(<span class="string">"data source="</span> + Application.dataPath + <span class="string">"/sqlite4unity.db"</span>);</span><br><span class="line">//Mac：<span class="variable">sql =</span> new SQLiteHelper(<span class="string">"data source="</span> + Application.dataPath + <span class="string">"/sqlite4unity.db"</span>);</span><br><span class="line">//Android：<span class="variable">sql =</span> new SQLiteHelper(<span class="string">"URI=file:"</span> + Application.persistentDataPath + <span class="string">"/sqlite4unity.db"</span>);</span><br><span class="line">//iOS：<span class="variable">sql =</span> new SQLiteHelper(<span class="string">"data source="</span> + Application.persistentDataPath + <span class="string">"/sqlite4unity.db"</span>);</span><br><span class="line"></span><br><span class="line">//PC平台下的相对路径</span><br><span class="line">//<span class="variable">sql =</span> new SQLiteHelper(<span class="string">"data source="</span>sqlite4unity.db<span class="string">");</span><br><span class="line">//编辑器：Assets/sqlite4unity.db</span><br><span class="line">//编译后：和AppName.exe同级的目录下，这里比较奇葩</span><br><span class="line">//当然可以用更随意的方式sql = new SQLiteHelper("</span>data <span class="variable">source=</span><span class="string">"D://SQLite//sqlite4unity.db"</span>);</span><br><span class="line">//确保路径存在即可否则会发生错误</span><br><span class="line"></span><br><span class="line">//如果是事先创建了一份数据库</span><br><span class="line">//可以将这个数据库放置在StreamingAssets目录下然后再拷贝到</span><br><span class="line">//Application.persistentDataPath + <span class="string">"/sqlite4unity.db"</span>路径即可</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -702,6 +703,12 @@
           <li>
             
             	<a href="http://blog.csdn.net/neil3d" target="_blank" title="房燕良">房燕良</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gulu-dev.com" target="_blank" title="GuLu">GuLu</a>
             
           </li>
         
