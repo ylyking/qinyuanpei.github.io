@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20151103130003544">
 <meta property="og:image" content="http://img.blog.csdn.net/20151103132611641">
 <meta property="og:image" content="http://img.blog.csdn.net/20151103134701292">
-<meta property="og:updated_time" content="2015-11-03T05:47:43.750Z">
+<meta property="og:updated_time" content="2015-11-03T06:03:36.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EasyAR尝鲜系列教程之自定义Marker的实现">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。通过本系列第一篇文章，我们初步了解了EasyAR这个增强现实引擎，这次我们来尝试自己定义一个Marker，这样我们就可以用自己喜欢的图片来作为Marker。因为目前EasyAR文档并不完善，所以下面的这些内容可能更多的是我个人的尝试和探索。如果大家对此感兴趣的话继续往">
@@ -928,16 +928,24 @@ $(document).ready(function(){
   if($.fancybox){
     $('.fancybox').fancybox();
   }
+
+  //为了解决多说头像服务器奔溃手动替换头像
+  var imgs = new Array();
+  imgs[0] = 'http://img.blog.csdn.net/20151104153648246';
+  imgs[1] = 'http://img.blog.csdn.net/20151104153658676';
+  imgs[2] = 'http://img.blog.csdn.net/20151104153719133';
+  imgs[3] = 'http://img.blog.csdn.net/20151104153730060';
+  imgs[4] = 'http://img.blog.csdn.net/20151104153742180';
+  imgs[5] = 'http://img.blog.csdn.net/20151104154610054';
+  $('.ds-avatar img[src*="cdncache"]').each(function(){
+    var rand = Math.floor(Math.random() * imgs.length);
+    $(this).attr("src",imgs[rand]);
+  });
+
 }); 
 </script>
 
 
-
-<!-- Analytics Begin -->
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-
-<!-- Analytics End -->
 
 <!-- Totop Begin -->
 
@@ -954,9 +962,7 @@ $(document).ready(function(){
 
 <!-- MathJax End -->
 
-<!-- Tiny_search Begin -->
 
-<!-- Tiny_search End -->
 
   </body>
 </html>
