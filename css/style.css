@@ -2081,8 +2081,7 @@ footer {
 }
 .cc-license img {
   display: inline-block;
-  width: 100px;
-  height: 30px;
+  vertical-align: middle;
 }
 .github-card {
   text-align: center;
@@ -2114,10 +2113,10 @@ footer {
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3);
   box-shadow: 0 1px 1px rgba(0,0,0,0.3);
   text-decoration: none;
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transition: -webkit-transform 2s ease-in-out;
 }
 .github-card .avatar:hover {
-  -webkit-transform: rotate(45deg);
+  -webkit-transform: rotateZ(360deg);
 }
 .github-card h1 {
   color: #111;
