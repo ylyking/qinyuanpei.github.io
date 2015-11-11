@@ -1,0 +1,807 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Unity3D游戏开发之分页效果在uGUI中的实现 | 秦元培</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="秦元培">
+    
+
+    
+    <meta name="description" content="&amp;emsp;&amp;emsp;各位朋友大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。今天想和大家分享的是uGUI中分页效果的实现，我们知道相对NGUI来说uGUI在功能覆盖上来讲，它并没有像NGUI那样提供较为丰富和炫酷的组件，可是因为uGUI有着较好的扩展性，因此我们可以通过编写脚本来扩展它的功能。虽然在移动开发时代以开发速度论成败，可是这并不是我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity3D游戏开发之分页效果在uGUI中的实现">
+<meta property="og:url" content="http://qinyuanpei.com/2015/11/10/pagination-of-ugui-in-unity3d/index.html">
+<meta property="og:site_name" content="秦元培">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;各位朋友大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。今天想和大家分享的是uGUI中分页效果的实现，我们知道相对NGUI来说uGUI在功能覆盖上来讲，它并没有像NGUI那样提供较为丰富和炫酷的组件，可是因为uGUI有着较好的扩展性，因此我们可以通过编写脚本来扩展它的功能。虽然在移动开发时代以开发速度论成败，可是这并不是我">
+<meta property="og:image" content="http://img.blog.csdn.net/20151111131947806">
+<meta property="og:image" content="http://img.blog.csdn.net/20151111135337860">
+<meta property="og:updated_time" content="2015-11-11T06:27:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity3D游戏开发之分页效果在uGUI中的实现">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。今天想和大家分享的是uGUI中分页效果的实现，我们知道相对NGUI来说uGUI在功能覆盖上来讲，它并没有像NGUI那样提供较为丰富和炫酷的组件，可是因为uGUI有着较好的扩展性，因此我们可以通过编写脚本来扩展它的功能。虽然在移动开发时代以开发速度论成败，可是这并不是我">
+
+    
+    <link rel="alternative" href="/atom.xml" title="秦元培" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="秦元培">秦元培</a></h1>
+				<h2 class="blog-motto">做单纯的人，走幸福的路。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/lab">实验室</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:qinyuanpei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/10/pagination-of-ugui-in-unity3d/" title="Unity3D游戏开发之分页效果在uGUI中的实现" itemprop="url">Unity3D游戏开发之分页效果在uGUI中的实现</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="秦元培" target="_blank" itemprop="author">秦元培</a>
+		
+    <p class="article-time">
+    <time datetime="2015-11-10T12:46:35.000Z" itemprop="datePublished"> 发表于 2015-11-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>&emsp;&emsp;各位朋友大家好，我是<strong>秦元培</strong>，欢迎大家关注我的博客，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。今天想和大家分享的是uGUI中分页效果的实现，我们知道相对NGUI来说uGUI在功能覆盖上来讲，它并没有像NGUI那样提供较为丰富和炫酷的组件，可是因为uGUI有着较好的扩展性，因此我们可以通过编写脚本来扩展它的功能。虽然在移动开发时代以开发速度论成败，可是这并不是我们“不求甚解”的正当理由。每次看到NGUI各种”丰富”的组件在脑海中打转的时候，每次看到编译项目时弹出各种Warming的时候，我内心是如此地期望有这样一个简单高效的UI系统啊，直到有一天我遇上了uGUI。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;好了，博主这里并没有想要表达厚此薄彼的观点啦，博主真正想要表达的是我们在开发中应该摒弃“唯语言论”、“唯平台论”的狭隘观点，努力去掌握和语言无关、平台无关的“通用型技能”。这样，当我们面对全新的任务的时候我们可以更快地适应新的环境。言归正传，我们这里来接着说uGUI中的分页，分页通常是指将内容分散到不同的页面上来显示的一种手段，这种手段我们在传统的Web开发中可以经常看到。到了移动互联网以后分页被我们更为熟知的“下拉更新”所替代，这种方式我们就更为熟悉啦。好了，我们回到分页，为什么要要分页呢？这里有两个关键点：<strong>第一，内容在一页内无法展示完全；第二，对内容的数量无法进行估计。</strong></p>
+<p>&emsp;&emsp;例如，我们在uGUI中可以使用ScrollRect组件 + GridLayout组件 + Mask组件实现一个滚动列表，具体的案例可以参考<a href="http://www.cnblogs.com/zhaoqingqing/p/3973167.html" target="_blank" rel="external">这里</a>。这里我们可以注意到一件事情就是这个滚动列表，它可以滚动的范围是由Mask组件来决定的，因此这个滚动列表是无法无限滚动的，虽然我们知道在游戏设计中不会出现这种无限滚动的列表，可是我们这里是为了探讨这个问题，所以我们假设这个情况是允许发生的。那么面对这个问题，我们有什么好的解决方案呢？博主尝试过一种思路，即借鉴Android中的ListView控件，这个控件的特点是可以对列表中的项目进行回收。相信说到这里，大家都明白我想做什么了吧，大概的思路就是制作一个高度大于屏幕高度的列表，然后让所有的列表项在这个列表中循环显示。可是新的问题就来了，<strong>第一，频繁地生成和销毁物体是Unity3D大忌</strong>。虽然我们可以缓存池来解决这个问题，可是因为博主并没有具体这样实践过，所以这里目前是存疑的。<strong>第二，GridLayout这个组件内的元素排序是根据子元素添加的顺序来决定的，因此每次列表更新以后都需要将所有的子元素更新一遍。</strong>曾经因为这样需求和策划发生过争执，最终妥协的一个结果就是采用分页来解决这个问题。分页首先解决了无限滚动的需求，因为它是一种“以不变应万变”的策略，不论列表内元素有多少它都可以显示出来。其次，在分页的过程是将数据模板化的过程，它改变是界面的外观和行为，UI结构是相对稳定的，这样可以避免频繁地生成和销毁物体。</p>
+<p>&emsp;&emsp;下面我们以一个简单的案例来探讨分页效果在uGUI中的实现，首先我们使用GridLayoutGroup来制作一个简单的网格布局，请用心感受下图中萌萌哒十二生肖：</p>
+<p><img src="http://img.blog.csdn.net/20151111131947806" alt="请不要伤害一个程序员的艺术细胞，虽然我知道它比较难看"></p>
+<p>这里我们不再对这个布局的制作方法进行详细的说明，因为我们今天的重点不在这里。我们注意到这里有12个元素，当我们每次对页面进行切换的时候，实际上这12个元素是基本不会发生变化的，真正变化的是这些元素的外观（如这里的精灵图片和名称）以及其对应的UI事件，在这个案例中我们利用匿名函数实现了一个简单的Click事件的监听。好了，前面我们说到分页的一个目的是可以解决列表内元素数目不确定的问题，因此我们这里利用一个12生肖的数组来随机生成元素数目不同的列表，代码实现如下：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">   <span class="comment">/// 初始化元素</span></span><br><span class="line">   <span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">   private void InitItems<span class="params">()</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="comment">//准备一个存储着12生肖信息的数组</span></span><br><span class="line">       GridItem[] items = new GridItem[]</span><br><span class="line">       &#123;</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"鼠"</span>,<span class="string">"Mouse"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"牛"</span>,<span class="string">"Ox"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"虎"</span>,<span class="string">"Tiger"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"兔"</span>,<span class="string">"Rabbit"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"龙"</span>,<span class="string">"Dragon"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"蛇"</span>,<span class="string">"Snake"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"马"</span>,<span class="string">"Horse"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"羊"</span>,<span class="string">"Goat"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"猴"</span>,<span class="string">"Monkey"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"鸡"</span>,<span class="string">"Rooster"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"狗"</span>,<span class="string">"Dog"</span>)</span>,</span><br><span class="line">           new GridItem<span class="params">(<span class="string">"猪"</span>,<span class="string">"Pig"</span>)</span></span><br><span class="line">       &#125;;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//利用12生肖数组来随机生成列表</span></span><br><span class="line">       m_ItemsList = new List&lt;GridItem&gt;<span class="params">()</span>;</span><br><span class="line">       <span class="keyword">for</span><span class="params">(int i = <span class="number">0</span>; i &lt; Random.Range<span class="params">(<span class="number">1</span>,<span class="number">1000</span>)</span>; i++)</span></span><br><span class="line">       &#123;</span><br><span class="line">           m_ItemsList.Add<span class="params">(items[Random.Range<span class="params">(<span class="number">0</span>,items.Length)</span>])</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//计算元素总个数</span></span><br><span class="line">       m_ItemsCount = m_ItemsList.Count;</span><br><span class="line">       <span class="comment">//计算总页数</span></span><br><span class="line">       m_PageCount = <span class="params">(m_ItemsCount % <span class="number">12</span>)</span> == <span class="number">0</span> ? m_ItemsCount / <span class="number">12</span> : <span class="params">(m_ItemsCount / <span class="number">12</span>)</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">       BindPage<span class="params">(m_PageIndex)</span>;</span><br><span class="line">       <span class="comment">//更新界面页数</span></span><br><span class="line">       m_PanelText.<span class="built_in">text</span> = string.Format<span class="params">(<span class="string">"&#123;0&#125;/&#123;1&#125;"</span>, m_PageIndex.ToString<span class="params">()</span>, m_PageCount.ToString<span class="params">()</span>)</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这段代码中，m_ItemList表示我们要展示的元素列表，m_ItemsCount表示元素列表中元素的个数，m_PageCount表示这些元素可以分成的总页数，m_PageIndex表示页数的索引<strong>默认从1开始</strong>。其中GridItem是一个简单的类，它有ItemName和ItemSprite两个属性，这里不再具体说明了。好了，现在我们来思考如何将这些元素和UI对应起来，因为列表中元素的数目不确定，因此我们可以分成两种情况来讨论：</p>
+<ul>
+<li><p>页面总数为1，即m_PageCount=1，此时列表内的元素个数的范围是1~12，因此我们可以利用循环判断哪些元素是要展示的？哪些元素是不需要的？因为如果此时列表内的元素为10，则意味着前面10个元素是要展示给用户，而剩下的2个元素是不需要的。在这里我们简单地使用SetActive来让这些元素隐藏起来。</p>
+</li>
+<li><p>页面总数大于1，即m_PageCount&gt;1，此时前面的m_PageCount-1个页面都是显示完全的，它相当于元素总个数中被12整除的部分。而第m_PageCount个页面此时的情况和页数总数为1的情况类似，我们可以采取和页面总数为1类似的方法来处理。</p>
+</li>
+</ul>
+<p>&emsp;&emsp;好了，下面我们来看这部分代码的具体实现：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line"><span class="comment">/// 绑定指定索引处的页面元素</span></span><br><span class="line"><span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line"><span class="comment">/// &lt;param name="index"&gt;页面索引&lt;/param&gt;</span></span><br><span class="line">private void BindPage<span class="params">(int index)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//列表处理</span></span><br><span class="line">    <span class="keyword">if</span><span class="params">(m_ItemsList == null || m_ItemsCount &lt;= <span class="number">0</span>)</span></span><br><span class="line">        return;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//索引处理</span></span><br><span class="line">    <span class="keyword">if</span><span class="params">(index &lt; <span class="number">0</span> || index &gt; m_ItemsCount)</span></span><br><span class="line">        return;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//按照元素个数可以分为1页和1页以上两种情况</span></span><br><span class="line">    <span class="keyword">if</span><span class="params">(m_PageCount == <span class="number">1</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        int canDisplay = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span><span class="params">(int i = <span class="number">12</span>; i &gt; <span class="number">0</span>; i--)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span><span class="params">(canDisplay &lt; <span class="number">12</span>)</span>&#123;</span><br><span class="line">                BindGridItem<span class="params">(transform.GetChild<span class="params">(canDisplay)</span>, m_ItemsList[<span class="number">12</span> - i])</span>;</span><br><span class="line">                transform.GetChild<span class="params">(canDisplay)</span>.gameObject.SetActive<span class="params">(<span class="literal">true</span>)</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//对超过canDispaly的物体实施隐藏</span></span><br><span class="line">                transform.GetChild<span class="params">(canDisplay)</span>.gameObject.SetActive<span class="params">(<span class="literal">false</span>)</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            canDisplay += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span><span class="params">(m_PageCount &gt; <span class="number">1</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//1页以上需要特别处理的是最后1页</span></span><br><span class="line">        <span class="comment">//和1页时的情况类似判断最后一页剩下的元素数目</span></span><br><span class="line">        <span class="comment">//第1页时显然剩下的为12所以不用处理</span></span><br><span class="line">        <span class="keyword">if</span><span class="params">(index == m_PageCount)</span>&#123;</span><br><span class="line">            int canDisplay = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span><span class="params">(int i = <span class="number">12</span>; i &gt; <span class="number">0</span>; i--)</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//最后一页剩下的元素数目为 m_ItemsCount - 12 * (index-1)</span></span><br><span class="line">                <span class="keyword">if</span><span class="params">(canDisplay &lt; m_ItemsCount - <span class="number">12</span> * <span class="params">(index-<span class="number">1</span>)</span>)</span>&#123;</span><br><span class="line">                    BindGridItem<span class="params">(transform.GetChild<span class="params">(canDisplay)</span>, m_ItemsList[<span class="number">12</span> * index-i])</span>;</span><br><span class="line">                    transform.GetChild<span class="params">(canDisplay)</span>.gameObject.SetActive<span class="params">(<span class="literal">true</span>)</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">//对超过canDispaly的物体实施隐藏</span></span><br><span class="line">                    transform.GetChild<span class="params">(canDisplay)</span>.gameObject.SetActive<span class="params">(<span class="literal">false</span>)</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                canDisplay += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span><span class="params">(int i = <span class="number">12</span>; i &gt; <span class="number">0</span>; i--)</span></span><br><span class="line">            &#123;</span><br><span class="line">                BindGridItem<span class="params">(transform.GetChild<span class="params">(<span class="number">12</span> - i)</span>, m_ItemsList[<span class="number">12</span> * index - i])</span>;</span><br><span class="line">                transform.GetChild<span class="params">(<span class="number">12</span> - i)</span>.gameObject.SetActive<span class="params">(<span class="literal">true</span>)</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，在这里完成BindPage方法的定义以后，我们就可以指定程序显示对应页面的元素，此时上一页和下一页的工作基本上就是改变索引的一个过程了。这部分我们不再说了，大家可以去看最终给出的完整代码，我们这里来看看实际的效果吧！</p>
+<p><img src="http://img.blog.csdn.net/20151111135337860" alt="简单的分页效果展示"></p>
+<p>其实这里核心的内容是分页的处理，在处理里只有1页时的元素个数和超过1页的最后1页时我们可以采取两个循环处理的方法，即先从0循环到m_ItemsCount - 12 <em> (index-1))设置要显示的元素，然后再从m_ItemsCount - 12 </em> (index-1))循环到12设置要隐藏的元素，可是这样的方式我不太喜欢，所以在文章中就没有采取这样的方式。这篇文章是根据一个项目当时的经历写的，因为时间过得比较久，所以如果文章中不当之处希望大家指出并批评。现在这个方案感觉还可以在特效上进行改进，因为现在感觉切换的时候画面比较突兀，这一点请大家注意。好了，下面给出完整的代码和场景布局截图。再次强调：<strong>请在看懂文章的基础上“抄”代码</strong>，每次看到别人问我把XXX脚本挂到场景中不起作用这类的问题，我就觉得整个世界充满了深深地罪恶感。别人愿意分享技术文章，更多的是希望可以和别人交流学习相互促进，如果你只是希望拿到一个随便抄来就能用地代码，抱歉！这违背了我的初衷所以我很难做到！<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> * 一个基于uGUI的分页功能的实现</span><br><span class="line"> * 作者：秦元培</span><br><span class="line"> * 时间：2015年11月11日</span><br><span class="line"> * 博客：http://qinyuanpei.com</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PaginationPanel</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 当前页面索引</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> m_PageIndex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 总页数</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> m_PageCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 元素总个数</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> m_ItemsCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 元素列表</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> List&lt;GridItem&gt; m_ItemsList;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 上一页</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> Button m_BtnPrevious;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 下一页</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> Button m_BtnNext;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 显示当前页数的标签</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> Text m_PanelText;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>) </span><br><span class="line">    </span>&#123;</span><br><span class="line">        InitGUI();</span><br><span class="line">        InitItems();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 初始化GUI</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">InitGUI</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        m_BtnNext = GameObject.Find(<span class="string">"Canvas/Panel/BtnNext"</span>).GetComponent&lt;Button&gt;();</span><br><span class="line">        m_BtnPrevious = GameObject.Find(<span class="string">"Canvas/Panel/BtnPrevious"</span>).GetComponent&lt;Button&gt;();</span><br><span class="line">        m_PanelText = GameObject.Find(<span class="string">"Canvas/Panel/Text"</span>).GetComponent&lt;Text&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为上一页和下一页添加事件</span></span><br><span class="line">        m_BtnNext.onClick.AddListener(() =&gt; &#123; Next(); &#125;);</span><br><span class="line">        m_BtnPrevious.onClick.AddListener(() =&gt; &#123; Previous(); &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 初始化元素</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">InitItems</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="comment">//准备一个存储着12生肖信息的数组</span></span><br><span class="line">        GridItem[] items = <span class="keyword">new</span> GridItem[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"鼠"</span>,<span class="string">"Mouse"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"牛"</span>,<span class="string">"Ox"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"虎"</span>,<span class="string">"Tiger"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"兔"</span>,<span class="string">"Rabbit"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"龙"</span>,<span class="string">"Dragon"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"蛇"</span>,<span class="string">"Snake"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"马"</span>,<span class="string">"Horse"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"羊"</span>,<span class="string">"Goat"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"猴"</span>,<span class="string">"Monkey"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"鸡"</span>,<span class="string">"Rooster"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"狗"</span>,<span class="string">"Dog"</span>),</span><br><span class="line">            <span class="keyword">new</span> GridItem(<span class="string">"猪"</span>,<span class="string">"Pig"</span>)</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//利用12生肖数组来随机生成列表</span></span><br><span class="line">        m_ItemsList = <span class="keyword">new</span> List&lt;GridItem&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Random.Range(<span class="number">1</span>,<span class="number">1000</span>); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            m_ItemsList.Add(items[Random.Range(<span class="number">0</span>,items.Length)]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//计算元素总个数</span></span><br><span class="line">        m_ItemsCount = m_ItemsList.Count;</span><br><span class="line">        <span class="comment">//计算总页数</span></span><br><span class="line">        m_PageCount = (m_ItemsCount % <span class="number">12</span>) == <span class="number">0</span> ? m_ItemsCount / <span class="number">12</span> : (m_ItemsCount / <span class="number">12</span>) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        BindPage(m_PageIndex);</span><br><span class="line">        <span class="comment">//更新界面页数</span></span><br><span class="line">        m_PanelText.text = <span class="keyword">string</span>.Format(<span class="string">"&#123;0&#125;/&#123;1&#125;"</span>, m_PageIndex.ToString(), m_PageCount.ToString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 下一页</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Next</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(m_PageCount &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//最后一页禁止向后翻页</span></span><br><span class="line">        <span class="keyword">if</span>(m_PageIndex &gt;= m_PageCount)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        m_PageIndex += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (m_PageIndex &gt;= m_PageCount)</span><br><span class="line">            m_PageIndex = m_PageCount;</span><br><span class="line"></span><br><span class="line">        BindPage(m_PageIndex);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//更新界面页数</span></span><br><span class="line">        m_PanelText.text = <span class="keyword">string</span>.Format(<span class="string">"&#123;0&#125;/&#123;1&#125;"</span>, m_PageIndex.ToString(), m_PageCount.ToString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 上一页</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Previous</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(m_PageCount &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//第一页时禁止向前翻页</span></span><br><span class="line">        <span class="keyword">if</span>(m_PageIndex &lt;= <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        m_PageIndex -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(m_PageIndex &lt; <span class="number">1</span>)</span><br><span class="line">            m_PageIndex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        BindPage(m_PageIndex);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//更新界面页数</span></span><br><span class="line">        m_PanelText.text = <span class="keyword">string</span>.Format(<span class="string">"&#123;0&#125;/&#123;1&#125;"</span>, m_PageIndex.ToString(), m_PageCount.ToString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 绑定指定索引处的页面元素</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="index"&gt;</span>页面索引<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">BindPage</span>(<span class="params"><span class="keyword">int</span> index</span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="comment">//列表处理</span></span><br><span class="line">        <span class="keyword">if</span>(m_ItemsList == <span class="keyword">null</span> || m_ItemsCount &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//索引处理</span></span><br><span class="line">        <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt; m_ItemsCount)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//按照元素个数可以分为1页和1页以上两种情况</span></span><br><span class="line">        <span class="keyword">if</span>(m_PageCount == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> canDisplay = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">12</span>; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(canDisplay &lt; <span class="number">12</span>)&#123;</span><br><span class="line">                    BindGridItem(transform.GetChild(canDisplay), m_ItemsList[<span class="number">12</span> - i]);</span><br><span class="line">                    transform.GetChild(canDisplay).gameObject.SetActive(<span class="keyword">true</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">//对超过canDispaly的物体实施隐藏</span></span><br><span class="line">                    transform.GetChild(canDisplay).gameObject.SetActive(<span class="keyword">false</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                canDisplay += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="function"><span class="keyword">else</span> <span class="title">if</span>(<span class="params">m_PageCount &gt; <span class="number">1</span></span>)</span>&#123;</span><br><span class="line">            <span class="comment">//1页以上需要特别处理的是最后1页</span></span><br><span class="line">            <span class="comment">//和1页时的情况类似判断最后一页剩下的元素数目</span></span><br><span class="line">            <span class="comment">//第1页时显然剩下的为12所以不用处理</span></span><br><span class="line">            <span class="keyword">if</span>(index == m_PageCount)&#123;</span><br><span class="line">                <span class="keyword">int</span> canDisplay = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">12</span>; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//最后一页剩下的元素数目为 m_ItemsCount - 12 * (index-1)</span></span><br><span class="line">                    <span class="keyword">if</span>(canDisplay &lt; m_ItemsCount - <span class="number">12</span> * (index-<span class="number">1</span>))&#123;</span><br><span class="line">                        BindGridItem(transform.GetChild(canDisplay), m_ItemsList[<span class="number">12</span> * index-i]);</span><br><span class="line">                        transform.GetChild(canDisplay).gameObject.SetActive(<span class="keyword">true</span>);</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="comment">//对超过canDispaly的物体实施隐藏</span></span><br><span class="line">                        transform.GetChild(canDisplay).gameObject.SetActive(<span class="keyword">false</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    canDisplay += <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">12</span>; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">                &#123;</span><br><span class="line">                    BindGridItem(transform.GetChild(<span class="number">12</span> - i), m_ItemsList[<span class="number">12</span> * index - i]);</span><br><span class="line">                    transform.GetChild(<span class="number">12</span> - i).gameObject.SetActive(<span class="keyword">true</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 加载一个Sprite</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="assetName"&gt;</span>资源名称<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Sprite <span class="title">LoadSprite</span>(<span class="params"><span class="keyword">string</span> assetName</span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        Texture texture = (Texture)Resources.Load(assetName);</span><br><span class="line"></span><br><span class="line">        Sprite sprite = Sprite.Create((Texture2D)texture, <span class="keyword">new</span> Rect(<span class="number">0</span>, <span class="number">0</span>, texture.width, texture.height), <span class="keyword">new</span> Vector2(<span class="number">0.5</span>f, <span class="number">0.5</span>f));</span><br><span class="line">        <span class="keyword">return</span> sprite;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> 将一个GridItem实例绑定到指定的Transform上</span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="trans"&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="gridItem"&gt;</span><span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">BindGridItem</span>(<span class="params">Transform trans,GridItem gridItem</span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        trans.GetComponent&lt;Image&gt;().sprite = LoadSprite(gridItem.ItemSprite);</span><br><span class="line">        trans.Find(<span class="string">"Item/Name"</span>).GetComponent&lt;Text&gt;().text = gridItem.ItemName;</span><br><span class="line">        trans.GetComponent&lt;Button&gt;().onClick.AddListener(()=&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.Log(<span class="string">"当前点击的元素名称为:"</span> + gridItem.ItemName);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，今天的内容就是这样啦，欢迎大家继续关注我的博客，谢谢大家！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Unity3D/">Unity3D</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Unity3D/">Unity3D</a><a href="/tags/uGUI/">uGUI</a><a href="/tags/游戏开发/">游戏开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://qinyuanpei.com/2015/11/10/pagination-of-ugui-in-unity3d/" data-title="Unity3D游戏开发之分页效果在uGUI中的实现 | 秦元培" data-tsina="1278609231" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/11/03/have-a-taste-of-easyar-02/"  title="EasyAR尝鲜系列教程之自定义Marker的实现">
+ <strong>下一篇：</strong><br/> 
+ <span>EasyAR尝鲜系列教程之自定义Marker的实现
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/10/pagination-of-ugui-in-unity3d/" data-title="Unity3D游戏开发之分页效果在uGUI中的实现" data-url="http://qinyuanpei.com/2015/11/10/pagination-of-ugui-in-unity3d/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+	<p class="asidetitle">名片</p>
+	<div class="github-card">
+	<div class="github-card user-card">
+		<div class="header User"></div>
+		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
+		<div class="content"><h1>秦元培</h1>
+		<ul class="status">
+		  <li><a href="../archives" target="_top"><strong>45</strong>文章</a></li>
+		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
+		  <li><a href="../tags" target="_top"><strong>86</strong>标签</a></li></ul></div></div>
+	  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Unity3D/" title="Unity3D">Unity3D<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/单机游戏/" title="单机游戏">单机游戏<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/开发工具/" title="开发工具">开发工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/游戏开发/" title="游戏开发">游戏开发<sup>17</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活感悟/" title="生活感悟">生活感悟<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言/" title="编程语言">编程语言<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li></ul>
+  </div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Unity3D/" title="Unity3D">Unity3D<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏/" title="游戏">游戏<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏开发/" title="游戏开发">游戏开发<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/梦想/" title="梦想">梦想<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编辑器/" title="编辑器">编辑器<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/技术/" title="技术">技术<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDL/" title="SDL">SDL<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AssetBundle/" title="AssetBundle">AssetBundle<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动画/" title="动画">动画<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/平凡/" title="平凡">平凡<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2014/" title="2014">2014<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sublime/" title="Sublime">Sublime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDE/" title="IDE">IDE<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mecanim/" title="Mecanim">Mecanim<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/资源提取/" title="资源提取">资源提取<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人文/" title="人文">人文<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/思维/" title="思维">思维<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/价值/" title="价值">价值<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/事件/" title="事件">事件<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据/" title="数据">数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/状态/" title="状态">状态<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/虚拟摇杆/" title="虚拟摇杆">虚拟摇杆<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQLite/" title="SQLite">SQLite<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iTween/" title="iTween">iTween<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏引擎/" title="游戏引擎">游戏引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/塔防/" title="塔防">塔防<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JSON/" title="JSON">JSON<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/加密/" title="加密">加密<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/部署/" title="部署">部署<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://blog.codingnow.com/" target="_blank" title="云风">云风</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/poem_qianmo" target="_blank" title="毛星云">毛星云</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.xuanyusong.com/" target="_blank" title="宣雨松">宣雨松</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/musicvs" target="_blank" title="笨木头">笨木头</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/kakashi8841" target="_blank" title="卡卡西">卡卡西</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/amazonzx" target="_blank" title="Amazonzx">Amazonzx</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.cnblogs.com/crazylights" target="_blank" title="CrazyLights">CrazyLights</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/neil3d" target="_blank" title="房燕良">房燕良</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gulu-dev.com" target="_blank" title="GuLu">GuLu</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1278609231&verifier=23b91096&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">订阅博客</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p>  <br/>
+			就像每一个时代里的人都觉得自己没有赶上一个好的时代一样。这里没有末路，你从不曾孤独。</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1278609231" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/qinyuanpei" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/qinyuanpei" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:qinyuanpei@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+
+		
+
+				<div class="cc-license">
+
+          <p class="copyright">本作品由<a href="/about" target="_blank" title="秦元培">秦元培</a>创作，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>国际许可协议进行许可<br></p>
+        </div>
+    
+
+		<p class="copyright">
+			Powered by <a href="http://hexo.io" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+			
+				<a href="/about" target="_blank" title="秦元培">秦元培</a>
+			
+			<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+		</p>
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //为了解决多说头像服务器奔溃手动替换头像
+  var imgs = new Array();
+  imgs[0] = 'http://img.blog.csdn.net/20151104153648246';
+  imgs[1] = 'http://img.blog.csdn.net/20151104153658676';
+  imgs[2] = 'http://img.blog.csdn.net/20151104153719133';
+  imgs[3] = 'http://img.blog.csdn.net/20151104153730060';
+  imgs[4] = 'http://img.blog.csdn.net/20151104153742180';
+  imgs[5] = 'http://img.blog.csdn.net/20151104154610054';
+  $('.ds-avatar img[src*="cdncache"]').each(function(){
+    var rand = Math.floor(Math.random() * imgs.length);
+    $(this).attr("src",imgs[rand]);
+  });
+
+}); 
+</script>
+
+
+<!-- Analytics Begin -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+
+
+  </body>
+</html>
