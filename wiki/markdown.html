@@ -20,7 +20,7 @@ Markdown 视可读性为最高准则. Markdown 文件应该以纯文本形式原
 <meta property="og:site_name" content="秦元培">
 <meta property="og:description" content="概述设计理念Markdown 致力于使阅读和创作文档变得容易.
 Markdown 视可读性为最高准则. Markdown 文件应该以纯文本形式原样发布, 不应该包含标记标签和格式化指令. 尽管Markdown 的语法受到了以下这些 text-to-HTML过滤器的影响 — 包括 Setext, atx, Textile, reStructuredText,Grutatext, 还有 EtText">
-<meta property="og:updated_time" content="2015-10-14T02:14:36.000Z">
+<meta property="og:updated_time" content="2015-10-14T02:14:35.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown文档">
 <meta name="twitter:description" content="概述设计理念Markdown 致力于使阅读和创作文档变得容易.
@@ -675,6 +675,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

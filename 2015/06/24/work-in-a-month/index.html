@@ -94,6 +94,11 @@
   </p>
 </header>
 	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/06/24/work-in-a-month/" target="_blank" title="Unity3D游戏开发之路：一月工作总结">Unity3D游戏开发之路：一月工作总结</a></b>,本文链接为<b><a href="/2015/06/24/work-in-a-month/" target="_blank" title="Unity3D游戏开发之路：一月工作总结">http://qinyuanpei.com/2015/06/24/work-in-a-month/</a></b>.</code></pre>
+		
+
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
@@ -116,7 +121,11 @@
 <p>&emsp;&emsp;在我来公司前，曾看过一位前辈写过的关于这个项目的一个Demo，当初这个Demo里只有两个场景，我最初是对这位前辈颇为敬重的，因为感觉这个Demo的表现还不错，甚至觉得如果能够得到这个前辈指点一二，实乃三生有幸啊。可是当我和这位前辈聊过以后以及看过他写的代码，我对他的敬重慢慢地变成了鄙夷。这是为什么呢？因为他向领导提议使用硬代码来编写项目，通过研究他写的项目，我发现他的项目确实使用硬代码写成的，你能想象在一个脚本中并列7个if仅仅是因为它们的tag不同嘛，你能想象在一个脚本中的命名都是汉语拼音的变量定义嘛。</p>
 <p>&emsp;&emsp;抛开他写的项目不说，从规模和负责程度上目前这个项都比他的Demo有难度，首先我们大概需要制作35个场景涉及到上千种模型和贴图而非Demo中的两个场景，其次我们最终的发布平台是Web平台而非Demo中的PC平台。写硬代码意味着放弃复用和扩展性，顾及目前而不考虑以后。可是我们这个项目肯定是需要扩整规模的，难道每次添加一个新的场景都需要把代码重新写一遍，因此这个方案在和他交流的时候我当着他的面就给Pass了，然后他说我们先做个Demo看看，因为在前面我们已经积累了部分代码，所以在这部分代码的基础上我们迅速地完成了一个较为灵活的框架。整个框架是将模型单独打包后和贴图一起存放在服务器上，因为模型和贴图对不同的户型来说都是通用的，因为使用配置文件设计了一个类似数据库的结构，这样当我们在程序中需要某些模型和贴图的时候只需要下载就可以了，因为模型和贴图都被存放在服务器上，本地仅仅存放相关的户型模型和配置文件，因此项目的体积被大大地压缩，从而可以解决Web平台浏览器的压力，因为所有的场景都是使用配置文件来定义，因此当需要更新项目的时候，只需要更新服务器上的模型和贴图以及配置文件即可，提高了项目更新得速度。总体来讲，我对我设计的这个架构表示满意，因为它让硬代码的优越感荡然无存。同时为了减少人工编写配置文件、打包等过程的工作量，通过为Unity3D编写插件的方式实现了整个过程的半自动化。为什么是半自动化啊？因为人在做事情的时候没有统一、规范的习惯或者说难以统一和规范。我一直强调统一和规范，可是美术总认为程序的要求过于苛刻，可是事实上懂得编程的人都明白计算机程序不过是对某个过程的一种模拟，而且这个过程是有限状态的，因此当美术说需要XXX功能的时候，程序员的内心其实是拒绝的，因为为了这点需求，他可能需要写十几行重复的代码，为了满足用户的懒惰和弱智，领导让我们将户型内的物体尽量全部实现动态化，要给用户最大的自由，结果却是剥夺了程序员的自由写了若干个if或者是重复调用相同的方法，这简直是恶魔啊！</p>
 <p>&emsp;&emsp;好了，写了这么多，大家可能觉得这不符合我作为一个有节操的程序员的风格，说好的每周一篇技术博客呢？其实技术运用的好坏，完全取决于运用技术的人，所以我们不能仅仅关注技术的高低，更要关注怎样让整个团队高效率、高沟通率的执行下去，因为千里之堤，毁于蚁穴啊，虽然团队间沟通这些东西看似都是些政治或者是形式的东西，可是实际上会占到整个项目开发中相当大的一部分，所以希望大家在看了今天的博客后能够有所启发吧，好了，睡觉，哈哈！今天居然写到了这个时候！</p>
-  
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/06/24/work-in-a-month/" target="_blank" title="Unity3D游戏开发之路：一月工作总结">Unity3D游戏开发之路：一月工作总结</a></b>,本文链接为<b><a href="/2015/06/24/work-in-a-month/" target="_blank" title="Unity3D游戏开发之路：一月工作总结">http://qinyuanpei.com/2015/06/24/work-in-a-month/</a></b>.</code></pre>
+		
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -146,7 +155,7 @@
 
 </footer>
 
-   	       
+  	       
 	</article>
 	
 <nav class="article-nav clearfix">
@@ -198,9 +207,9 @@
 		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
 		<div class="content"><h1>秦元培</h1>
 		<ul class="status">
-		  <li><a href="../archives" target="_top"><strong>45</strong>文章</a></li>
+		  <li><a href="../archives" target="_top"><strong>46</strong>文章</a></li>
 		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
-		  <li><a href="../tags" target="_top"><strong>86</strong>标签</a></li></ul></div></div>
+		  <li><a href="../tags" target="_top"><strong>88</strong>标签</a></li></ul></div></div>
 	  </div>
 
 
@@ -227,7 +236,7 @@
 		  
 		
 		  
-			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>2</sup></a></li>
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
 		  
 		
 		  
@@ -271,7 +280,7 @@
 			
 		
 			
-				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
 			
 		
 			
@@ -283,27 +292,7 @@
 			
 		
 			
-				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
 			
 		
 			
@@ -311,19 +300,7 @@
 			
 		
 			
-				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
 			
 		
 			
@@ -335,7 +312,7 @@
 			
 		
 			
-				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
 			
 		
 			
@@ -343,19 +320,51 @@
 			
 		
 			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/动画/" title="动画">动画<sup>1</sup></a></li>
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生感悟/" title="人生感悟">人生感悟<sup>1</sup></a></li>
 			
 		
 			
@@ -375,7 +384,7 @@
 			
 		
 			
-				<li><a href="/tags/Mecanim/" title="Mecanim">Mecanim<sup>1</sup></a></li>
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
 			
 		
 			
@@ -383,7 +392,7 @@
 			
 		
 			
-				<li><a href="/tags/资源提取/" title="资源提取">资源提取<sup>1</sup></a></li>
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
 			
 		
 			
@@ -399,7 +408,7 @@
 			
 		
 			
-				<li><a href="/tags/事件/" title="事件">事件<sup>1</sup></a></li>
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
 			
 		
 			
@@ -423,7 +432,7 @@
 			
 		
 			
-				<li><a href="/tags/iTween/" title="iTween">iTween<sup>1</sup></a></li>
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
 			
 		
 			
@@ -431,11 +440,11 @@
 			
 		
 			
-				<li><a href="/tags/塔防/" title="塔防">塔防<sup>1</sup></a></li>
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
 			
 		
 			
@@ -447,7 +456,7 @@
 			
 		
 			
-				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
 			
 		
 			
@@ -455,7 +464,7 @@
 			
 		
 			
-				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -628,11 +637,6 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
-        getSize();
-        if (myWidth >= 1024) {
-          c.click();
-        }
-  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -798,6 +802,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

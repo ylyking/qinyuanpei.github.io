@@ -26,7 +26,7 @@
 
 验证字符串是否符合指定特征，比如验证是否是合法的邮件地址。
 用来查找字符串，从一个长的文本中">
-<meta property="og:updated_time" content="2015-10-14T05:19:58.000Z">
+<meta property="og:updated_time" content="2015-10-14T05:19:56.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式指南">
 <meta name="twitter:description" content="引言正则表达式（Regular Expression）就是用一个“字符串”来描述一个特征，然后去验证另一个“字符串”是否符合这个特征。比如表达式“ab+”描述的特征是“一个 ‘a’ 和 任意个 ‘b’ ”，那么 ‘ab’, ‘abb’, ‘abbbbbbbbbb’ 都符合这个特征。
@@ -748,6 +748,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

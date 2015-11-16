@@ -90,6 +90,19 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" title="在Hexo中为文章自动添加版权信息声明模块" itemprop="url">
+  
+
+    <time datetime="2015-11-15T05:12:22.000Z" itemprop="datePublished">2015-11-15</time>
+
+
+    <h1 itemprop="name">在Hexo中为文章自动添加版权信息声明模块</h1>
+
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2015/11/10/pagination-of-ugui-in-unity3d/" title="Unity3D游戏开发之分页效果在uGUI中的实现" itemprop="url">
   
 
@@ -201,19 +214,6 @@
 
 
     <h1 itemprop="name">Unity3D游戏开发游戏读/存档在Unity3D中的实现</h1>
-
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/07/27/sdl-game-development-02/" title="SDL游戏开发系列第二话：基本图形的绘制" itemprop="url">
-  
-
-    <time datetime="2015-07-27T00:48:59.000Z" itemprop="datePublished">2015-07-27</time>
-
-
-    <h1 itemprop="name">SDL游戏开发系列第二话：基本图形的绘制</h1>
 
   </a>
 </section>
@@ -404,6 +404,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

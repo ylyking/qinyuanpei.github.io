@@ -109,7 +109,7 @@
 <li>Zhihu ：<a href="http://www.zhihu.com/people/qinyuanpei" target="_blank" rel="external">http://www.zhihu.com/people/qinyuanpei</a></li>
 <li>CSDN  : <a href="http://blog.csdn.net/qinyuanpei" target="_blank" rel="external">http://blog.csdn.net/qinyuanpei</a></li>
 </ul>
-  
+ 
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -129,7 +129,7 @@
 
 </footer>
 
-   	       
+  	       
 	</article>
 	
 	
@@ -366,6 +366,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

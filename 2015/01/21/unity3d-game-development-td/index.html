@@ -96,6 +96,11 @@
   </p>
 </header>
 	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/01/21/unity3d-game-development-td/" target="_blank" title="Unity3D塔防游戏开发项目讲解(下)">Unity3D塔防游戏开发项目讲解(下)</a></b>,本文链接为<b><a href="/2015/01/21/unity3d-game-development-td/" target="_blank" title="Unity3D塔防游戏开发项目讲解(下)">http://qinyuanpei.com/2015/01/21/unity3d-game-development-td/</a></b>.</code></pre>
+		
+
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
@@ -127,7 +132,11 @@
 <p>我们可以注意到，到现在为止敌人相关的内容博主都已经为大家讲解完了，这里博主和大家开了一个小玩笑，不知道大家有没有发现，在敌人的Xml配置文件中博主最后设计了一个等级为99级的敌人，哈哈，这个敌人在游戏中的特点大家要自己从代码中来探索了，大家可以按照博主的思路做出这个塔防游戏然后自己去试试看，相信大家会更加深刻地理解数值平衡的重要性吧！</p>
 <h1 id="防守单位篇">防守单位篇</h1><p>防守单位是塔防游戏中玩家可以支配和控制的一种资源，玩家通过合理地分布防守单位的位置来对玩家的防守阵地进行防御，当玩家的防守阵地被摧毁时玩家将无法继续部署防守单位。这就是防守单位在游戏中的主要作用。通常为了增加游戏的可玩性，游戏设计者往往会设计多种防守单位，在博主的这个小游戏中，我们只设计了一种防守单位，更多的防守单位的设计大家可以参考《保卫萝卜》和《植物大战僵尸》这两个游戏。好了，说了这么多，那么防守单位在整个塔防游戏中主要的作用是什么呢？答案就是防守，哈哈，这是一句不折不扣的废话。可是就是这样一句废话，却足以让我们知道防守单位需要对敌人进行自动攻击，这就要涉及到简单的AI算法了。好了，我们来看下面的脚本：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;&#10;using System.Collections;&#10;&#10;public class Defender : MonoBehaviour &#123;&#10;&#10;&#9;//&#30446;&#26631;&#25932;&#20154;&#10;&#9;private Enemy mTarget;&#10;&#9;//&#25915;&#20987;&#21322;&#24452;&#10;&#9;public float AttackArea=2.5F;&#10;&#9;//&#19982;&#25932;&#20154;&#30340;&#36317;&#31163;&#10;&#9;private float mDistance=0;&#10;&#9;//&#38450;&#23432;&#21333;&#20301;&#30340;&#26059;&#36716;&#36895;&#24230;&#10;&#9;public float RotateSpeed=1.5F;&#10;&#9;//&#38450;&#23432;&#21333;&#20301;&#25915;&#20987;&#38388;&#38548;&#10;&#9;public float AttakTime=2.5F;&#10;&#9;//&#38450;&#23432;&#21333;&#20301;&#25915;&#20987;&#38388;&#38548;&#10;&#9;private float mTime=0.0F;&#10;&#10;&#9;//&#28846;&#24377;&#39044;&#35774;&#10;&#9;public GameObject BulletObject;&#10;&#10;&#9;void Start () &#10;&#9;&#123;&#10;&#9;&#9;//&#21021;&#22987;&#21270;&#38450;&#23432;&#21333;&#20301;&#25915;&#20987;&#38388;&#38548;&#10;&#9;&#9;mTime=AttakTime;&#10;&#9;&#125;&#10;&#10;&#9;//&#26597;&#25214;&#25915;&#20987;&#33539;&#22260;&#20869;&#30340;&#25932;&#20154;&#10;&#9;void FindEnemy()&#10;&#9;&#123;&#10;&#9;&#9;//&#21021;&#22987;&#21270;&#30446;&#26631;&#25932;&#20154;&#10;&#9;&#9;mTarget=null;&#10;&#9;&#9;//&#33719;&#21462;&#25932;&#20154;&#21015;&#34920;&#10;&#9;&#9;ArrayList mEnemys=GameManager.Instance.Enemys;&#10;&#9;&#9;//&#36941;&#21382;&#27599;&#20010;&#25932;&#20154;&#10;&#9;&#9;foreach(Enemy _enemy in mEnemys)&#10;&#9;&#9;&#123;&#10;&#9;&#9;&#9;//&#24573;&#30053;&#29983;&#21629;&#20540;&#20026;0&#30340;&#25932;&#20154;&#10;&#9;&#9;&#9;if(_enemy.HP==0) continue;&#10;&#9;&#9;&#9;//&#35745;&#31639;&#38450;&#23432;&#21333;&#20301;&#19982;&#25932;&#20154;&#38388;&#30340;&#36317;&#31163;&#10;&#9;&#9;&#9;Vector3 mPos1=transform.position;&#10;&#9;&#9;&#9;Vector3 mPos2=_enemy.transform.position;&#10;&#9;&#9;&#9;float mDis=Vector2.Distance(new Vector2(mPos1.x,mPos1.y),new Vector2(mPos2.x,mPos2.y));&#10;&#9;&#9;&#9;if(mDis&#62;AttackArea)&#123;&#10;&#9;&#9;&#9;&#9;//Debug.Log(&#34;&#25932;&#20154;&#34; + _enemy.transform.name + &#34;&#26410;&#36827;&#20837;&#25915;&#20987;&#33539;&#22260;,&#36317;&#31163;&#20026;:&#34; + mDis);&#10;&#9;&#9;&#9;&#9;//return;&#10;&#9;&#9;&#9;&#125;else&#123;&#10;&#9;&#9;&#9;&#9;//Debug.Log(&#34;&#25932;&#20154;&#34; + _enemy.transform.name + &#34;&#24050;&#36827;&#20837;&#25915;&#20987;&#33539;&#22260;,&#36317;&#31163;&#20026;:&#34; + mDis);&#10;&#9;&#9;&#9;&#9;//&#36873;&#25321;&#26368;&#36817;&#30340;&#25932;&#20154;&#10;&#9;&#9;&#9;&#9;if(mDistance==0 || mDistance &#62; mDis)&#123;&#10;&#9;&#9;&#9;&#9;&#9;mTarget=_enemy;&#10;&#9;&#9;&#9;&#9;&#9;mDistance=mDis;&#10;&#9;&#9;&#9;&#9;&#125;&#10;&#10;&#9;&#9;&#9;&#9;/*//&#36873;&#25321;&#29983;&#21629;&#20540;&#26368;&#20302;&#30340;&#25932;&#20154;&#10;&#9;&#9;&#9;&#9;if(mLife==0 || mLife &#62; _enemy.HP)&#123;&#10;&#9;&#9;&#9;&#9;&#9;mTarget=_enemy;&#10;&#9;&#9;&#9;&#9;&#9;mLife=_enemy.HP;&#10;&#9;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#9;&#9;*/&#10;&#9;&#9;&#9;&#125;&#10;&#9;&#9;&#125;&#10;&#9;&#9;mDistance=0;&#10;&#9;&#125;&#10;&#10;&#9;void RotateTo()&#10;&#9;&#123;&#10;&#9;&#9;//&#21028;&#26029;&#30446;&#26631;&#25932;&#20154;&#26159;&#21542;&#20026;&#31354;&#10;&#9;&#9;if(mTarget==null) return;&#10;&#9;&#9;//&#35745;&#31639;&#35201;&#26059;&#36716;&#21040;&#25932;&#20154;&#26041;&#21521;&#30340;&#35282;&#24230;&#10;&#9;&#9;Vector3 mPos1=this.transform.position;&#10;&#9;&#9;Vector3 mPos2=mTarget.transform.position;&#10;&#9;&#9;Vector3 mDir=(mPos2-mPos1).normalized;&#10;&#9;&#9;//&#20351;&#24471;&#20004;&#21521;&#37327;&#20849;&#38754;&#10;&#9;&#9;mDir.z=0;&#10;&#9;&#9;//&#35745;&#31639;&#20004;&#21521;&#37327;&#35282;&#24230;&#10;&#9;&#9;float mAngle=getAngle(Vector3.up,mDir);&#10;&#9;&#9;this.transform.eulerAngles=new Vector3(0,0,mAngle) * RotateSpeed;&#10;&#10;&#9;&#125;&#10;&#10;&#9;//&#26681;&#25454;&#21521;&#37327;&#25968;&#23398;&#35745;&#31639;&#35282;&#24230;&#10;&#9;private float getAngle(Vector3 v1,Vector3 v2)&#10;&#9;&#123;&#10;&#9;&#9;float mDot=Vector3.Dot(v1,v2);&#10;&#9;&#9;float mv1=Mathf.Sqrt(v1.x*v1.x+v1.y*v1.y+v1.z*v1.z);&#10;&#9;&#9;float mv2=Mathf.Sqrt(v2.x*v2.x+v2.y*v2.y+v2.z*v2.z);&#10;&#9;&#9;if(v2.x&#62;v1.x)&#123;&#10;&#9;&#9;&#9;return -Mathf.Acos(mDot/(mv1*mv2))* Mathf.Rad2Deg ;&#10;&#9;&#9;&#125;else&#123;&#10;&#9;&#9;&#9;return Mathf.Acos(mDot/(mv1*mv2))* Mathf.Rad2Deg ;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#10;&#9;void Attack()&#10;&#9;&#123;&#10;&#9;&#9;RotateTo();&#10;&#9;&#9;if(mTarget==null) return;&#10;&#9;&#9;//&#20197;&#19979;&#28155;&#21152;&#25915;&#20987;&#36923;&#36753;&#10;&#9;&#9;mTime-=Time.deltaTime;&#10;&#9;&#9;if(mTime&#60;0)&#123;&#10;&#9;&#9;&#9;Vector3 _angle=transform.Find(&#34;Bullet&#34;).eulerAngles;&#10;&#9;&#9;&#9;Vector3 _pos=new Vector3(this.transform.position.x,this.transform.position.y,-2);&#10;&#9;&#9;&#9;Instantiate(BulletObject,_pos,Quaternion.Euler(_angle));&#10;&#9;&#9;&#9;mTime=AttakTime;&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#10;&#9;void Update () &#10;&#9;&#123;&#10;&#9;&#9;FindEnemy();&#10;&#9;&#9;Attack();&#10;&#9;&#125;&#10;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>防守单位的脚本定义在Defender这个类中，主要的行为有两个，即发现敌人后转向敌人、向敌人发射炮弹，这块的代码较为简单，大家自己去领会就好啦。我们知道在塔防游戏中玩家可以通过点击屏幕来自由地增加或移动防守单位，这部分的内容主要是和GUI相关的，因为目前博主对UGUI掌握地还不是很熟，所以就等以后博主有时间了再来补充吧！好了，这个塔防游戏的讲解教程就是这样了，希望大家能够喜欢，我知道大家等这篇下篇已经好久了，哈哈！<br><img src="http://img.blog.csdn.net/20150301190040972" alt="效果演示"><br>最后想说的是，博主的独立博客<a href="http://qinyuanpei.github.io" target="_blank" rel="external">http://qinyuanpei.github.io</a>正式开始使用了，以后发表的文章会在独立博客和CSDN同时更新，希望大家能继续关注博主的博客！谢谢大家</p>
-  
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/01/21/unity3d-game-development-td/" target="_blank" title="Unity3D塔防游戏开发项目讲解(下)">Unity3D塔防游戏开发项目讲解(下)</a></b>,本文链接为<b><a href="/2015/01/21/unity3d-game-development-td/" target="_blank" title="Unity3D塔防游戏开发项目讲解(下)">http://qinyuanpei.com/2015/01/21/unity3d-game-development-td/</a></b>.</code></pre>
+		
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -157,7 +166,7 @@
 
 </footer>
 
-   	       
+  	       
 	</article>
 	
 <nav class="article-nav clearfix">
@@ -209,9 +218,9 @@
 		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
 		<div class="content"><h1>秦元培</h1>
 		<ul class="status">
-		  <li><a href="../archives" target="_top"><strong>45</strong>文章</a></li>
+		  <li><a href="../archives" target="_top"><strong>46</strong>文章</a></li>
 		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
-		  <li><a href="../tags" target="_top"><strong>86</strong>标签</a></li></ul></div></div>
+		  <li><a href="../tags" target="_top"><strong>88</strong>标签</a></li></ul></div></div>
 	  </div>
 
 
@@ -238,7 +247,7 @@
 		  
 		
 		  
-			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>2</sup></a></li>
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
 		  
 		
 		  
@@ -282,7 +291,7 @@
 			
 		
 			
-				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
 			
 		
 			
@@ -294,27 +303,7 @@
 			
 		
 			
-				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
 			
 		
 			
@@ -322,19 +311,7 @@
 			
 		
 			
-				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
 			
 		
 			
@@ -346,7 +323,7 @@
 			
 		
 			
-				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
 			
 		
 			
@@ -354,19 +331,51 @@
 			
 		
 			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/动画/" title="动画">动画<sup>1</sup></a></li>
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生感悟/" title="人生感悟">人生感悟<sup>1</sup></a></li>
 			
 		
 			
@@ -386,7 +395,7 @@
 			
 		
 			
-				<li><a href="/tags/Mecanim/" title="Mecanim">Mecanim<sup>1</sup></a></li>
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
 			
 		
 			
@@ -394,7 +403,7 @@
 			
 		
 			
-				<li><a href="/tags/资源提取/" title="资源提取">资源提取<sup>1</sup></a></li>
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
 			
 		
 			
@@ -410,7 +419,7 @@
 			
 		
 			
-				<li><a href="/tags/事件/" title="事件">事件<sup>1</sup></a></li>
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
 			
 		
 			
@@ -434,7 +443,7 @@
 			
 		
 			
-				<li><a href="/tags/iTween/" title="iTween">iTween<sup>1</sup></a></li>
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
 			
 		
 			
@@ -442,11 +451,11 @@
 			
 		
 			
-				<li><a href="/tags/塔防/" title="塔防">塔防<sup>1</sup></a></li>
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
 			
 		
 			
@@ -458,7 +467,7 @@
 			
 		
 			
-				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
 			
 		
 			
@@ -466,7 +475,7 @@
 			
 		
 			
-				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -639,11 +648,6 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
-        getSize();
-        if (myWidth >= 1024) {
-          c.click();
-        }
-  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -809,6 +813,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

@@ -1,0 +1,841 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>在Hexo中为文章自动添加版权信息声明模块 | 秦元培</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="秦元培">
+    
+
+    
+    <meta name="description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天想和大家说说博客文章版权这件事情。每当提到版权的时候，我知道大家内心深处都是对此不以为然的，因为国内版权意识薄弱，所以版权在我们的眼中就变成了这样一件可有可无的东西，可是事实真的是这样的吗？首先我们必须承认一件事情，即你从互联网上获得的知识都是有价值的，即使这些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Hexo中为文章自动添加版权信息声明模块">
+<meta property="og:url" content="http://qinyuanpei.com/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/index.html">
+<meta property="og:site_name" content="秦元培">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天想和大家说说博客文章版权这件事情。每当提到版权的时候，我知道大家内心深处都是对此不以为然的，因为国内版权意识薄弱，所以版权在我们的眼中就变成了这样一件可有可无的东西，可是事实真的是这样的吗？首先我们必须承认一件事情，即你从互联网上获得的知识都是有价值的，即使这些">
+<meta property="og:updated_time" content="2015-11-15T07:44:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Hexo中为文章自动添加版权信息声明模块">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天想和大家说说博客文章版权这件事情。每当提到版权的时候，我知道大家内心深处都是对此不以为然的，因为国内版权意识薄弱，所以版权在我们的眼中就变成了这样一件可有可无的东西，可是事实真的是这样的吗？首先我们必须承认一件事情，即你从互联网上获得的知识都是有价值的，即使这些">
+
+    
+    <link rel="alternative" href="/atom.xml" title="秦元培" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="秦元培">秦元培</a></h1>
+				<h2 class="blog-motto">做单纯的人，走幸福的路。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/lab">实验室</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:qinyuanpei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" title="在Hexo中为文章自动添加版权信息声明模块" itemprop="url">在Hexo中为文章自动添加版权信息声明模块</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="秦元培" target="_blank" itemprop="author">秦元培</a>
+		
+    <p class="article-time">
+    <time datetime="2015-11-15T05:12:22.000Z" itemprop="datePublished"> 发表于 2015-11-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" target="_blank" title="在Hexo中为文章自动添加版权信息声明模块">在Hexo中为文章自动添加版权信息声明模块</a></b>,本文链接为<b><a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" target="_blank" title="在Hexo中为文章自动添加版权信息声明模块">http://qinyuanpei.com/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/</a></b>.</code></pre>
+		
+
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、为什么要说博客文章版权这件事儿"><span class="toc-number">1.</span> <span class="toc-text">一、为什么要说博客文章版权这件事儿</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、谈谈如何保护博客文章版权"><span class="toc-number">2.</span> <span class="toc-text">二、谈谈如何保护博客文章版权</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、保护博客文章版权，独立博客在行动"><span class="toc-number">3.</span> <span class="toc-text">三、保护博客文章版权，独立博客在行动</span></a></li></ol>
+		
+		</div>
+		
+		<p>&emsp;&emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。今天想和大家说说博客文章版权这件事情。每当提到版权的时候，我知道大家内心深处都是对此不以为然的，因为国内版权意识薄弱，所以版权在我们的眼中就变成了这样一件可有可无的东西，可是事实真的是这样的吗？首先我们必须承认一件事情，即你从互联网上获得的知识都是有价值的，即使这些知识的创造者并未因此而获得利益。<a id="more"></a>相对其它的行业，因为程序员这个职业本身需要其通过不断地学习新知识来适应新变化，因此程序员这个群体更喜欢在互联网上分享知识和经验，而这些知识的受众面窄、技术门槛高则决定了程序员们无法像普通的博客作者一样有更多的机会来获得收入。大部分的程序员都是从分享知识、记录学习和技术交流这样的角度来撰写博客的。那么这样就会造成一个问题，在国内版权意识薄弱和技术博客变现困难的双重夹缝中，博客作者该如何寻求新的突破呢？</p>
+<h1 id="一、为什么要说博客文章版权这件事儿">一、为什么要说博客文章版权这件事儿</h1><p>&emsp;&emsp;首先，我们为什么要说博客文章版权这件事情呢？因为博客是文字创造的产物，是知识共享的一种形式。当我们无视版权的时候，这意味着知识是没有价值的，创造是无关痛痒的，脑力劳动和创意活动的价值在现实中被无情地扼杀。当你引用一个人的观点却不加以注明的时候，当你盗用一个人的创意却不给予报酬的时候，试问谁还会愿意为这个社会贡献创意和想法呢？引用<a href="http://blog.caijing.com.cn/expert_article-151317-41037.shtml" target="_blank" rel="external">许锡良</a>的观点，尊重版权更深层次的含义在于对人权的尊重：</p>
+<blockquote>
+<p>从人权的角度看，人与动物的区别在于知识与思想，因此，人类最根本的财富也应该是知识与思想上的财富，一切社会财富都来源于知识与思想，这是从自然界获得生活资料，以及改造社会的根本。没有知识与思想的人类将与动物世界没有什么区别。尊重人权，首先就要学会尊重人的劳动成果，特别是创造性劳动成果，只有人，才能创造出来的知识产权与发明专利。尊重人权，首先就要学会尊重一个人的思想与创意。只有人，才能创造出来的知识产权与发明专利。因为每个人都是一个独立的个体，每个人头脑里的想法都是独一无二的，无人能替代的。在没有说出来，或者写出来之前，也无人能盗取的，这种思想就是个人独有，就是只属于个人的专利。 </p>
+</blockquote>
+<p>&emsp;&emsp;我常常遇到在博客评论中和我直接要源代码的人，我不明白从什么时候起对知识的分享变成了某些人懒惰的借口。我选择将我知道的某个分享出来，当然我同样有权利可以选择沉默。你不能因为习惯了做伸手党就认为我应该理所当然地把源代码给你，这是对我的不尊重。我写博客的目的在于和别人交流技术、互相学习，如果你根本没有看懂我博客写了什么，只是希望可以找到可以“抄”来就能用的代码。抱歉!这违背了我的初衷我更没有道理要将源代码分享给你,况且如果我的代码都清清楚楚（命名规范、注释清晰）地写在博客里，如果这样的代码你都不能看懂，就算把完整的工程分享给你又有什么用呢？我本来不情愿论坛来转载我的文章，因为论坛盖楼的这种互动模式实在难以产生较为良好的互动效果，可是人家来诚心诚意地询问你的态度，如此拒绝难免有点却之不恭吧！当然最让人讨厌的是网络爬虫和网站编辑，这种让人讨厌是因为它”简单粗暴”，完全不考虑博客作者的感受，文章的原始链接被删除、文章的作者署名被删除。或许大家都觉得一个署名、一个原始链接都是无足轻重的东西，可是在我看来这恰恰是体现责任的地方。作者的责任在于对文章的真实性和客观性负责，转发者的责任在于帮助读者找到作者当他们之间需要某种交流的时候，这就是我为什么强调署名和原始链接的理由！</p>
+<h1 id="二、谈谈如何保护博客文章版权">二、谈谈如何保护博客文章版权</h1><p>&emsp;&emsp;在保护博客文章版权这个问题上，我们可以采取的方式固然很多，但是这件事情的根本原因在于人们普遍不重视知识产权的保护，所以我们这里提到的这些方式都是外家功夫，真正要根除这等沉疴痼疾需要人们不断提升自我、勤修内功。</p>
+<ul>
+<li>第一种方式，我们称为通过技术方式提醒，比如通过编写JavaScript脚本，实现当对方复制你的博客内容的时候，程序可以自动在这段复制的内容中增加署名和连接。当然我们可以通过修改文章的模板来在文章中加入版权信息，这个我们留到最后会说，因为实际上这个是我们今天要重点研究的内容，博主是个程序员，我们当然要用技术的方式来实现了，前面的这些大家看完心里有个数就是了，哈哈！</li>
+<li>第二种方式，我们称为增加文章内链的方式，就是在文章中尽可能地使用指向这个博客的连接，这样可以保证在文章转载后为博客带来一定的反向访客。</li>
+<li>第三种方式，在图片上增加水印，这样读者在看到图片的时候就可以很容易地找到原始出处，可是如果你不能保证拥有所引用的图片得版权，建议不要轻易地使用这种方式。</li>
+<li>第四种方式，逐渐形成个性化的写作风格，这样当读者读到这些文字的时候，可以通过文章的风格知道文章的作者和出处。</li>
+<li>第五种方式，努力提高自己博客的文章质量，让更多的读者从中受益，形成有独立风格的博客品牌。一个博客有了高质量的内容和品牌，那么在搜索引擎中的权重就会很高，网民通过搜索引擎进行查找的时候，博客原文都会排在第一位。</li>
+</ul>
+<p>博主之所以要使用<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>这个独立博客的原因正是基于这个原因。博主目前采用的<a href="http://baike.baidu.com/link?url=jcl0t2y3iwHPETIXjXM5yhQtujk2iUJE9Fy7dCoti7xtNDMxHYlUlXcW0GsorpaAWGq_Y1OSduIXVEpHlpSm1qHhV7mkGnU56J6JSRUuCRlwnWHNJL6K913N5mm9sMqiw1BXlmSprfhmwc1sxsjU3X7gMRd7z9OfBR446a__T3Gp90js_NnS6Dq-TkbmBeWB" target="_blank" rel="external">知识共享</a>许可是署名(BY)-非商业性使用(NC)-相同方式共享(SA)，请各位在转载文章的时候注意保留作者署名和文章出处，谢谢！</p>
+<h1 id="三、保护博客文章版权，独立博客在行动">三、保护博客文章版权，独立博客在行动</h1><p>&emsp;&emsp;我的博客是采用<a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>这个博客系统来搭建的，说到底程序员是天生爱折腾的命吧，都有对掌控事物的欲望，不喜欢受到条件制约。CSDN的博客虽然还不错，可是“限制因素 + 服务器奔溃”这样的强效组合实在让我很难有继续坚持下去的动力，所以果断就自己搭了博客买了域名，老老实实地开始管理起独立博客。好了，废话少说，放码过来，我们下面来看看怎么在Hexo中的文章中增加一个展示版权信息的模块，这里以<a href="https://github.com/wuchong/jacman" target="_blank" rel="external">Jacman</a>主题为例，我们首先定位到该主题文件夹下的\layout_partial\post\article.ejs文件：</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main"</span> <span class="attribute">class</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> item.layout </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span> <span class="attribute">itemscope</span> <span class="attribute">itemprop</span>=<span class="value">"blogPost"</span>&gt;</span></span><br><span class="line">  </span>&lt;%<span class="ruby"> <span class="keyword">if</span> (page.layout==<span class="string">'photo'</span> &amp;&amp; item.photos &amp;&amp; item.photos.length)&#123; </span>%&gt;<span class="xml"></span><br><span class="line">    </span>&lt;%-<span class="ruby"> partial(<span class="string">'gallery'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">  </span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">	<span class="tag">&lt;<span class="title">article</span> <span class="attribute">itemprop</span>=<span class="value">"articleBody"</span>&gt;</span> </span><br><span class="line">		</span>&lt;%-<span class="ruby"> partial(<span class="string">'header'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"article-content"</span>&gt;</span></span><br><span class="line">		</span>&lt;%<span class="ruby"> <span class="keyword">if</span>( table&amp;&amp;(item.toc !== <span class="keyword">false</span>) &amp;&amp; theme.toc.article)&#123; </span>%&gt;<span class="xml"></span><br><span class="line">		<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"toc"</span> <span class="attribute">class</span>=<span class="value">"toc-article"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">strong</span> <span class="attribute">class</span>=<span class="value">"toc-title"</span>&gt;</span></span>&lt;%=<span class="ruby"> _<span class="number">_</span>(<span class="string">'contents'</span>) </span>%&gt;<span class="xml"><span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">		</span>&lt;%<span class="ruby"> <span class="keyword">if</span>(item.list_number == <span class="keyword">false</span>) &#123;</span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%-<span class="ruby"> toc(item.content,&#123;<span class="symbol">list_number:</span><span class="keyword">false</span>&#125;) </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125;<span class="keyword">else</span>&#123; </span>%&gt;<span class="xml"></span><br><span class="line">			</span>&lt;%-<span class="ruby"> toc(item.content) </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">		<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%-<span class="ruby"> item.content </span>%&gt;<span class="xml"> </span><br><span class="line">	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">		</span>&lt;%-<span class="ruby"> partial(<span class="string">'footer'</span>) </span>%&gt;<span class="xml">  	       </span><br><span class="line">	<span class="tag">&lt;/<span class="title">article</span>&gt;</span></span><br><span class="line">	</span>&lt;%-<span class="ruby"> partial(<span class="string">'pagination'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">	</span>&lt;%-<span class="ruby"> partial(<span class="string">'comment'</span>) </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>我们可以注意到文章的内容是在&lt;%- item.content %&gt;这个标签里，因此我们如果要在文章中增加内容，只需要在&lt;%- item.content %&gt;的后面引入一个ejs模板文件即可，所以我们接下在article.ejs的同级目录下创建一个declare.ejs文件：</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">pre</span>&gt;</span><span class="tag">&lt;<span class="title">code</span>&gt;</span><span class="tag">&lt;<span class="title">b</span>&gt;</span>    版权声明<span class="tag">&lt;/<span class="title">b</span>&gt;</span>:本文由<span class="tag">&lt;<span class="title">b</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> config.root </span>%&gt;<span class="xml"><span class="tag"><span class="value">about"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span> <span class="attribute">title</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> config.author </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span>&gt;</span></span>&lt;%=<span class="ruby"> config.author </span>%&gt;<span class="xml"><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">b</span>&gt;</span>创作和发表,采用<span class="tag">&lt;<span class="title">b</span>&gt;</span>署名(BY)<span class="tag">&lt;/<span class="title">b</span>&gt;</span>-<span class="tag">&lt;<span class="title">b</span>&gt;</span>非商业性使用(NC)<span class="tag">&lt;/<span class="title">b</span>&gt;</span>-<span class="tag">&lt;<span class="title">b</span>&gt;</span>相同方式共享(SA)<span class="tag">&lt;/<span class="title">b</span>&gt;</span>国际许可协议进行许可,转载请注明作者及出处,本文作者为<span class="tag">&lt;<span class="title">b</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> config.root </span>%&gt;<span class="xml"><span class="tag"><span class="value">about"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span> <span class="attribute">title</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> config.author </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span>&gt;</span></span>&lt;%=<span class="ruby"> config.author </span>%&gt;<span class="xml"><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">b</span>&gt;</span>,本文标题为<span class="tag">&lt;<span class="title">b</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"</span></span></span>&lt;%-<span class="ruby"> config.root </span>%&gt;<span class="xml"><span class="tag"><span class="value"></span></span></span>&lt;%-<span class="ruby"> item.path </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span> <span class="attribute">title</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> item.title </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span>&gt;</span></span>&lt;%=<span class="ruby"> item.title </span>%&gt;<span class="xml"><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">b</span>&gt;</span>,本文链接为<span class="tag">&lt;<span class="title">b</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"</span></span></span>&lt;%-<span class="ruby"> config.root </span>%&gt;<span class="xml"><span class="tag"><span class="value"></span></span></span>&lt;%-<span class="ruby"> item.path </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span> <span class="attribute">title</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> item.title </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span>&gt;</span></span>&lt;%-<span class="ruby"> config.url </span>%&gt;<span class="xml">/</span>&lt;%-<span class="ruby"> item.path </span>%&gt;<span class="xml"><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">b</span>&gt;</span>.<span class="tag">&lt;/<span class="title">code</span>&gt;</span><span class="tag">&lt;/<span class="title">pre</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>大家可以看到这里就是一段HTML代码，因为我们要引入的这个模板和article.ejs在同一个页面中，所以我们可以直接在这里调用item这个变量，而item这个变量里是封装了当前文章的标题和链接的，因此我们可以顺利成章的构造这样一段HTML代码，因为博主不会写CSS样式，所以使用了一个默认的代码样式来完成这个工作，如果大家懂CSS，请自行发挥你的创意将它做得更好。好了，下面我们要做的工作就是将这个模版引用到article.ejs文件中，类似地我们可以使用&lt;%- partial(‘footer’) %&gt;这样的结构来引入这个模板，这里给出完整的article.ejs文件内容：</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main"</span> <span class="attribute">class</span>=<span class="value">"</span></span></span>&lt;%=<span class="ruby"> item.layout </span>%&gt;<span class="xml"><span class="tag"><span class="value">"</span> <span class="attribute">itemscope</span> <span class="attribute">itemprop</span>=<span class="value">"blogPost"</span>&gt;</span></span><br><span class="line">  </span>&lt;%<span class="ruby"> <span class="keyword">if</span> (page.layout==<span class="string">'photo'</span> &amp;&amp; item.photos &amp;&amp; item.photos.length)&#123; </span>%&gt;<span class="xml"></span><br><span class="line">    </span>&lt;%-<span class="ruby"> partial(<span class="string">'gallery'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">  </span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">	<span class="tag">&lt;<span class="title">article</span> <span class="attribute">itemprop</span>=<span class="value">"articleBody"</span>&gt;</span> </span><br><span class="line">		</span>&lt;%-<span class="ruby"> partial(<span class="string">'header'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"article-content"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	    </span>&lt;%<span class="ruby"> <span class="keyword">if</span>(theme.show_declare) &#123; </span>%&gt;<span class="xml"></span><br><span class="line">			</span>&lt;%-<span class="ruby"> partial(<span class="string">'declare'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line"></span><br><span class="line">		</span>&lt;%<span class="ruby"> <span class="keyword">if</span>( table&amp;&amp;(item.toc !== <span class="keyword">false</span>) &amp;&amp; theme.toc.article)&#123; </span>%&gt;<span class="xml"></span><br><span class="line">		<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"toc"</span> <span class="attribute">class</span>=<span class="value">"toc-article"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">strong</span> <span class="attribute">class</span>=<span class="value">"toc-title"</span>&gt;</span></span>&lt;%=<span class="ruby"> _<span class="number">_</span>(<span class="string">'contents'</span>) </span>%&gt;<span class="xml"><span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">		</span>&lt;%<span class="ruby"> <span class="keyword">if</span>(item.list_number == <span class="keyword">false</span>) &#123;</span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%-<span class="ruby"> toc(item.content,&#123;<span class="symbol">list_number:</span><span class="keyword">false</span>&#125;) </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125;<span class="keyword">else</span>&#123; </span>%&gt;<span class="xml"></span><br><span class="line">			</span>&lt;%-<span class="ruby"> toc(item.content) </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">		<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%-<span class="ruby"> item.content </span>%&gt;<span class="xml"> </span><br><span class="line"></span><br><span class="line">	    </span>&lt;%<span class="ruby"> <span class="keyword">if</span>(theme.show_declare) &#123; </span>%&gt;<span class="xml"></span><br><span class="line">			</span>&lt;%-<span class="ruby"> partial(<span class="string">'declare'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">		</span>&lt;%<span class="ruby"> &#125; </span>%&gt;<span class="xml"></span><br><span class="line">	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">		</span>&lt;%-<span class="ruby"> partial(<span class="string">'footer'</span>) </span>%&gt;<span class="xml">  	       </span><br><span class="line">	<span class="tag">&lt;/<span class="title">article</span>&gt;</span></span><br><span class="line">	</span>&lt;%-<span class="ruby"> partial(<span class="string">'pagination'</span>) </span>%&gt;<span class="xml"></span><br><span class="line">	</span>&lt;%-<span class="ruby"> partial(<span class="string">'comment'</span>) </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>这里博主在文章的开头和结尾处插入了这个模板，同时在主题文件夹中设置了一个是否显示版权声明的开关变量，这样我们就可以在主题中设置是否开启版权声明模块了。好啦，相信你在看到这边文章的时候你已经看到了它的版权声明了，这就是我们今天的内容啦，谢谢大家！</p>
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" target="_blank" title="在Hexo中为文章自动添加版权信息声明模块">在Hexo中为文章自动添加版权信息声明模块</a></b>,本文链接为<b><a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" target="_blank" title="在Hexo中为文章自动添加版权信息声明模块">http://qinyuanpei.com/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/</a></b>.</code></pre>
+		
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/独立博客/">独立博客</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hexo/">Hexo</a><a href="/tags/版权/">版权</a><a href="/tags/知识共享/">知识共享</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://qinyuanpei.com/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" data-title="在Hexo中为文章自动添加版权信息声明模块 | 秦元培" data-tsina="1278609231" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+  	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/11/10/pagination-of-ugui-in-unity3d/"  title="Unity3D游戏开发之分页效果在uGUI中的实现">
+ <strong>下一篇：</strong><br/> 
+ <span>Unity3D游戏开发之分页效果在uGUI中的实现
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" data-title="在Hexo中为文章自动添加版权信息声明模块" data-url="http://qinyuanpei.com/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、为什么要说博客文章版权这件事儿"><span class="toc-number">1.</span> <span class="toc-text">一、为什么要说博客文章版权这件事儿</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、谈谈如何保护博客文章版权"><span class="toc-number">2.</span> <span class="toc-text">二、谈谈如何保护博客文章版权</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、保护博客文章版权，独立博客在行动"><span class="toc-number">3.</span> <span class="toc-text">三、保护博客文章版权，独立博客在行动</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+	<p class="asidetitle">名片</p>
+	<div class="github-card">
+	<div class="github-card user-card">
+		<div class="header User"></div>
+		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
+		<div class="content"><h1>秦元培</h1>
+		<ul class="status">
+		  <li><a href="../archives" target="_top"><strong>46</strong>文章</a></li>
+		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
+		  <li><a href="../tags" target="_top"><strong>88</strong>标签</a></li></ul></div></div>
+	  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Unity3D/" title="Unity3D">Unity3D<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/单机游戏/" title="单机游戏">单机游戏<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/开发工具/" title="开发工具">开发工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/游戏开发/" title="游戏开发">游戏开发<sup>17</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活感悟/" title="生活感悟">生活感悟<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言/" title="编程语言">编程语言<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li></ul>
+  </div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Unity3D/" title="Unity3D">Unity3D<sup>20</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏/" title="游戏">游戏<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏开发/" title="游戏开发">游戏开发<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/梦想/" title="梦想">梦想<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编辑器/" title="编辑器">编辑器<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/技术/" title="技术">技术<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDL/" title="SDL">SDL<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AssetBundle/" title="AssetBundle">AssetBundle<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生感悟/" title="人生感悟">人生感悟<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/平凡/" title="平凡">平凡<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2014/" title="2014">2014<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sublime/" title="Sublime">Sublime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDE/" title="IDE">IDE<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人文/" title="人文">人文<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/思维/" title="思维">思维<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/价值/" title="价值">价值<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据/" title="数据">数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/状态/" title="状态">状态<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/虚拟摇杆/" title="虚拟摇杆">虚拟摇杆<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQLite/" title="SQLite">SQLite<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏引擎/" title="游戏引擎">游戏引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JSON/" title="JSON">JSON<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/加密/" title="加密">加密<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/部署/" title="部署">部署<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://blog.codingnow.com/" target="_blank" title="云风">云风</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/poem_qianmo" target="_blank" title="毛星云">毛星云</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.xuanyusong.com/" target="_blank" title="宣雨松">宣雨松</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/musicvs" target="_blank" title="笨木头">笨木头</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/kakashi8841" target="_blank" title="卡卡西">卡卡西</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/amazonzx" target="_blank" title="Amazonzx">Amazonzx</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.cnblogs.com/crazylights" target="_blank" title="CrazyLights">CrazyLights</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/neil3d" target="_blank" title="房燕良">房燕良</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gulu-dev.com" target="_blank" title="GuLu">GuLu</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1278609231&verifier=23b91096&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">订阅博客</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p>  <br/>
+			就像每一个时代里的人都觉得自己没有赶上一个好的时代一样。这里没有末路，你从不曾孤独。</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1278609231" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/qinyuanpei" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/qinyuanpei" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:qinyuanpei@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+
+		
+
+				<div class="cc-license">
+
+          <p class="copyright">本作品由<a href="/about" target="_blank" title="秦元培">秦元培</a>创作，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>国际许可协议进行许可<br></p>
+        </div>
+    
+
+		<p class="copyright">
+			Powered by <a href="http://hexo.io" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+			
+				<a href="/about" target="_blank" title="秦元培">秦元培</a>
+			
+			<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+		</p>
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //为了解决多说头像服务器奔溃手动替换头像
+  var imgs = new Array();
+  imgs[0] = 'http://img.blog.csdn.net/20151104153648246';
+  imgs[1] = 'http://img.blog.csdn.net/20151104153658676';
+  imgs[2] = 'http://img.blog.csdn.net/20151104153719133';
+  imgs[3] = 'http://img.blog.csdn.net/20151104153730060';
+  imgs[4] = 'http://img.blog.csdn.net/20151104153742180';
+  imgs[5] = 'http://img.blog.csdn.net/20151104154610054';
+  $('.ds-avatar img[src*="cdncache"]').each(function(){
+    var rand = Math.floor(Math.random() * imgs.length);
+    $(this).attr("src",imgs[rand]);
+  });
+
+}); 
+</script>
+
+
+<!-- Analytics Begin -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+
+
+  </body>
+</html>

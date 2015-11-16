@@ -90,6 +90,19 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2015/03/24/publish-webgame-with-coding-net-and-hexo/" title="使用Coding.NET和Hexo实现网页游戏的发布" itemprop="url">
+  
+
+    <time datetime="2015-03-24T00:54:48.000Z" itemprop="datePublished">2015-03-24</time>
+
+
+    <h1 itemprop="name">使用Coding.NET和Hexo实现网页游戏的发布</h1>
+
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2015/03/22/csharp-socket-programing-part-2/" title="C#中Socket通信编程的异步实现" itemprop="url">
   
 
@@ -201,19 +214,6 @@
 
 
     <h1 itemprop="name">脚本语言编程：Lua脚本编程入门</h1>
-
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/02/03/the-black-hole-of-internet-part-1/" title="互联网黑洞读书笔记(1)" itemprop="url">
-  
-
-    <time datetime="2015-02-03T01:45:57.000Z" itemprop="datePublished">2015-02-03</time>
-
-
-    <h1 itemprop="name">互联网黑洞读书笔记(1)</h1>
 
   </a>
 </section>
@@ -404,6 +404,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

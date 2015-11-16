@@ -94,6 +94,11 @@
   </p>
 </header>
 	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/10/08/2-methods-to-load-image-in-unity3d/" target="_blank" title="在Unity3D中加载外部图片的两种方法">在Unity3D中加载外部图片的两种方法</a></b>,本文链接为<b><a href="/2015/10/08/2-methods-to-load-image-in-unity3d/" target="_blank" title="在Unity3D中加载外部图片的两种方法">http://qinyuanpei.com/2015/10/08/2-methods-to-load-image-in-unity3d/</a></b>.</code></pre>
+		
+
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
@@ -113,7 +118,11 @@
 <p>&emsp;&emsp;到目前为止我们解决了如何从外部加载图片到Unity3D中，现在我们回到最开始的问题，我们从外部读取到这些图片以后需要将它们加载到游戏界面中。比如当我们使用UGUI的时候，UGUI中的Image控件需要一个Sprite来作为它的填充内容，那么此时我们就需要将Texture转化为Sprite.号了，下面我们给出一个简单的例子：</p>
 <figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using System.Collections;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line">using System.IO;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> class TestLoading : MonoBehaviour </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">    <span class="comment">/// Image控件</span></span><br><span class="line">    <span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">    <span class="keyword">private</span> Image <span class="built_in">image</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">void</span> Start () </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">image</span> = <span class="keyword">this</span>.transform.Find(<span class="string">"Image"</span>).GetComponent&lt;Image&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//为不同的按钮绑定不同的事件</span></span><br><span class="line">        <span class="keyword">this</span>.transform.Find(<span class="string">"LoadByWWW"</span>).GetComponent&lt;Button&gt;().onClick.AddListener</span><br><span class="line">        (</span><br><span class="line">           delegate()&#123;LoadByWWW();&#125;</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.transform.Find(<span class="string">"LoadByIO"</span>).GetComponent&lt;Button&gt;().onClick.AddListener</span><br><span class="line">        (</span><br><span class="line">          delegate()&#123;LoadByIO();&#125;</span><br><span class="line">        );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">    <span class="comment">/// 以IO方式进行加载</span></span><br><span class="line">    <span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> LoadByIO()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">double</span> startTime = (<span class="keyword">double</span>)Time.time;</span><br><span class="line">        <span class="comment">//创建文件读取流</span></span><br><span class="line">        FileStream fileStream = <span class="keyword">new</span> FileStream(<span class="string">"D:\\test.jpg"</span>, FileMode.Open, FileAccess.Read);</span><br><span class="line">        fileStream.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">        <span class="comment">//创建文件长度缓冲区</span></span><br><span class="line">        <span class="built_in">byte</span>[] bytes = <span class="keyword">new</span> <span class="built_in">byte</span>[fileStream.Length];</span><br><span class="line">        <span class="comment">//读取文件</span></span><br><span class="line">        fileStream.Read(bytes, <span class="number">0</span>, (<span class="built_in">int</span>)fileStream.Length);</span><br><span class="line">        <span class="comment">//释放文件读取流</span></span><br><span class="line">        fileStream.Close();</span><br><span class="line">        fileStream.Dispose();</span><br><span class="line">        fileStream = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建Texture</span></span><br><span class="line">        <span class="built_in">int</span> <span class="variable">width</span> = <span class="number">300</span>;</span><br><span class="line">        <span class="built_in">int</span> <span class="variable">height</span> = <span class="number">372</span>;</span><br><span class="line">        Texture2D <span class="built_in">texture</span> = <span class="keyword">new</span> Texture2D(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">        <span class="built_in">texture</span>.LoadImage(bytes);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建Sprite</span></span><br><span class="line">        Sprite sprite = Sprite.Create(<span class="built_in">texture</span>, <span class="keyword">new</span> Rect(<span class="number">0</span>, <span class="number">0</span>, <span class="built_in">texture</span>.<span class="variable">width</span>, <span class="built_in">texture</span>.<span class="variable">height</span>), <span class="keyword">new</span> Vector2(<span class="number">0.5</span>f, <span class="number">0.5</span>f));</span><br><span class="line">        <span class="built_in">image</span>.sprite = sprite;</span><br><span class="line"></span><br><span class="line">        startTime=(<span class="keyword">double</span>)Time.time-startTime;</span><br><span class="line">        Debug.Log(<span class="string">"IO加载用时:"</span> + startTime);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">    <span class="comment">/// 以WWW方式进行加载</span></span><br><span class="line">    <span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> LoadByWWW()</span><br><span class="line">    &#123;</span><br><span class="line">        StartCoroutine(Load());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    IEnumerator Load()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">double</span> startTime = (<span class="keyword">double</span>)Time.time;</span><br><span class="line">        <span class="comment">//请求WWW</span></span><br><span class="line">        WWW www = <span class="keyword">new</span> WWW(<span class="string">"file://D:\\test.jpg"</span>);</span><br><span class="line">        yield <span class="keyword">return</span> www;        </span><br><span class="line">        <span class="keyword">if</span>(www != <span class="keyword">null</span> &amp;&amp; string.IsNullOrEmpty(www.error))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//获取Texture</span></span><br><span class="line">            Texture2D <span class="built_in">texture</span>=www.<span class="built_in">texture</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建Sprite</span></span><br><span class="line">            Sprite sprite = Sprite.Create(<span class="built_in">texture</span>, <span class="keyword">new</span> Rect(<span class="number">0</span>, <span class="number">0</span>, <span class="built_in">texture</span>.<span class="variable">width</span>, <span class="built_in">texture</span>.<span class="variable">height</span>), <span class="keyword">new</span> Vector2(<span class="number">0.5</span>f, <span class="number">0.5</span>f));</span><br><span class="line">            <span class="built_in">image</span>.sprite = sprite;</span><br><span class="line"></span><br><span class="line">            startTime = (<span class="keyword">double</span>)Time.time - startTime;</span><br><span class="line">            Debug.Log(<span class="string">"WWW加载用时:"</span> + startTime);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;现在我们运行程序可以发现两种方式均可以让图片加载进来，为了对比两种方式在执行效率上的高低，我们在脚本中加入了相关代码，通过对比可以发现使用IO方式加载一张227k的图片需要的时间为0s，而使用WWW方式加载需要0.0185s，因此传统的IO方式具有更高的效率，建议大家在遇到这类问题时尽可能地使用这种方式。好了，今天的内容就是这样啦，欢迎大家在我的博客中留言、欢迎大家关注和支持我的博客，谢谢大家！</p>
-  
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/10/08/2-methods-to-load-image-in-unity3d/" target="_blank" title="在Unity3D中加载外部图片的两种方法">在Unity3D中加载外部图片的两种方法</a></b>,本文链接为<b><a href="/2015/10/08/2-methods-to-load-image-in-unity3d/" target="_blank" title="在Unity3D中加载外部图片的两种方法">http://qinyuanpei.com/2015/10/08/2-methods-to-load-image-in-unity3d/</a></b>.</code></pre>
+		
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -143,7 +152,7 @@
 
 </footer>
 
-   	       
+  	       
 	</article>
 	
 <nav class="article-nav clearfix">
@@ -195,9 +204,9 @@
 		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
 		<div class="content"><h1>秦元培</h1>
 		<ul class="status">
-		  <li><a href="../archives" target="_top"><strong>45</strong>文章</a></li>
+		  <li><a href="../archives" target="_top"><strong>46</strong>文章</a></li>
 		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
-		  <li><a href="../tags" target="_top"><strong>86</strong>标签</a></li></ul></div></div>
+		  <li><a href="../tags" target="_top"><strong>88</strong>标签</a></li></ul></div></div>
 	  </div>
 
 
@@ -224,7 +233,7 @@
 		  
 		
 		  
-			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>2</sup></a></li>
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
 		  
 		
 		  
@@ -268,7 +277,7 @@
 			
 		
 			
-				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
 			
 		
 			
@@ -280,27 +289,7 @@
 			
 		
 			
-				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
 			
 		
 			
@@ -308,19 +297,7 @@
 			
 		
 			
-				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
 			
 		
 			
@@ -332,7 +309,7 @@
 			
 		
 			
-				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
 			
 		
 			
@@ -340,19 +317,51 @@
 			
 		
 			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/动画/" title="动画">动画<sup>1</sup></a></li>
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生感悟/" title="人生感悟">人生感悟<sup>1</sup></a></li>
 			
 		
 			
@@ -372,7 +381,7 @@
 			
 		
 			
-				<li><a href="/tags/Mecanim/" title="Mecanim">Mecanim<sup>1</sup></a></li>
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
 			
 		
 			
@@ -380,7 +389,7 @@
 			
 		
 			
-				<li><a href="/tags/资源提取/" title="资源提取">资源提取<sup>1</sup></a></li>
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
 			
 		
 			
@@ -396,7 +405,7 @@
 			
 		
 			
-				<li><a href="/tags/事件/" title="事件">事件<sup>1</sup></a></li>
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
 			
 		
 			
@@ -420,7 +429,7 @@
 			
 		
 			
-				<li><a href="/tags/iTween/" title="iTween">iTween<sup>1</sup></a></li>
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
 			
 		
 			
@@ -428,11 +437,11 @@
 			
 		
 			
-				<li><a href="/tags/塔防/" title="塔防">塔防<sup>1</sup></a></li>
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
 			
 		
 			
@@ -444,7 +453,7 @@
 			
 		
 			
-				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
 			
 		
 			
@@ -452,7 +461,7 @@
 			
 		
 			
-				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -625,11 +634,6 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
-        getSize();
-        if (myWidth >= 1024) {
-          c.click();
-        }
-  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -795,6 +799,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

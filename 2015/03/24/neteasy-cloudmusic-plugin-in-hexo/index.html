@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="秦元培">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;当你打开这篇文章的时候，你听到一首熟悉的旋律，那是因为在你的心里始终装着一张泛黄的CD，你从来不愿意打开它，即使外表早已积满了灰尘，你依然视它如新的一般，我们喜欢把它叫做时光或者说是青春。">
 <meta property="og:image" content="http://7wy477.com1.z0.glb.clouddn.com/imgs_网易云音乐插件设计.png">
-<meta property="og:updated_time" content="2015-11-10T01:50:34.000Z">
+<meta property="og:updated_time" content="2015-11-10T00:53:50.928Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为Hexo开发一个网易云音乐的文章插件">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;当你打开这篇文章的时候，你听到一首熟悉的旋律，那是因为在你的心里始终装着一张泛黄的CD，你从来不愿意打开它，即使外表早已积满了灰尘，你依然视它如新的一般，我们喜欢把它叫做时光或者说是青春。">
@@ -95,6 +95,11 @@
   </p>
 </header>
 	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/03/24/neteasy-cloudmusic-plugin-in-hexo/" target="_blank" title="为Hexo开发一个网易云音乐的文章插件">为Hexo开发一个网易云音乐的文章插件</a></b>,本文链接为<b><a href="/2015/03/24/neteasy-cloudmusic-plugin-in-hexo/" target="_blank" title="为Hexo开发一个网易云音乐的文章插件">http://qinyuanpei.com/2015/03/24/neteasy-cloudmusic-plugin-in-hexo/</a></b>.</code></pre>
+		
+
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
@@ -105,7 +110,7 @@
 		
 		<p>&emsp;&emsp;当你打开这篇文章的时候，你听到一首熟悉的旋律，那是因为在你的心里始终装着一张泛黄的CD，你从来不愿意打开它，即使外表早已积满了灰尘，你依然视它如新的一般，我们喜欢把它叫做时光或者说是青春。</p>
 <a id="more"></a>
-<p><embed src="http://music.163.com/style/swf/widget.swf?sid=29713754&type=2&auto=1&width=278&height=32" width="298" height="52" allownetworking="all"><br>&emsp;&emsp;正如你所看到的，我在博客文章中插入了网易云音乐的播放器。这是一个基于Flash技术实现的组件。因为博主特别喜欢网易云音乐这个音乐产品，所以博主想将这个播放器带入到我的博客。在博客中使用这个播放器，只要在文章中添加如下代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">embed</span> <span class="attribute">src</span>=<span class="value">"http://music.163.com/style/swf/widget.swf?sid=29713754&amp;type=2&amp;auto=1&amp;width=278&amp;height=32"</span> </span><br><span class="line"><span class="attribute">width</span>=<span class="value">"298"</span> <span class="attribute">height</span>=<span class="value">"52"</span>  <span class="attribute">allowNetworking</span>=<span class="value">"all"</span>&gt;</span><span class="tag">&lt;/<span class="title">embed</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;正如你所看到的，我在博客文章中插入了网易云音乐的播放器。这是一个基于Flash技术实现的组件。因为博主特别喜欢网易云音乐这个音乐产品，所以博主想将这个播放器带入到我的博客。在博客中使用这个播放器，只要在文章中添加如下代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">embed</span> <span class="attribute">src</span>=<span class="value">"http://music.163.com/style/swf/widget.swf?sid=29713754&amp;type=2&amp;auto=1&amp;width=278&amp;height=32"</span> </span><br><span class="line"><span class="attribute">width</span>=<span class="value">"298"</span> <span class="attribute">height</span>=<span class="value">"52"</span>  <span class="attribute">allowNetworking</span>=<span class="value">"all"</span>&gt;</span><span class="tag">&lt;/<span class="title">embed</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;可是这样的结构对于一个写博客的人来说还是显得臃肿了，能不能让这个结构更简单写呢？简单到这样：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[music:<span class="number">29713754</span>]</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;因为在这段代码中真正和音乐有关的只有sid这个参数，所以我们我们只需要关注这个参数就好了。那么，现在我们其实就是在做这样一件事情，我们在文章中插入这样一个[key:value]的结构，然后通过程序将它替换成相应的HTML结构，这样就实现了在Hexo的文章中使用[key:value]结构来编写简单插件的功能，如果经历过使用wordpress建站的朋友一定知道，在wordpress中存在许多这样的类似插件，可以帮助写作者简化某些输入内容。好了，那么今天我们就来试着为hexo编写这样一个小插件吧！为了避免将插件写到网页里的时候出现错误，我们首先在NodeJS中测试，测试程序如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义测试内容</span></span><br><span class="line"><span class="keyword">var</span> str=<span class="string">"这是一条测试内容以测试这个程序是否能够正确运行,现在让我们来听一首《匆匆那年》[music:29713754]"</span>;</span><br><span class="line"><span class="comment">//获得匹配内容</span></span><br><span class="line"><span class="keyword">var</span> dicts=str.match(<span class="regexp">/\[(.*?):(.*?)\]/g</span>);</span><br><span class="line"><span class="keyword">if</span>(dicts.length==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"><span class="comment">//对每一个匹配项进行处理</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;dicts.length;i++)</span><br><span class="line">&#123;</span><br><span class="line">      <span class="comment">//对匹配项进行分割,拆分结果为'[music'和'29713754]'</span></span><br><span class="line">      <span class="comment">//我TM就郁闷了，在这里写成'/:/'报错</span></span><br><span class="line">      <span class="comment">//可是写成/:/就顺利通过</span></span><br><span class="line">      <span class="keyword">var</span> dict=dicts[i].split(<span class="regexp">/:/</span>);</span><br><span class="line">      <span class="comment">//获得键名</span></span><br><span class="line">      <span class="keyword">var</span> key=dict[<span class="number">0</span>].substring(<span class="number">1</span>,dict[<span class="number">0</span>].length);</span><br><span class="line">      <span class="comment">//获得ID</span></span><br><span class="line">      <span class="keyword">var</span> id=dict[<span class="number">1</span>].substring(<span class="number">0</span>,dict[<span class="number">1</span>].indexOf(<span class="string">']'</span>));</span><br><span class="line">      <span class="comment">//判断键名的类型</span></span><br><span class="line">      <span class="keyword">if</span>(key==<span class="string">'music'</span>)</span><br><span class="line">      &#123;</span><br><span class="line">         str=str.replace(dicts[i],<span class="string">'&lt;embed src="http://music.163.com/style/swf/widget.swf?sid='</span>+ id +</span><br><span class="line">         <span class="string">'&amp;type=2&amp;auto=1&amp;width=278&amp;height=32" width="298" height="52"  allowNetworking="all"&gt;&lt;/embed&gt;'</span>);</span><br><span class="line">      &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//输出结果</span></span><br><span class="line"> <span class="built_in">console</span>.log(str);</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;这段代码主要就是通过正则表达式来匹配文章正文中所有的[key:value]结构，然后根据key来确定当前结构表什么类型，根据id来确定当前类型的参数，尽管这里只提到了一个music的类型，不过我相信只要大家开动脑筋、发挥想像相信会有更好的想法产生吧！这段代码博主在本地使用NodeJS测试了没有不过什么问题，大家可以在截图中清楚地看到[music:29713754]已经被替换称了网易云音乐的Flash组件，这样在网页中就会显示出网易云音乐的播放器，我们就能听到这熟悉而温暖的旋律了。</p>
@@ -115,9 +120,14 @@
 <p>&emsp;&emsp;这段代码是关于文章的内容的，因此我们要对文章内容进行修改的话，就要先读懂这块儿的代码。这块儿代码首先判断文章是不是处于首页位置(index)，接着判断文章中有没有ReadMore标记(excerpt)。如果文章在首页位置(index)且存在ReadMore标记(excerpt)，那么文章显示的是ReadMore标记前的内容(item.excerpt);如果文章没有ReadMore标记(excerpt)且文章在首页位置(index)，那么文章显示的整篇文章(item.content);如果文章在首页(index)可是没有ReadMore标记(excerpt)，那么选取文章的第一段作为文章的摘要来显示。这就是博主的博客目前采用的方案了，如果大家对这部分感兴趣的话，可以看看自己的博客使用的主题是如何定义这部分内容的，然后在此基础上做些调整以满足个性化的需求。</p>
 <p>&emsp;&emsp;好了，那么在了解了这部分内容后，我们应该马上就能想到，我们需要掉正的代码应该是在第9行这个位置，即当文章不在首页的时候要显示的内容。好了，按照我们在测试程序中的写法，我们可以写出如下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;% var dicts=item.content.match(/\[(.*?):(.*?)\]/g); %&#62;&#10;&#60;% if(dicts.length==0)&#123; %&#62;&#10;   &#60;%- item.content %&#62;&#10;&#60;% &#125; else &#123; %&#62;&#10;   &#60;% for(i=0;i&#60;dicts.length;i++) %&#62;&#10;   &#60;% &#123; %&#62;&#10;        &#60;% var dict=dicts[i].split(/:/); %&#62;&#10;        &#60;% var key=dict[0].substring(1,dict[0].length);  %&#62;&#10;        &#60;% var id=dict[1].substring(0,dict[1].length-1); %&#62;&#10;        &#60;% if(key==&#39;music&#39;) %&#62;&#10;        &#60;% &#123; %&#62;&#10;             item.content=item.content.replace(dicts[i],&#39;&#60;embed src=&#34;http://music.163.com/style/swf/widget.swf?sid=&#39;+ id +&#10;             &#39;&#38;type=2&#38;auto=1&#38;width=278&#38;height=32&#34; width=&#34;298&#34; height=&#34;52&#34; allowNetworking=&#34;all&#34;&#62;&#60;/embed&#62;&#39;)&#10;        &#60;% &#125; %&#62;&#10;   &#60;% &#125; %&#62;&#10;   &#60;%- item.content %&#62;&#10;&#60;% &#125; %&#62;</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;相信经过博主的一番介绍，大家已经对这段代码相当熟悉了吧，这里就是先做判断，判断文章内容中是否有[key:vaule]这样的结构，如果没有就直接输出item.content;如果有就需要对其进行替换后再输出item.content。好了，现在我们用这段代码替换掉第9行代码，然后再次输出网页。可是结果让我们白忙活了一场，因为Hexo在输出网页的时候会报错，可能是因为博主写的JavaScript脚本Hexo无法解析吧！好了，从昨天下午开始差不多都在想着怎样解决这个问题，到现在还是没有一点头绪，文章里讲述的方法可以作为一种尝试，如果有兴趣、有精力、有能力解决这个问题的人，可以去进一步深入地探索这个问题。今天的内容就是这样了，睡觉！</p>
-<p><strong>2015年11月10日更新:</strong><br>&emsp;&emsp;昨天抽空研究了下Hexo的<a href="https://hexo.io/docs/plugins.html" target="_blank" rel="external">插件</a>机制，发现在Hexo中提供了一种<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">标签</a>插件，可以帮助我们快速完成这种需求，所以就记录在这里。首先，它的原理是根据blockquote这样一个简单的标记来进行处理，当我们输入默认的这样的标记的时候它会被渲染为普通的引用标记，当我们在这个标记内传入参数后就可以利用程序进行处理。例如我们编写这样的简单的JS文件：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">* hexo-tag-cloudmusic</span><br><span class="line">* https://github.com/qinyuanpei/hexo-tag-cloudmusic.git</span><br><span class="line">* Copyright (c) 2015, qinyuanpei</span><br><span class="line">* Licensed under the MIT license.</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line">hexo.extend.tag.register('cloudmusic', function(args)&#123;</span><br><span class="line">  var <span class="variable">sid =</span> args[<span class="number">0</span>];</span><br><span class="line">  var <span class="variable">config =</span> hexo.config.cloudmusic || &#123;&#125;;</span><br><span class="line">  var <span class="variable">widgetType =</span> hexo.config.widgetType || 'flash';</span><br><span class="line">  var <span class="variable">widgetSize =</span> config.widgetSize || 'small';</span><br><span class="line">  var <span class="variable">autoPlay =</span> config.autoPlay || <span class="number">1</span>;</span><br><span class="line">  var <span class="variable">width =</span> config.width || <span class="number">278</span>;</span><br><span class="line">  var <span class="variable">height =</span> config.height || <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(<span class="variable">widgetType =</span>= 'iframe')&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">widgetSize=</span>='small')&#123;</span><br><span class="line">      return '&lt;iframe <span class="variable">frameborder=</span><span class="string">"no"</span> <span class="variable">border=</span><span class="string">"0"</span> <span class="variable">marginwidth=</span><span class="string">"0"</span> <span class="variable">marginheight=</span><span class="string">"0"</span> <span class="variable">width=</span><span class="number">298</span> <span class="variable">height=</span><span class="number">52</span> <span class="variable">src=</span><span class="string">"http://music.163.com/outchain/player?type=2&amp;id=' + </span><br><span class="line">      sid + </span><br><span class="line">      '&amp;auto=' + </span><br><span class="line">      autoPlay +</span><br><span class="line">      '&amp;height=32"</span>&gt;&lt;/iframe&gt;';</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">widgetSize=</span>='big')&#123;</span><br><span class="line">      return '&lt;iframe <span class="variable">frameborder=</span><span class="string">"no"</span> <span class="variable">border=</span><span class="string">"0"</span> <span class="variable">marginwidth=</span><span class="string">"0"</span> <span class="variable">marginheight=</span><span class="string">"0"</span> <span class="variable">width=</span><span class="number">351</span> <span class="variable">height=</span><span class="number">86</span> <span class="variable">src=</span><span class="string">"http://music.163.com/outchain/player?type=2&amp;id=' + </span><br><span class="line">      sid + </span><br><span class="line">      '&amp;auto=' + </span><br><span class="line">      autoPlay + </span><br><span class="line">      '&amp;height=66"</span>&gt;&lt;/iframe&gt;';</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">widgetSize=</span>='custom')&#123;</span><br><span class="line">      return '&lt;iframe <span class="variable">frameborder=</span><span class="string">"no"</span> <span class="variable">border=</span><span class="string">"0"</span> <span class="variable">marginwidth=</span><span class="string">"0"</span> <span class="variable">marginheight=</span><span class="string">"0"</span> <span class="variable">width=</span>' +</span><br><span class="line">       width +</span><br><span class="line">       ' <span class="variable">height=</span>' + </span><br><span class="line">       height +</span><br><span class="line">       ' <span class="variable">src=</span><span class="string">"http://music.163.com/outchain/player?type=2&amp;id=' +</span><br><span class="line">        sid + </span><br><span class="line">        '&amp;auto=' + </span><br><span class="line">        autoPlay + </span><br><span class="line">        '&amp;height=66"</span>&gt;&lt;/iframe&gt;';</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">widgetSize=</span>='small')&#123;</span><br><span class="line">      return '&lt;embed <span class="variable">src=</span><span class="string">"http://music.163.com/style/swf/widget.swf?sid=' + </span><br><span class="line">      sid + </span><br><span class="line">      '&amp;type=2&amp;auto=' + </span><br><span class="line">      autoPlay + </span><br><span class="line">      '&amp;width=278&amp;height=32"</span> <span class="variable">width=</span><span class="string">"298"</span> <span class="variable">height=</span><span class="string">"52"</span>  <span class="variable">allowNetworking=</span><span class="string">"all"</span>&gt;&lt;/embed&gt;';</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      return '&lt;embed <span class="variable">src=</span><span class="string">"http://music.163.com/style/swf/widget.swf?sid=' + </span><br><span class="line">      sid + </span><br><span class="line">      '&amp;type=2&amp;auto=' + </span><br><span class="line">      autoPlay + </span><br><span class="line">      '&amp;width=320&amp;height=66"</span> <span class="variable">width=</span><span class="string">"340"</span> <span class="variable">height=</span><span class="string">"86"</span>  <span class="variable">allowNetworking=</span><span class="string">"all"</span>&gt;&lt;/embed&gt;';</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;大家可以看到这个JS文件本质上就是根据传入的sid来拼接生成网易云音乐的widget代码，这个项目我目前发布在我的<a href="https://github.com/qinyuanpei/hexo-tag-cloudmusic" target="_blank" rel="external">Github</a>上，欢迎大家Start和Fork!</p>
-  
+<p><strong>2015年11月10日更新:</strong><br>&emsp;&emsp;昨天抽空研究了下Hexo的<a href="https://hexo.io/docs/plugins.html" target="_blank" rel="external">插件</a>机制，发现在Hexo中提供了一种<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">标签</a>插件，可以帮助我们快速完成这种需求，所以就记录在这里。首先，它的原理是根据这样一个简单的标记来进行处理，当我们输入默认的这样的标记的时候它会被渲染为普通的引用标记，当我们在这个标记内传入参数后就可以利用程序进行处理。例如我们编写这样的简单的JS文件：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">* hexo-tag-cloudmusic</span><br><span class="line">* https://github.com/qinyuanpei/hexo-tag-cloudmusic.git</span><br><span class="line">* Copyright (c) 2015, qinyuanpei</span><br><span class="line">* Licensed under the MIT license.</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line">hexo.extend.tag.register('cloudmusic', function(args)&#123;</span><br><span class="line">  var <span class="variable">sid =</span> args[<span class="number">0</span>];</span><br><span class="line">  var <span class="variable">config =</span> hexo.config.cloudmusic || &#123;&#125;;</span><br><span class="line">  var <span class="variable">widgetType =</span> hexo.config.widgetType || 'flash';</span><br><span class="line">  var <span class="variable">widgetSize =</span> config.widgetSize || 'small';</span><br><span class="line">  var <span class="variable">autoPlay =</span> config.autoPlay || <span class="number">1</span>;</span><br><span class="line">  var <span class="variable">width =</span> config.width || <span class="number">278</span>;</span><br><span class="line">  var <span class="variable">height =</span> config.height || <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(<span class="variable">widgetType =</span>= 'iframe')&#123;</span><br><span class="line">  	<span class="keyword">if</span>(<span class="variable">widgetSize=</span>='small')&#123;</span><br><span class="line">  		return '&lt;iframe <span class="variable">frameborder=</span><span class="string">"no"</span> <span class="variable">border=</span><span class="string">"0"</span> <span class="variable">marginwidth=</span><span class="string">"0"</span> <span class="variable">marginheight=</span><span class="string">"0"</span> <span class="variable">width=</span><span class="number">298</span> <span class="variable">height=</span><span class="number">52</span> <span class="variable">src=</span><span class="string">"http://music.163.com/outchain/player?type=2&amp;id=' + sid + '&amp;auto=' + autoPlay +'&amp;height=32"</span>&gt;&lt;/iframe&gt;';</span><br><span class="line">  	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">widgetSize=</span>='big')&#123;</span><br><span class="line">  		return '&lt;iframe <span class="variable">frameborder=</span><span class="string">"no"</span> <span class="variable">border=</span><span class="string">"0"</span> <span class="variable">marginwidth=</span><span class="string">"0"</span> <span class="variable">marginheight=</span><span class="string">"0"</span> <span class="variable">width=</span><span class="number">351</span> <span class="variable">height=</span><span class="number">86</span> <span class="variable">src=</span><span class="string">"http://music.163.com/outchain/player?type=2&amp;id=' + sid + '&amp;auto=' + autoPlay + '&amp;height=66"</span>&gt;&lt;/iframe&gt;';</span><br><span class="line">  	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">widgetSize=</span>='custom')&#123;</span><br><span class="line">  		return '&lt;iframe <span class="variable">frameborder=</span><span class="string">"no"</span> <span class="variable">border=</span><span class="string">"0"</span> <span class="variable">marginwidth=</span><span class="string">"0"</span> <span class="variable">marginheight=</span><span class="string">"0"</span> <span class="variable">width=</span>' + width +' <span class="variable">height=</span>' + height +' <span class="variable">src=</span><span class="string">"http://music.163.com/outchain/player?type=2&amp;id=' + sid + '&amp;auto=' + autoPlay + '&amp;height=66"</span>&gt;&lt;/iframe&gt;';</span><br><span class="line">  	&#125;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  	<span class="keyword">if</span>(<span class="variable">widgetSize=</span>='small')&#123;</span><br><span class="line">  		return '&lt;embed <span class="variable">src=</span><span class="string">"http://music.163.com/style/swf/widget.swf?sid=' + sid + '&amp;type=2&amp;auto=' + autoPlay + '&amp;width=278&amp;height=32"</span> <span class="variable">width=</span><span class="string">"298"</span> <span class="variable">height=</span><span class="string">"52"</span>  <span class="variable">allowNetworking=</span><span class="string">"all"</span>&gt;&lt;/embed&gt;';</span><br><span class="line">  	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  		return '&lt;embed <span class="variable">src=</span><span class="string">"http://music.163.com/style/swf/widget.swf?sid=' + sid + '&amp;type=2&amp;auto=' + autoPlay + '&amp;width=320&amp;height=66"</span> <span class="variable">width=</span><span class="string">"340"</span> <span class="variable">height=</span><span class="string">"86"</span>  <span class="variable">allowNetworking=</span><span class="string">"all"</span>&gt;&lt;/embed&gt;';</span><br><span class="line">  	&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;大家可以看到这个JS文件本质上就是根据传入的sid来拼接生成网易云音乐的widget代码，这样当我们需要在博客中引用网易云音乐的时候只需要采用下面的标记：</p>
+<p>&emsp;&emsp;这个项目我目前发布在我的<a href="https://github.com/qinyuanpei/hexo-tag-cloudmusic" target="_blank" rel="external">Github</a>上，欢迎大家Start和Fork!</p>
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/03/24/neteasy-cloudmusic-plugin-in-hexo/" target="_blank" title="为Hexo开发一个网易云音乐的文章插件">为Hexo开发一个网易云音乐的文章插件</a></b>,本文链接为<b><a href="/2015/03/24/neteasy-cloudmusic-plugin-in-hexo/" target="_blank" title="为Hexo开发一个网易云音乐的文章插件">http://qinyuanpei.com/2015/03/24/neteasy-cloudmusic-plugin-in-hexo/</a></b>.</code></pre>
+		
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -147,7 +157,7 @@
 
 </footer>
 
-   	       
+  	       
 	</article>
 	
 <nav class="article-nav clearfix">
@@ -199,9 +209,9 @@
 		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
 		<div class="content"><h1>秦元培</h1>
 		<ul class="status">
-		  <li><a href="../archives" target="_top"><strong>45</strong>文章</a></li>
+		  <li><a href="../archives" target="_top"><strong>46</strong>文章</a></li>
 		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
-		  <li><a href="../tags" target="_top"><strong>86</strong>标签</a></li></ul></div></div>
+		  <li><a href="../tags" target="_top"><strong>88</strong>标签</a></li></ul></div></div>
 	  </div>
 
 
@@ -228,7 +238,7 @@
 		  
 		
 		  
-			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>2</sup></a></li>
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
 		  
 		
 		  
@@ -272,7 +282,7 @@
 			
 		
 			
-				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
 			
 		
 			
@@ -284,27 +294,7 @@
 			
 		
 			
-				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
 			
 		
 			
@@ -312,19 +302,7 @@
 			
 		
 			
-				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
 			
 		
 			
@@ -336,7 +314,7 @@
 			
 		
 			
-				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
 			
 		
 			
@@ -344,19 +322,51 @@
 			
 		
 			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/动画/" title="动画">动画<sup>1</sup></a></li>
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生感悟/" title="人生感悟">人生感悟<sup>1</sup></a></li>
 			
 		
 			
@@ -376,7 +386,7 @@
 			
 		
 			
-				<li><a href="/tags/Mecanim/" title="Mecanim">Mecanim<sup>1</sup></a></li>
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
 			
 		
 			
@@ -384,7 +394,7 @@
 			
 		
 			
-				<li><a href="/tags/资源提取/" title="资源提取">资源提取<sup>1</sup></a></li>
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
 			
 		
 			
@@ -400,7 +410,7 @@
 			
 		
 			
-				<li><a href="/tags/事件/" title="事件">事件<sup>1</sup></a></li>
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
 			
 		
 			
@@ -424,7 +434,7 @@
 			
 		
 			
-				<li><a href="/tags/iTween/" title="iTween">iTween<sup>1</sup></a></li>
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
 			
 		
 			
@@ -432,11 +442,11 @@
 			
 		
 			
-				<li><a href="/tags/塔防/" title="塔防">塔防<sup>1</sup></a></li>
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
 			
 		
 			
@@ -448,7 +458,7 @@
 			
 		
 			
-				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
 			
 		
 			
@@ -456,7 +466,7 @@
 			
 		
 			
-				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -629,11 +639,6 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
-        getSize();
-        if (myWidth >= 1024) {
-          c.click();
-        }
-  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -799,6 +804,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->

@@ -88,7 +88,7 @@
 
 <a data-src="/categories/游戏开发/" href="#游戏开发" title="游戏开发">游戏开发<sup>17</sup></a>
 
-<a data-src="/categories/独立博客/" href="#独立博客" title="独立博客">独立博客<sup>2</sup></a>
+<a data-src="/categories/独立博客/" href="#独立博客" title="独立博客">独立博客<sup>3</sup></a>
 
 <a data-src="/categories/生活感悟/" href="#生活感悟" title="生活感悟">生活感悟<sup>7</sup></a>
 
@@ -298,6 +298,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->
