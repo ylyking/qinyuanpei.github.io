@@ -1,0 +1,849 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Unity3D游戏开发之C++插件接入 | 秦元培</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="秦元培">
+    
+
+    
+    <meta name="description" content="&amp;emsp;&amp;emsp;各位朋友大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。虽然Unity3D引擎依靠强大的跨平台能力睥睨高手林立的游戏引擎世界，我们在使用Unity3D游戏引擎的时候基本上不会去接触底层的东西，可是有时候面对某些奇葩的要求的时候，我们就不得不考虑使用C++这样的语言来为其编写相关的插件。你如果问我是什么样的奇葩要求，比如接入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity3D游戏开发之C++插件接入">
+<meta property="og:url" content="http://qinyuanpei.com/2015/11/21/development-of-c-plugin-for-unity3d/index.html">
+<meta property="og:site_name" content="秦元培">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;各位朋友大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。虽然Unity3D引擎依靠强大的跨平台能力睥睨高手林立的游戏引擎世界，我们在使用Unity3D游戏引擎的时候基本上不会去接触底层的东西，可是有时候面对某些奇葩的要求的时候，我们就不得不考虑使用C++这样的语言来为其编写相关的插件。你如果问我是什么样的奇葩要求，比如接入">
+<meta property="og:image" content="http://img.blog.csdn.net/20151122130736076">
+<meta property="og:image" content="http://img.blog.csdn.net/20151123093516870">
+<meta property="og:image" content="http://img.blog.csdn.net/20151122130751410">
+<meta property="og:image" content="http://img.blog.csdn.net/20151122130803286">
+<meta property="og:image" content="http://img.blog.csdn.net/20151123094232606">
+<meta property="og:updated_time" content="2015-11-23T01:57:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity3D游戏开发之C++插件接入">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友大家好，我是秦元培，欢迎大家关注我的博客，我的博客地址是http://qinyuanpei.com。虽然Unity3D引擎依靠强大的跨平台能力睥睨高手林立的游戏引擎世界，我们在使用Unity3D游戏引擎的时候基本上不会去接触底层的东西，可是有时候面对某些奇葩的要求的时候，我们就不得不考虑使用C++这样的语言来为其编写相关的插件。你如果问我是什么样的奇葩要求，比如接入">
+
+    
+    <link rel="alternative" href="/atom.xml" title="秦元培" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="秦元培">秦元培</a></h1>
+				<h2 class="blog-motto">做单纯的人，走幸福的路。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/lab">实验室</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:qinyuanpei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/21/development-of-c-plugin-for-unity3d/" title="Unity3D游戏开发之C++插件接入" itemprop="url">Unity3D游戏开发之C++插件接入</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="秦元培" target="_blank" itemprop="author">秦元培</a>
+		
+    <p class="article-time">
+    <time datetime="2015-11-21T06:47:26.000Z" itemprop="datePublished"> 发表于 2015-11-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/11/21/development-of-c-plugin-for-unity3d/" target="_blank" title="Unity3D游戏开发之C++插件接入">Unity3D游戏开发之C++插件接入</a></b>,本文链接为<b><a href="/2015/11/21/development-of-c-plugin-for-unity3d/" target="_blank" title="Unity3D游戏开发之C++插件接入">http://qinyuanpei.com/2015/11/21/development-of-c-plugin-for-unity3d/</a></b>.</code></pre>
+		
+
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C++_CLR"><span class="toc-number">1.</span> <span class="toc-text">C++ CLR</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个C++_CLR类库项目"><span class="toc-number">1.1.</span> <span class="toc-text">创建一个C++ CLR类库项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在C#中添加引用及方法调用"><span class="toc-number">1.2.</span> <span class="toc-text">在C#中添加引用及方法调用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C++_Native"><span class="toc-number">2.</span> <span class="toc-text">C++ Native</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个C++动态链接库项目"><span class="toc-number">2.1.</span> <span class="toc-text">创建一个C++动态链接库项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在C#中使用DllImport封装方法"><span class="toc-number">2.2.</span> <span class="toc-text">在C#中使用DllImport封装方法</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>&emsp;&emsp;各位朋友大家好，我是<strong>秦元培</strong>，欢迎大家关注我的博客，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。虽然Unity3D引擎依靠强大的跨平台能力睥睨高手林立的游戏引擎世界，我们在使用Unity3D游戏引擎的时候基本上不会去接触底层的东西，可是有时候面对某些奇葩的要求的时候，我们就不得不考虑使用C++这样的语言来为其编写相关的插件。你如果问我是什么样的奇葩要求，比如接入蓝牙手柄来控制游戏、接入类似街机的设备来控制游戏、接入同一个游戏到两个不同的设备上并响应不同的控制……诸如此类的种种问题，可能目前在Unity3D引擎中找不到解决方案，这个时候写C++插件就变成了一种刚性需求，这就是我们今天要来一起探讨的问题。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;Unity3D主要使用C#进行开发，所以为Unity3D编写插件本质上就是让C#调用C++代码。目前主要有C++ CLR和C++ Native两种实现方法，其中C++ CLR可以理解为运行在.Net CLR即公共语言运行库上的C++代码，这种代码是托管的C++代码，目前并没有被C++标准承认，因为它更像是C++和C#两种语言的混合代码，这种代码的优势是可以像普通的.NET库一样被C#调用，考虑到Unity3D建立在和.Net类似的Mono上，因此这种方式应该是我们的最佳实践方案；C++ Native则是指传统的C++ 动态链接库，通过DllImport在C#中进行包装后在C#中进行调用，相对地这种方式调用的是非托管的C++代码，这种方式相信接触过Windows开发的朋友应该不会感到陌生啦，它是一种更为普遍的方法，例如我们要接入苹果官方SDK的时候，需要对Object C的代码进行封装后交给C#去调用，而这里使用的方法就是DllImport了。</p>
+<p>&emsp;&emsp;好了，下面我们来看看两种方式各自是如何实现的吧！这里博主使用的开发环境是Windows 8.1 32bit 和 Visual Studio 2012，Unity3D的版本为4.6版本。</p>
+<h1 id="C++_CLR">C++ CLR</h1><h2 id="创建一个C++_CLR类库项目">创建一个C++ CLR类库项目</h2><p>&emsp;&emsp;首先我们按照下图中的步骤创建一个C++ CLR项目：</p>
+<p><img src="http://img.blog.csdn.net/20151122130736076" alt="截图是件讨厌的事情，虽然懒惰的人们都喜欢"></p>
+<p>请注意.Net版本问题，重要的事情说三遍，不认真看这里的人出现问题就不要到我这里来评论了，我最讨厌连文章都没有看明白就来和你纠缠不清的人，谢谢。创建好项目后请打开项目属性窗口设置【公共语言运行时支持】节点的值为【安全 MSIL 公共语言运行时支持(/clr:safe)】好了，下面我们找到CLR4Unity.h文件，添加ExampleClass声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line"><span class="comment">/// 一个简单的托管C++示例类</span></span><br><span class="line"><span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line"><span class="keyword">public</span>  ref  <span class="keyword">class</span> ExampleClass</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">	<span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">	<span class="comment">/// 产生一个介于min和max之间的整型随机数</span></span><br><span class="line">	<span class="comment">/// &lt;returns&gt;整型随机数&lt;/returns&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;param name="min"&gt;最小值&lt;/param&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;param name="max"&gt;最大值&lt;/param&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span>  <span class="title">Random</span><span class="params">(<span class="keyword">int</span> min,<span class="keyword">int</span> max)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="comment">//注意在托管的C++中使用gcnew来代替new</span></span><br><span class="line">		<span class="comment">//我承认C++写CLR代码略显奇葩像是C++和C#语法的混合</span></span><br><span class="line">		<span class="keyword">return</span> (gcnew System::Random)-&gt;Next(min,max);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">	<span class="comment">/// 计算一个整数的平方</span></span><br><span class="line">	<span class="comment">/// &lt;returns&gt;整型数值&lt;/returns&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;param name="a"&gt;需要平方的数值&lt;/param&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Square</span><span class="params">(<span class="keyword">int</span> a)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> a * a;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/// &lt;summary&gt;</span></span><br><span class="line">	<span class="comment">/// 返回两个数中的最大值</span></span><br><span class="line">    <span class="comment">/// &lt;returns&gt;整型数值&lt;/returns&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;param name="a"&gt;参数1&lt;/param&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;param name="b"&gt;参数2&lt;/param&gt;</span></span><br><span class="line">	<span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Max</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(a&lt;=b)&#123;</span><br><span class="line">			<span class="keyword">return</span> b;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> a;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>显然我们这里定义了三个简单的方法，注意到第一个方法Random依赖于System.Rnadom类，而在托管的C++中是使用gcnew来代替new这个关键字的，所以请尽情感受C#和C++的混搭语法风格吧！这样我们就可以编译得到CLR4Unity.dll这个类库，将这个文件复制到Unity3D项目中的Plugins目录下下，然后将其加入项目引用列表。如果你以为引用就是：<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> CLR4Unity;</span><br></pre></td></tr></table></figure></p>
+<p>呵呵，我严重怀疑你对.Net的熟悉程度。你没有添加对CLR4Unity.dll的引用，你到底在using什么啊？</p>
+<p><img src="http://img.blog.csdn.net/20151123093516870" alt="先添加引用然后using"></p>
+<p>如果你对.NET熟悉到足以无视这里的一切，请闭上眼接着往下看，哈哈！</p>
+<h2 id="在C#中添加引用及方法调用">在C#中添加引用及方法调用</h2><p>&emsp;&emsp;接下来我们在Unity3D中创建一个脚本PluginTest.cs，然后在OnGUI方法增加下列代码。可是你要以为这些代码就应该写在OnGUI方法中，抱歉请你先去了解MonoBehaviour这个类。什么？添加了这些代码报错？没有using的请自行面壁：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用C++ CLR中的方法</span></span><br><span class="line"><span class="keyword">if</span><span class="params">(GUILayout.Button<span class="params">(<span class="string">"调用C++ CLR中的方法"</span>, GUILayout.Height <span class="params">(<span class="number">30</span>)</span>)</span>)</span> </span><br><span class="line">&#123;</span><br><span class="line">	Debug.Log<span class="params">(<span class="string">"调用C++ CLR中的方法Random(0,10):"</span> + ExampleClass.Random<span class="params">(<span class="number">0</span>,<span class="number">10</span>)</span>)</span>;</span><br><span class="line">	Debug.Log<span class="params">(<span class="string">"调用C++ CLR中的方法Max(5,10):"</span> + ExampleClass.Max<span class="params">(<span class="number">5</span>,<span class="number">10</span>)</span>)</span>;</span><br><span class="line">	Debug.Log<span class="params">(<span class="string">"调用C++ CLR中的方法Square(5):"</span> + ExampleClass.Square<span class="params">(<span class="number">5</span>)</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="C++_Native">C++ Native</h1><h2 id="创建一个C++动态链接库项目">创建一个C++动态链接库项目</h2><p>&emsp;&emsp;首先我们按照下图中的步骤来创建一个C++ Win32项目：</p>
+<p><img src="http://img.blog.csdn.net/20151122130751410" alt="不要问我从哪里来"></p>
+<p><img src="http://img.blog.csdn.net/20151122130803286" alt="我的故乡在远方"></p>
+<p>好了，接下来我们找到Native4Unity.cpp写入下列代码：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Native4Unity.cpp : 定义 DLL 应用程序的导出函数。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#include "stdafx.h"</span></span><br><span class="line"><span class="comment">//为了使用rand()函数引入C++标准库</span></span><br><span class="line"><span class="preprocessor">#include "stdlib.h"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> 产生一个介于min和max之间的整型随机数</span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;returns&gt;</span>整型随机数<span class="xmlDocTag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="min"&gt;</span>最小值<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="max"&gt;</span>最大值<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> __declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">Random</span>(<span class="params"><span class="keyword">int</span> min,<span class="keyword">int</span> max</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> rand() % (max - min + <span class="number">1</span>) + min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> 返回两个数中的最大值</span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;returns&gt;</span>整型数值<span class="xmlDocTag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="a"&gt;</span>参数1<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="b"&gt;</span>参数2<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> __declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">Max</span>(<span class="params"><span class="keyword">int</span> a ,<span class="keyword">int</span> b</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a&lt;=b)&#123;</span><br><span class="line">	   <span class="keyword">return</span> b;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	   <span class="keyword">return</span> a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> 计算一个整数的平方</span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;returns&gt;</span>整型数值<span class="xmlDocTag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;param name="a"&gt;</span>需要平方的数值<span class="xmlDocTag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> __declspec(dllexport) <span class="function"><span class="keyword">int</span> <span class="title">Square</span>(<span class="params"><span class="keyword">int</span> a</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a * a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和C++ CLR类似，我们使用标准的C++语言来实现同样的功能。注意到rand()这个函数是C++标准库里的内容，所以我们在文件开头增加了对stdlib.h这个头文件的引用。这里需要注意的一点是：<strong>所有希望使用DllImport引入C#的C++方法都应该在方法声明中增加__declspec(dllexport)关键字，除非它在.def文件中对这些方法进行显示声明</strong>。关于.def文件的相关定义大家可以到MSDN上检索，这些都是属于C++编译器的内容，这里不再详细说了。</p>
+<h2 id="在C#中使用DllImport封装方法">在C#中使用DllImport封装方法</h2><p>&emsp;&emsp;将编译好的Native4Unity.dll复制到Plugins目录中后，下面我们要做的事情就是在C#里对这些方法进行封装或者说是声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[DllImport(<span class="string">"Native4Unity"</span>)]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">extern</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Random</span><span class="params">(<span class="keyword">int</span> min, <span class="keyword">int</span> max)</span></span>;</span><br><span class="line"></span><br><span class="line">[DllImport(<span class="string">"Native4Unity"</span>)]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">extern</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line">[DllImport(<span class="string">"Native4Unity"</span>)]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">extern</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Square</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>然后就是简单地调用啦：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用C++ Native中的方法</span></span><br><span class="line"><span class="keyword">if</span><span class="params">(GUILayout.Button<span class="params">(<span class="string">"调用C++ Native中的方法"</span>, GUILayout.Height <span class="params">(<span class="number">30</span>)</span>)</span>)</span> </span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log<span class="params">(<span class="string">"调用C++ Native中的方法Random(0,10):"</span> + Random<span class="params">(<span class="number">0</span>, <span class="number">10</span>)</span>)</span>;</span><br><span class="line">    Debug.Log<span class="params">(<span class="string">"调用C++ Native的方法Max(5,10):"</span> + Max<span class="params">(<span class="number">5</span>, <span class="number">10</span>)</span>)</span>;</span><br><span class="line">    Debug.Log<span class="params">(<span class="string">"调用C++ Native中的方法Square(5):"</span> + Square<span class="params">(<span class="number">5</span>)</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终程序的运行效果如图：</p>
+<p><img src="http://img.blog.csdn.net/20151123094232606" alt="这个结果来之不易请大家珍惜"></p>
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/11/21/development-of-c-plugin-for-unity3d/" target="_blank" title="Unity3D游戏开发之C++插件接入">Unity3D游戏开发之C++插件接入</a></b>,本文链接为<b><a href="/2015/11/21/development-of-c-plugin-for-unity3d/" target="_blank" title="Unity3D游戏开发之C++插件接入">http://qinyuanpei.com/2015/11/21/development-of-c-plugin-for-unity3d/</a></b>.</code></pre>
+		
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Unity3D/">Unity3D</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C/">C++</a><a href="/tags/Unity3D/">Unity3D</a><a href="/tags/插件/">插件</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://qinyuanpei.com/2015/11/21/development-of-c-plugin-for-unity3d/" data-title="Unity3D游戏开发之C++插件接入 | 秦元培" data-tsina="1278609231" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+  	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/"  title="在Hexo中为文章自动添加版权信息声明模块">
+ <strong>下一篇：</strong><br/> 
+ <span>在Hexo中为文章自动添加版权信息声明模块
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/21/development-of-c-plugin-for-unity3d/" data-title="Unity3D游戏开发之C++插件接入" data-url="http://qinyuanpei.com/2015/11/21/development-of-c-plugin-for-unity3d/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C++_CLR"><span class="toc-number">1.</span> <span class="toc-text">C++ CLR</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个C++_CLR类库项目"><span class="toc-number">1.1.</span> <span class="toc-text">创建一个C++ CLR类库项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在C#中添加引用及方法调用"><span class="toc-number">1.2.</span> <span class="toc-text">在C#中添加引用及方法调用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C++_Native"><span class="toc-number">2.</span> <span class="toc-text">C++ Native</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个C++动态链接库项目"><span class="toc-number">2.1.</span> <span class="toc-text">创建一个C++动态链接库项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在C#中使用DllImport封装方法"><span class="toc-number">2.2.</span> <span class="toc-text">在C#中使用DllImport封装方法</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+	<p class="asidetitle">名片</p>
+	<div class="github-card">
+	<div class="github-card user-card">
+		<div class="header User"></div>
+		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
+		<div class="content"><h1>秦元培</h1>
+		<ul class="status">
+		  <li><a href="../archives" target="_top"><strong>48</strong>文章</a></li>
+		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
+		  <li><a href="../tags" target="_top"><strong>91</strong>标签</a></li></ul></div></div>
+	  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Unity3D/" title="Unity3D">Unity3D<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/单机游戏/" title="单机游戏">单机游戏<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/开发工具/" title="开发工具">开发工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/游戏开发/" title="游戏开发">游戏开发<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活感悟/" title="生活感悟">生活感悟<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言/" title="编程语言">编程语言<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li></ul>
+  </div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Unity3D/" title="Unity3D">Unity3D<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏/" title="游戏">游戏<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏开发/" title="游戏开发">游戏开发<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/梦想/" title="梦想">梦想<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编辑器/" title="编辑器">编辑器<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDL/" title="SDL">SDL<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AssetBundle/" title="AssetBundle">AssetBundle<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/插件/" title="插件">插件<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/技术/" title="技术">技术<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/平凡/" title="平凡">平凡<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2014/" title="2014">2014<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sublime/" title="Sublime">Sublime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDE/" title="IDE">IDE<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人文/" title="人文">人文<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/思维/" title="思维">思维<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/价值/" title="价值">价值<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据/" title="数据">数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/状态/" title="状态">状态<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/虚拟摇杆/" title="虚拟摇杆">虚拟摇杆<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQLite/" title="SQLite">SQLite<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏引擎/" title="游戏引擎">游戏引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/加密/" title="加密">加密<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/部署/" title="部署">部署<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://blog.codingnow.com/" target="_blank" title="云风">云风</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/poem_qianmo" target="_blank" title="毛星云">毛星云</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.xuanyusong.com/" target="_blank" title="宣雨松">宣雨松</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/musicvs" target="_blank" title="笨木头">笨木头</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/kakashi8841" target="_blank" title="卡卡西">卡卡西</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/amazonzx" target="_blank" title="Amazonzx">Amazonzx</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.cnblogs.com/crazylights" target="_blank" title="CrazyLights">CrazyLights</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/neil3d" target="_blank" title="房燕良">房燕良</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gulu-dev.com" target="_blank" title="GuLu">GuLu</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1278609231&verifier=23b91096&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">订阅博客</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p>  <br/>
+			就像每一个时代里的人都觉得自己没有赶上一个好的时代一样。这里没有末路，你从不曾孤独。</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1278609231" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/qinyuanpei" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/qinyuanpei" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:qinyuanpei@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+
+		
+
+				<div class="cc-license">
+
+          <p class="copyright">本作品由<a href="/about" target="_blank" title="秦元培">秦元培</a>创作，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>国际许可协议进行许可<br></p>
+        </div>
+    
+
+		<p class="copyright">
+			Powered by <a href="http://hexo.io" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+			
+				<a href="/about" target="_blank" title="秦元培">秦元培</a>
+			
+			<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+		</p>
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //为了解决多说头像服务器奔溃手动替换头像
+  var imgs = new Array();
+  imgs[0] = 'http://img.blog.csdn.net/20151104153648246';
+  imgs[1] = 'http://img.blog.csdn.net/20151104153658676';
+  imgs[2] = 'http://img.blog.csdn.net/20151104153719133';
+  imgs[3] = 'http://img.blog.csdn.net/20151104153730060';
+  imgs[4] = 'http://img.blog.csdn.net/20151104153742180';
+  imgs[5] = 'http://img.blog.csdn.net/20151104154610054';
+  $('.ds-avatar img[src*="cdncache"]').each(function(){
+    var rand = Math.floor(Math.random() * imgs.length);
+    $(this).attr("src",imgs[rand]);
+  });
+
+}); 
+</script>
+
+
+<!-- Analytics Begin -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+
+
+  </body>
+</html>

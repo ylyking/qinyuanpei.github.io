@@ -1,0 +1,884 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>解析OBJ模型并将其加载到Unity3D场景中 | 秦元培</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="秦元培">
+    
+
+    
+    <meta name="description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天想和大家交流的是解析obj模型并将其加载到Unity3D场景中，虽然我们知道Unity3D是可以直接导入OBJ模型的，可是有时候我们并不能保证我们目标客户知道如何使用Unity3D的这套制作流程，可能对方最终提供给我们的就是一个模型文件而已，所以这个在这里做这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解析OBJ模型并将其加载到Unity3D场景中">
+<meta property="og:url" content="http://qinyuanpei.com/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/index.html">
+<meta property="og:site_name" content="秦元培">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天想和大家交流的是解析obj模型并将其加载到Unity3D场景中，虽然我们知道Unity3D是可以直接导入OBJ模型的，可是有时候我们并不能保证我们目标客户知道如何使用Unity3D的这套制作流程，可能对方最终提供给我们的就是一个模型文件而已，所以这个在这里做这个">
+<meta property="og:image" content="http://img.blog.csdn.net/20151123100228668">
+<meta property="og:updated_time" content="2015-11-23T02:01:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解析OBJ模型并将其加载到Unity3D场景中">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;各位朋友，大家好，欢迎大家关注我的博客，我是秦元培，我的博客地址是http://qinyuanpei.com。今天想和大家交流的是解析obj模型并将其加载到Unity3D场景中，虽然我们知道Unity3D是可以直接导入OBJ模型的，可是有时候我们并不能保证我们目标客户知道如何使用Unity3D的这套制作流程，可能对方最终提供给我们的就是一个模型文件而已，所以这个在这里做这个">
+
+    
+    <link rel="alternative" href="/atom.xml" title="秦元培" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="秦元培">秦元培</a></h1>
+				<h2 class="blog-motto">做单纯的人，走幸福的路。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/lab">实验室</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:qinyuanpei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" title="解析OBJ模型并将其加载到Unity3D场景中" itemprop="url">解析OBJ模型并将其加载到Unity3D场景中</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="秦元培" target="_blank" itemprop="author">秦元培</a>
+		
+    <p class="article-time">
+    <time datetime="2015-11-15T05:07:57.000Z" itemprop="datePublished"> 发表于 2015-11-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" target="_blank" title="解析OBJ模型并将其加载到Unity3D场景中">解析OBJ模型并将其加载到Unity3D场景中</a></b>,本文链接为<b><a href="/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" target="_blank" title="解析OBJ模型并将其加载到Unity3D场景中">http://qinyuanpei.com/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/</a></b>.</code></pre>
+		
+
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于OBJ模型"><span class="toc-number">1.</span> <span class="toc-text">关于OBJ模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OBJ模型解读"><span class="toc-number">2.</span> <span class="toc-text">OBJ模型解读</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OBJ模型的读取"><span class="toc-number">3.</span> <span class="toc-text">OBJ模型的读取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网格部分"><span class="toc-number">3.1.</span> <span class="toc-text">网格部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#读取顶点、法线、UV以及三角面"><span class="toc-number">3.1.1.</span> <span class="toc-text">读取顶点、法线、UV以及三角面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将三角面合并为四边面"><span class="toc-number">3.1.2.</span> <span class="toc-text">将三角面合并为四边面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据索引重新计算顶点、法线、UV数组"><span class="toc-number">3.1.3.</span> <span class="toc-text">根据索引重新计算顶点、法线、UV数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#材质部分"><span class="toc-number">3.2.</span> <span class="toc-text">材质部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在Unity3D中加载obj模型"><span class="toc-number">4.</span> <span class="toc-text">在Unity3D中加载obj模型</span></a></li></ol>
+		
+		</div>
+		
+		<p>&emsp;&emsp;各位朋友，大家好，欢迎大家关注我的博客，我是<strong>秦元培</strong>，我的博客地址是<a href="http://qinyuanpei.com">http://qinyuanpei.com</a>。今天想和大家交流的是解析obj模型并将其加载到Unity3D场景中，虽然我们知道Unity3D是可以直接导入OBJ模型的，可是有时候我们并不能保证我们目标客户知道如何使用Unity3D的这套制作流程，可能对方最终提供给我们的就是一个模型文件而已，所以这个在这里做这个尝试想想还是蛮有趣的呢，既然如此，我们就选择在所有3D模型格式中最为简单的OBJ模型来一起探讨这个问题吧！<a id="more"></a></p>
+<h1 id="关于OBJ模型">关于OBJ模型</h1><p>&emsp;&emsp;OBJ格式是一种3D模型文件格式，是由Alias|Wavefront公司为3D建模和动画软件 “Advanced Visualizer”开发的一种标准，适合用于3D软件模型之间的互相转换。和FBX、Max这种内部私有格式不同，OBJ模型文件是一种文本文件，我们可以直接使用记事本等软件打开进行编辑和查看，因此我们这里选择OBJ模型主要是基于它开放和标准这两个特点。需要说明的是，OBJ文件是一种3D模型文件，它主要支持多边形模型（三个点以上的面）。OBJ模型支持法线和贴图坐标，可是因为它本身并不记录动画、材质特性、贴图路径、动力学及粒子等信息，所以我们在游戏开发中基本看不到这种模型格式的，所以我们这里做下简单研究就好。</p>
+<h1 id="OBJ模型解读">OBJ模型解读</h1><p>&emsp;&emsp;因为OBJ模型文件是一个文本文件，所以我们可以使用记事本等软件打开它来对它的文件结构进行下了解。首先OBJ文件没有头文件，如果你曾经尝试解析过mp3文件的ID3v1/ID3v2标签就应该知道它是根据mp3文件的开头或者末尾的若干字节来判断这些标签信息的，而在OBJ文件中是没有类似这样的头文件的。OBJ文件是由一行行由关键字、空格和文本字符组成的文本文件，通过关键字我们就可以知道这一行的文本表示的是什么数据。例如：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">Blender </span><span class="literal">v2</span>.<span class="number">76</span> (<span class="keyword">sub </span><span class="number">0</span>) OBJ File: <span class="string">''</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>#</strong>关键字表示一个注释行，通过这个注释信息我们可以知道这个OBJ模型是由Blender2.76版本导出的。再比如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">mtllib</span> <span class="tag">liumengli</span><span class="class">.mtl</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>mtllib</strong>关键字则表示当前模型对应的材质库(.mtl)文件名称，每个OBJ模型文件都会有这样一个对应和它同名的.mtl文件，在这个文件中记录了材质相关的信息，稍后我们说到材质的时候会详细说说这个文件的格式，因为它和OBJ文件一样是一个文件文件。再比如：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">usemtl</span> Material__33</span><br></pre></td></tr></table></figure></p>
+<p><strong>usemtl</strong>关键字则表示从当前行到下一个usemtl关键字所在行间的全部网格结构都使用其对应的材质，通过这个材质名称我们可以在.obj文件对应的.mtl文件中找到它的材质定义，这个我们在讲到材质部分的时候会详细说。</p>
+<p>&emsp;&emsp;好了，目前我们要做的工作室解析.obj文件然后创建网格进而可以使其显示在Unity3D场景中，在这里我们要重点关注的关键字有：</p>
+<ul>
+<li>v即Vertex，表示一个顶点的局部坐标系中的坐标，通常有三个分量，因为这里讨论的是三角面。例如：</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">v</span>  1<span class="class">.5202</span> 14<span class="class">.9252</span> <span class="tag">-1</span><span class="class">.1004</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>vn即Vertex Normal，表示法线，注意到这些向量都是单位向量，所以我们可以认为三维软件在导出模型的时候已经做好了相关的标准化工作。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">vn</span> 0<span class="class">.8361</span> <span class="tag">-0</span><span class="class">.0976</span> 0<span class="class">.5399</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>vt即Vertex Texture，表示纹理坐标，就是我们熟悉的UV坐标啦，显然UV是个2D坐标，有两个分量。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">vt</span> <span class="tag">-0</span><span class="class">.5623</span> 0<span class="class">.4822</span> 1<span class="class">.0000</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>f即face，这是一个真正描述面的关键字，通常它后面有三个索引结构，每个索引结构由顶点索引、法线索引和纹理坐标索引三部分构成。例如：</li>
+</ul>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f <span class="number">256/303</span>/<span class="number">637 257</span>/<span class="number">304/638</span> <span class="number">258/305</span>/639</span><br></pre></td></tr></table></figure>
+<p>以上这些关键字对我们解析.obj文件来说已经完全足够了，如果大家想对这些细节有更为深入的了解，可以参考这里<a href="http://baike.baidu.com/link?url=Wwxg_S2gk5mksyNLzLPC0W5Iqb8SHyZuH19lpkFEAvd3ZYheo9ZReW3s59Vp75T8vYFBzaRL7__dmJlhCbR0tyBsZqKJY7JC0ixrXER2X4m" target="_blank" rel="external">这里</a>。</p>
+<h1 id="OBJ模型的读取">OBJ模型的读取</h1><p>&emsp;&emsp;OBJ模型的读取涉及到网格部分的读取和材质部分的读取两个部分，其中网格部分的读取难点在于当模型存在多个材质的时候，需要将模型分为若干个子物体，然后分别为这些子物体添加材质。可是不幸的是到目前为止，博主并没有找到一种行之有效的方法来对这些网格进行分类，所以这里我们假定模型是一个整体且共享同一种材质和一张贴图。如果大家找到了更好的解决方案，请记得告诉我，再次谢谢大家！</p>
+<h2 id="网格部分">网格部分</h2><p>&emsp;&emsp;在网格读取这部分，因为我们已经假设所有的面构成一个物体，因此我们可以先将OBJ文件内的文本按照换行符来进行分割，然后再按照关键字去判断每一行的数据类型并进行相应的处理就可以了。读取OBJ模型的基本流程是：</p>
+<ul>
+<li>读取顶点、法线、UV以及三角面</li>
+<li>将三角面合并为四边面</li>
+<li>根据索引重新计算顶点、法线、UV数组</li>
+</ul>
+<h3 id="读取顶点、法线、UV以及三角面">读取顶点、法线、UV以及三角面</h3><p>&emsp;&emsp;首先我们来看第一步的代码实现：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> 从一个文本化后的.obj文件中加载模型</span></span><br><span class="line"><span class="comment"><span class="xmlDocTag">///</span> <span class="xmlDocTag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ObjMesh <span class="title">LoadFromObj</span>(<span class="params"><span class="keyword">string</span> objText</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(objText.Length &lt;= <span class="number">0</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">//v这一行前面是两个空格后面是一个空格</span></span><br><span class="line">	objText=objText.Replace(<span class="string">"  "</span>, <span class="string">" "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将文本化后的obj文件内容按行分割</span></span><br><span class="line">    <span class="keyword">string</span>[] allLines = objText.Split(<span class="string">'\n'</span>);</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="keyword">string</span> line <span class="keyword">in</span> allLines)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//将每一行按空格分割</span></span><br><span class="line">	    <span class="keyword">string</span>[] chars = line.Split(<span class="string">' '</span>);</span><br><span class="line">        <span class="comment">//根据第一个字符来判断数据的类型</span></span><br><span class="line">        <span class="keyword">switch</span>(chars[<span class="number">0</span>])</span><br><span class="line">        &#123;</span><br><span class="line">             <span class="keyword">case</span> <span class="string">"v"</span>:</span><br><span class="line">             <span class="comment">//处理顶点</span></span><br><span class="line">             <span class="keyword">this</span>.vertexArrayList.Add(<span class="keyword">new</span> Vector3(</span><br><span class="line">			 	ConvertToFloat(chars[<span class="number">1</span>]), </span><br><span class="line">			 	ConvertToFloat(chars[<span class="number">2</span>]),</span><br><span class="line">			 	ConvertToFloat(chars[<span class="number">3</span>]))</span><br><span class="line">			 	);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">             <span class="keyword">case</span> <span class="string">"vn"</span>:</span><br><span class="line">             <span class="comment">//处理法线</span></span><br><span class="line">             <span class="keyword">this</span>.normalArrayList.Add(<span class="keyword">new</span> Vector3(</span><br><span class="line">				ConvertToFloat(chars[<span class="number">1</span>]), </span><br><span class="line">				ConvertToFloat(chars[<span class="number">2</span>]), </span><br><span class="line">				ConvertToFloat(chars[<span class="number">3</span>]))</span><br><span class="line">				);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> <span class="string">"vt"</span>:</span><br><span class="line">              <span class="comment">//处理UV</span></span><br><span class="line">              <span class="keyword">this</span>.uvArrayList.Add(<span class="keyword">new</span> Vector3(</span><br><span class="line">				ConvertToFloat(chars[<span class="number">1</span>]),</span><br><span class="line">				ConvertToFloat(chars[<span class="number">2</span>]))</span><br><span class="line">				);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> <span class="string">"f"</span>:</span><br><span class="line">              <span class="comment">//处理面</span></span><br><span class="line">              GetTriangleList(chars);</span><br><span class="line">              	<span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这段代码中，我们首先将文本化的.obj文件按照换行符分割成字符串数组allLines，然后再对每一行按照空格分隔成字符串数组chars，这样我们就可以通过该数组的第一个元素chars[0]来判断当前行中的数据类型。这样我们将每一行的文本读取完后，所有的数据都被存储到了其相对应的列表中。其中，vertexArrayList存储顶点信息、normalArrayList存储法线信息、uvArrayList存储UV坐标。至此，我们完成第一部分中的顶点、法线和UV的读取。</p>
+<p>&emsp;&emsp;这里可以注意到我们在开始对文本化的.obj文件的内容有1次替换操作，这是因为在3dsMax中导出的.obj文件关键字<strong>v</strong>这一行中v后面的第一处空格位置是有2个空格，而我们在处理的时候是按照空格来分割每一行的内容的，这样chars[1]就会变成一个空字符串，显然这不符合我们的初衷，所以这里就需要对字符串进行这样一个操作，希望大家在解析的过程中注意，好吧，我承认我想吐槽3dsMax了，我不明白同一家公司的3dsMax和Maya为什么不能互相转换，我不明白3dsMax导出.obj文件的时候要做这样奇葩的设定，我更不明白为什么有开源、免费、轻巧的Blender都不去用非要每次都去安装容量动辄上G的盗版软件和不知道会不会变成下一个GhostXXXX的注册机，我更加不能容忍的是封闭的FBX格式和用起来就如同自虐的FBX SDK。</p>
+<p>&emsp;&emsp;好了，吐槽结束，我们接下来来看看三角面是如何读取的。三角面的读取定义在GetTriangleList()方法中，因此三角面的读取实际上首先需要将每一行文本按照空格进行分割，然后再将每一个元素按照/分割，这样就可以依次得到顶点索引、法线索引和UV索引。在某些情况下法线索引可能不存在，所以在处理的过程中需要对其进行处理。</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line"><span class="comment">/// 获取面列表.</span></span><br><span class="line"><span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line"><span class="comment">/// &lt;param name="chars"&gt;Chars.&lt;/param&gt;</span></span><br><span class="line">private void GetTriangleList<span class="params">(string[] chars)</span></span><br><span class="line">&#123;</span><br><span class="line">   List&lt;Vector3&gt; indexVectorList = new List&lt;Vector3&gt;<span class="params">()</span>;</span><br><span class="line">   List&lt;Vector3&gt; triangleList = new List&lt;Vector3&gt;<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span><span class="params">(int i = <span class="number">1</span>; i &lt; chars.Length;++i )</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="comment">//将每一行按照空格分割后从第一个元素开始</span></span><br><span class="line">       <span class="comment">//按照/继续分割可依次获得顶点索引、法线索引和UV索引</span></span><br><span class="line">       string[] indexs = chars[i].Split<span class="params">('/')</span>;</span><br><span class="line">       Vector3 indexVector = new Vector3<span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span>;</span><br><span class="line">       <span class="comment">//顶点索引</span></span><br><span class="line">       indexVector.x = ConvertToInt<span class="params">(indexs[<span class="number">0</span>])</span>;</span><br><span class="line">       <span class="comment">//法线索引</span></span><br><span class="line">       <span class="keyword">if</span><span class="params">(indexs.Length &gt; <span class="number">1</span>)</span>&#123;</span><br><span class="line">          <span class="keyword">if</span><span class="params">(indexs[<span class="number">1</span>] != <span class="string">""</span>)</span></span><br><span class="line">             indexVector.y = ConvertToInt<span class="params">(indexs[<span class="number">1</span>])</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//UV索引</span></span><br><span class="line">       <span class="keyword">if</span><span class="params">(indexs.Length &gt; <span class="number">2</span>)</span>&#123;</span><br><span class="line">          <span class="keyword">if</span><span class="params">(indexs[<span class="number">2</span>] != <span class="string">""</span>)</span></span><br><span class="line">              indexVector.z = ConvertToInt<span class="params">(indexs[<span class="number">2</span>])</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">	   <span class="comment">//将索引向量加入列表中</span></span><br><span class="line">       indexVectorList.Add<span class="params">(indexVector)</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//这里需要研究研究</span></span><br><span class="line">   <span class="keyword">for</span><span class="params">(int j = <span class="number">1</span>; j &lt; indexVectorList.Count - <span class="number">1</span>; ++j)</span></span><br><span class="line">   &#123;</span><br><span class="line">	   <span class="comment">//按照0,1,2这样的方式来组成面</span></span><br><span class="line">	   triangleList.Add<span class="params">(indexVectorList[<span class="number">0</span>])</span>;</span><br><span class="line">	   triangleList.Add<span class="params">(indexVectorList[j])</span>;</span><br><span class="line">	   triangleList.Add<span class="params">(indexVectorList[j + <span class="number">1</span>])</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//添加到索引列表</span></span><br><span class="line">   foreach<span class="params">(Vector3 item in triangleList)</span></span><br><span class="line">   &#123;</span><br><span class="line">      faceVertexNormalUV.Add<span class="params">(item)</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，我们首先使用一个索引向量列表indexVectorList存储每一行的索引向量。这里的索引向量是指由顶点索引、法线索引和UV索引分别构成Vector3的三个分量，这样做的好处是我们可以节省重新去定义数据机构的时间。好了，我们把所有的索引向量读取完后，按照0、1、2这样的方式组成三角面，这里可能是.obj文件本身定义的一种方式，我们暂且按照这样的方式来处理。最后，全部的三角面会被读取到faceVertexNormalUV列表中，它表示的是每个三角面的顶点、法线和UV的索引向量，是一个List<vector3>类型的变量。</vector3></p>
+<h3 id="将三角面合并为四边面">将三角面合并为四边面</h3><p>&emsp;&emsp;现在我们读取到的是三角面，接下来我们需要将它们合并成四边面，合并的原理是判断它们是否在同一个面上。如果两个点的顶点索引相同则表明它们是同一个点，如果两个点的法线索引相同则表明它们在同一个面上。好了，我们来看定义的一个方法Combine():<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// &lt;summary&gt;</span></span><br><span class="line"><span class="comment">/// 合并三角面</span></span><br><span class="line"><span class="comment">/// &lt;/summary&gt;</span></span><br><span class="line">private void Combine<span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">//使用一个字典来存储要合并的索引信息</span></span><br><span class="line">   Dictionary&lt;int, ArrayList&gt; toCambineList = new Dictionary&lt;int,ArrayList&gt;<span class="params">()</span>;</span><br><span class="line">   <span class="keyword">for</span><span class="params">(int i = <span class="number">0</span>; i &lt; faceVertexNormalUV.Count; i++)</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span><span class="params">(faceVertexNormalUV[i] != Vector3.zero)</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="comment">//相同索引的列表</span></span><br><span class="line">           ArrayList SameIndexList = new ArrayList<span class="params">()</span>;</span><br><span class="line">           SameIndexList.Add<span class="params">(i)</span>;</span><br><span class="line">           <span class="keyword">for</span><span class="params">(int j = <span class="number">0</span>; j &lt; faceVertexNormalUV.Count; j++)</span></span><br><span class="line">           &#123;</span><br><span class="line">               <span class="keyword">if</span><span class="params">(faceVertexNormalUV[j]!=Vector3.zero)</span></span><br><span class="line">               &#123;</span><br><span class="line">                  <span class="keyword">if</span><span class="params">(i != j)</span></span><br><span class="line">                  &#123;</span><br><span class="line">					 <span class="comment">//如果顶点索引和法线索引相同，说明它们在一个面上</span></span><br><span class="line">                     Vector3 iTemp = <span class="params">(Vector3)</span>faceVertexNormalUV[i];</span><br><span class="line">				     Vector3 jTemp = <span class="params">(Vector3)</span>faceVertexNormalUV[j];</span><br><span class="line">                     <span class="keyword">if</span><span class="params">(iTemp.x == jTemp.x &amp;&amp; iTemp.y == jTemp.y)</span></span><br><span class="line">                     &#123;</span><br><span class="line">						<span class="comment">//将索引相同索引列表然后将其重置为零向量</span></span><br><span class="line">					    <span class="comment">//PS:这是个危险的地方，如果某个索引信息为Vector3.Zero</span></span><br><span class="line">						<span class="comment">//就会被忽略过去，可是貌似到目前为止没有发现为Vector3.Zero的情况</span></span><br><span class="line">                        SameIndexList.Add<span class="params">(j)</span>;</span><br><span class="line">						faceVertexNormalUV[j]=Vector3.zero;</span><br><span class="line">                     &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">		   <span class="comment">//用一个索引来作为字典的键名，这样它可以代替对应列表内所有索引</span></span><br><span class="line">           toCambineList.Add<span class="params">(i, SameIndexList)</span>;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里我们使用了一个字典来存储合并后的四边面，这个字典的键名为这一组三角面共同的索引，因为大家都是用同一个索引，因此它可以代替那些被合并的三角面的索引，这样合并以后的四边面列表中元素的个数就是实际的网格中的面数个数，因为如果采用三角面的话，这个面数会比现在的面数还要多，这意味着这样会带来更多的性能上的消耗。这里可能不大好理解，大家可以将博主这里的表达方式换成自己能够理解的方式。佛曰不可说，遇到这种博主自己都说不明白的地方，博主就只能请大家多多担待了。好了，接下来要做的是重新计算顶点、法线和UV数组。可能大家会比较疑惑，这部分内容我们在第一步不是就已经读取出来了嘛，怎么这里又要重新计算了呢？哈哈，且听我慢慢道来！</p>
+<h3 id="根据索引重新计算顶点、法线、UV数组">根据索引重新计算顶点、法线、UV数组</h3><p>&emsp;&emsp;虽然我们在第一步就读取到了这些坐标数据，可是当我们合并三角面以后，就会出现大量的无用的点，为什么无用呢，因为它被合并到四边面里了，这样我们原来读取的这些坐标数据就变得不适用了。那怎么办呢？在第三步中我们合并四边面的时候已经用一个字典保存了合并后的索引信息，这就相当于我们已经知道哪些是合并前的索引，哪些是合并后的索引，这个时候我们只要根据索引重新为数组赋值即可：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化各个数组</span></span><br><span class="line"><span class="keyword">this</span>.VertexArray = <span class="keyword">new</span> Vector3[toCambineList.<span class="keyword">Count</span>];</span><br><span class="line"><span class="keyword">this</span>.UVArray = <span class="keyword">new</span> Vector2[toCambineList.<span class="keyword">Count</span>];</span><br><span class="line"><span class="keyword">this</span>.NormalArray = <span class="keyword">new</span> Vector3[toCambineList.<span class="keyword">Count</span>];</span><br><span class="line"><span class="keyword">this</span>.TriangleArray = <span class="keyword">new</span> <span class="keyword">int</span>[faceVertexNormalUV.<span class="keyword">Count</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义遍历字典的计数器</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历词典</span></span><br><span class="line">foreach(KeyValuePair&lt;<span class="keyword">int</span>,ArrayList&gt; IndexTtem in toCambineList)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//根据索引给面数组赋值</span></span><br><span class="line">	foreach(<span class="keyword">int</span> item in IndexTtem.Value)</span><br><span class="line">	&#123;</span><br><span class="line">    	TriangleArray[item] = <span class="keyword">count</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当前的顶点、UV、法线索引信息</span></span><br><span class="line">    Vector3 VectorTemp = (Vector3)faceVertexNormalUV[IndexTtem.Key];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//给顶点数组赋值</span></span><br><span class="line">    VertexArray[<span class="keyword">count</span>] = (Vector3)vertexArrayList[(<span class="keyword">int</span>)VectorTemp.x - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	<span class="comment">//给UV数组赋值</span></span><br><span class="line">    <span class="keyword">if</span>(uvArrayList.<span class="keyword">Count</span> &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">       Vector3 tVec =(Vector3)uvArrayList[(<span class="keyword">int</span>)VectorTemp.y - <span class="number">1</span>];</span><br><span class="line">       UVArray[<span class="keyword">count</span>] = <span class="keyword">new</span> Vector2(tVec.x, tVec.y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//给法线数组赋值</span></span><br><span class="line">            <span class="keyword">if</span>(normalArrayList.<span class="keyword">Count</span> &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                NormalArray[<span class="keyword">count</span>] = (Vector3)normalArrayList[(<span class="keyword">int</span>)VectorTemp.z - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">count</span>++;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就读取到了合并后的坐标信息，通过顶点、法线、UV、面等信息我们现在就可以生成网格了。这部分我们暂且不着急，因为这基本上属于最后整合到Unity3D中步骤了。好了，为了方便大家理解，我已经完整的项目上传到Github，大家可以通过<a href="https://github.com/qinyuanpei/Unity-Obj-Loader" target="_blank" rel="external">这里</a>了解完整的项目。</p>
+<h2 id="材质部分">材质部分</h2><p>&emsp;&emsp;材质这块儿的解析主要集中在.mtl文件中，和.obj文件类似，它同样是一个文本文件、同样采用关键字、空格、文本字符这样的结构来表示数据，因此我们可以借鉴.obj文件的读取。例如：<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newmtl <span class="keyword">Material</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>newmtl</strong>关键字表示从当前行到下一个newmtl关键字所在行间都表示该关键字所对应的材质，这里的Material即表示材质的名称，它和.obj文件中的<strong>usemtl</strong>关键字相对应，因此我们给模型添加材质的过程本质上是从.obj文件中读取网格，然后找到其对应的材质名称，然后在.mtl文件中找到对应的材质定义，并根据定义来生成材质。目前已知的关键字有：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">Ka</span> 0<span class="class">.5880</span> 0<span class="class">.5880</span> 0<span class="class">.5880</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Ka</strong>关键字表示环境反射的RGB数值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">Kd</span> 0<span class="class">.640000</span> 0<span class="class">.640000</span> 0<span class="class">.640000</span></span><br></pre></td></tr></table></figure>
+<p><strong>Kd</strong>关键字表示漫反射的RGB数值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">Ks</span> 0<span class="class">.500000</span> 0<span class="class">.500000</span> 0<span class="class">.500000</span></span><br></pre></td></tr></table></figure>
+<p><strong>Ks</strong>关键字表示镜面反射的RGB数值。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map_Ka E:<span class="command">\学</span>习资料<span class="command">\Unity</span>3D技术<span class="command">\Unity</span>3D素材<span class="command">\柳</span>梦璃<span class="command">\Texture</span>\1df2eaa0.dds</span><br></pre></td></tr></table></figure>
+<p><strong>map_Ka</strong>关键字表示环境反射的纹理贴图，注意到这里使用的是绝对路径，显然我们在读取模型的时候不会将贴图放在这样一个固定的路径，因此我们这里初步的想法读取贴图的文件名而非贴图的完整路径，考虑到我们在Unity3D中一般使用PNG格式的贴图，因此这里需要对路径进行处理。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map_Kd E:<span class="command">\学</span>习资料<span class="command">\Unity</span>3D技术<span class="command">\Unity</span>3D素材<span class="command">\柳</span>梦璃<span class="command">\Texture</span>\1df2eaa0.dds</span><br></pre></td></tr></table></figure>
+<p><strong>map_Kd</strong>关键字表示漫反射的纹理贴图，和环境反射的纹理贴图是类似地，这里就不再说了。此外还有其它的关键字，初步可以推断出的结论是它和3dsMax中材质编辑器里的定义特别地相似，感兴趣的朋友可以进一步去研究。可是现在就有一个新的问题了，怎样将这些参数和Unity3D里的材质关联起来呢？我们知道Unity3D里的材质是是由着色器和贴图两部分组成的，博主对Shader并不是很熟悉，因此这里确实有些说不清楚了。博主感觉对OBJ文件来说，其实使用Diffuse就完全足够了，所以这里对材质部分的研究我们点到为止，不打算做代码上的实现。如果不考虑这些参数的话，我们要做的就是通过WWW或者Resource将贴图加载进来，然后赋值给我们通过代码创建的Shader即可。而对于.obj文件来说，无论是通过Resource、WWW或者是IO流，只要我们拿到了这个文件中的内容就可以使用本文中的方式加载进来，因为我们假定的是读取只有一种材质的模型。有朋友可能要问，那如果有多种材质怎么办呢？答案是在.mtl问价中获取到所有贴图的名称，然后再到程序指定的路径去读取贴图，分别为其创建不同的材质，可是这些材质要怎么附加到它对应的物体上呢？这个目前博主没有找到解决的方法，所以此事暂且作罢吧！</p>
+<h1 id="在Unity3D中加载obj模型">在Unity3D中加载obj模型</h1><p>&emsp;&emsp;下面我们以一个简单的例子来展示今天研究的成果，我们将从.obj文件中读取出一个简单的模型并将其加载到场景中。好了，我们一起来看代码：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span><span class="params">(!File.Exists<span class="params">(<span class="string">"D:\\cube.obj"</span>)</span>)</span></span><br><span class="line">	Debug.Log<span class="params">(<span class="string">"请确认obj模型文件是否存在!"</span>)</span>;</span><br><span class="line"></span><br><span class="line">StreamReader reader = new StreamReader<span class="params">(<span class="string">"D:\\cube.obj"</span>,Encoding.Default)</span>;</span><br><span class="line">string content = reader.ReadToEnd<span class="params">()</span>;</span><br><span class="line">reader.Close<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">ObjMesh objInstace = new ObjMesh<span class="params">()</span>;</span><br><span class="line">objInstace = objInstace.LoadFromObj<span class="params">(content)</span>;</span><br><span class="line">		</span><br><span class="line">Mesh mesh = new Mesh<span class="params">()</span>;</span><br><span class="line">mesh.vertices = objInstace.VertexArray;</span><br><span class="line">mesh.triangles = objInstace.TriangleArray;</span><br><span class="line"><span class="keyword">if</span><span class="params">(objInstace.UVArray.Length &gt; <span class="number">0</span>)</span></span><br><span class="line">	mesh.uv = objInstace.UVArray;</span><br><span class="line"><span class="keyword">if</span><span class="params">(objInstace.NormalArray.Length&gt;<span class="number">0</span>)</span></span><br><span class="line">	mesh.normals = objInstace.NormalArray;</span><br><span class="line">mesh.RecalculateBounds<span class="params">()</span>;</span><br><span class="line">		</span><br><span class="line">GameObject go = new GameObject<span class="params">()</span>;</span><br><span class="line">MeshFilter meshFilter = go.AddComponent&lt;MeshFilter&gt;<span class="params">()</span>;</span><br><span class="line">meshFilter.mesh = mesh;</span><br><span class="line">		</span><br><span class="line">MeshRenderer meshRenderer = go.AddComponent&lt;MeshRenderer&gt;<span class="params">()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这里没有处理材质，所以读取出来就是这个样子的，哈哈！</p>
+<p><img src="http://img.blog.csdn.net/20151123100228668" alt="最终效果，这是一个悲伤的故事"></p>
+<p>材质大家可以尝试用代码去创建一个材质，然后在给一张贴图，这个玩玩就好，哈哈！好了，今天的内容就是这样子了，希望大家喜欢，为了写这篇文章我都怀疑我是不是有拖延症啊！</p>
+ 
+
+	    
+			<pre><code><b>    版权声明</b>:本文由<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>创作和发表,采用<b>署名(BY)</b>-<b>非商业性使用(NC)</b>-<b>相同方式共享(SA)</b>国际许可协议进行许可,转载请注明作者及出处,本文作者为<b><a href="/about" target="_blank" title="秦元培">秦元培</a></b>,本文标题为<b><a href="/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" target="_blank" title="解析OBJ模型并将其加载到Unity3D场景中">解析OBJ模型并将其加载到Unity3D场景中</a></b>,本文链接为<b><a href="/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" target="_blank" title="解析OBJ模型并将其加载到Unity3D场景中">http://qinyuanpei.com/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/</a></b>.</code></pre>
+		
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/游戏开发/">游戏开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Unity3D/">Unity3D</a><a href="/tags/obj/">obj</a><a href="/tags/格式/">格式</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://qinyuanpei.com/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" data-title="解析OBJ模型并将其加载到Unity3D场景中 | 秦元培" data-tsina="1278609231" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+  	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/11/15/add-the-creative-commons-for-the-article-in-hexo/" title="在Hexo中为文章自动添加版权信息声明模块">
+  <strong>上一篇：</strong><br/>
+  <span>
+  在Hexo中为文章自动添加版权信息声明模块</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/11/10/pagination-of-ugui-in-unity3d/"  title="Unity3D游戏开发之分页效果在uGUI中的实现">
+ <strong>下一篇：</strong><br/> 
+ <span>Unity3D游戏开发之分页效果在uGUI中的实现
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/15/deep-learning-of-3d-model-file-format-of-obj/" data-title="解析OBJ模型并将其加载到Unity3D场景中" data-url="http://qinyuanpei.com/2015/11/15/deep-learning-of-3d-model-file-format-of-obj/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于OBJ模型"><span class="toc-number">1.</span> <span class="toc-text">关于OBJ模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OBJ模型解读"><span class="toc-number">2.</span> <span class="toc-text">OBJ模型解读</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OBJ模型的读取"><span class="toc-number">3.</span> <span class="toc-text">OBJ模型的读取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网格部分"><span class="toc-number">3.1.</span> <span class="toc-text">网格部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#读取顶点、法线、UV以及三角面"><span class="toc-number">3.1.1.</span> <span class="toc-text">读取顶点、法线、UV以及三角面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将三角面合并为四边面"><span class="toc-number">3.1.2.</span> <span class="toc-text">将三角面合并为四边面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据索引重新计算顶点、法线、UV数组"><span class="toc-number">3.1.3.</span> <span class="toc-text">根据索引重新计算顶点、法线、UV数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#材质部分"><span class="toc-number">3.2.</span> <span class="toc-text">材质部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在Unity3D中加载obj模型"><span class="toc-number">4.</span> <span class="toc-text">在Unity3D中加载obj模型</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+	<p class="asidetitle">名片</p>
+	<div class="github-card">
+	<div class="github-card user-card">
+		<div class="header User"></div>
+		<a class="avatar" href="https://github.com/qinyuanpei" target="_top"><img src="/img/author.jpg" alt="qinyuanpei"></a>
+		<div class="content"><h1>秦元培</h1>
+		<ul class="status">
+		  <li><a href="../archives" target="_top"><strong>48</strong>文章</a></li>
+		  <li><a href="../categories" target="_top"><strong>8</strong>分类</a></li>
+		  <li><a href="../tags" target="_top"><strong>91</strong>标签</a></li></ul></div></div>
+	  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Unity3D/" title="Unity3D">Unity3D<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/单机游戏/" title="单机游戏">单机游戏<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/开发工具/" title="开发工具">开发工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/游戏开发/" title="游戏开发">游戏开发<sup>18</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/独立博客/" title="独立博客">独立博客<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活感悟/" title="生活感悟">生活感悟<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言/" title="编程语言">编程语言<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/读书笔记/" title="读书笔记">读书笔记<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li></ul>
+  </div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Unity3D/" title="Unity3D">Unity3D<sup>22</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏/" title="游戏">游戏<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏开发/" title="游戏开发">游戏开发<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/梦想/" title="梦想">梦想<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uGUI/" title="uGUI">uGUI<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编辑器/" title="编辑器">编辑器<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/互联网/" title="互联网">互联网<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/哲学/" title="哲学">哲学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDL/" title="SDL">SDL<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/图形/" title="图形">图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数学/" title="数学">数学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/扩展/" title="扩展">扩展<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AssetBundle/" title="AssetBundle">AssetBundle<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/插件/" title="插件">插件<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/技术/" title="技术">技术<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/增强现实/" title="增强现实">增强现实<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AR/" title="AR">AR<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人生/" title="人生">人生<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Socket/" title="Socket">Socket<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/通信/" title="通信">通信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/贝塞尔曲线/" title="贝塞尔曲线">贝塞尔曲线<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机图形/" title="计算机图形">计算机图形<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Lua/" title="Lua">Lua<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/平凡/" title="平凡">平凡<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2014/" title="2014">2014<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Sublime/" title="Sublime">Sublime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDE/" title="IDE">IDE<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/现实/" title="现实">现实<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/毕业季/" title="毕业季">毕业季<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/人文/" title="人文">人文<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/思维/" title="思维">思维<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/价值/" title="价值">价值<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/穹之扉/" title="穹之扉">穹之扉<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据/" title="数据">数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/状态/" title="状态">状态<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/虚拟摇杆/" title="虚拟摇杆">虚拟摇杆<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SQLite/" title="SQLite">SQLite<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/disunity/" title="disunity">disunity<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/游戏引擎/" title="游戏引擎">游戏引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/引擎/" title="引擎">引擎<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/加密/" title="加密">加密<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVN/" title="SVN">SVN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/部署/" title="部署">部署<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Github/" title="Github">Github<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://blog.codingnow.com/" target="_blank" title="云风">云风</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/poem_qianmo" target="_blank" title="毛星云">毛星云</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.xuanyusong.com/" target="_blank" title="宣雨松">宣雨松</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/musicvs" target="_blank" title="笨木头">笨木头</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/kakashi8841" target="_blank" title="卡卡西">卡卡西</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/amazonzx" target="_blank" title="Amazonzx">Amazonzx</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.cnblogs.com/crazylights" target="_blank" title="CrazyLights">CrazyLights</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.csdn.net/neil3d" target="_blank" title="房燕良">房燕良</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gulu-dev.com" target="_blank" title="GuLu">GuLu</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1278609231&verifier=23b91096&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">订阅博客</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p>  <br/>
+			就像每一个时代里的人都觉得自己没有赶上一个好的时代一样。这里没有末路，你从不曾孤独。</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1278609231" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/qinyuanpei" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/qinyuanpei" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:qinyuanpei@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+
+		
+
+				<div class="cc-license">
+
+          <p class="copyright">本作品由<a href="/about" target="_blank" title="秦元培">秦元培</a>创作，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>国际许可协议进行许可<br></p>
+        </div>
+    
+
+		<p class="copyright">
+			Powered by <a href="http://hexo.io" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+			
+				<a href="/about" target="_blank" title="秦元培">秦元培</a>
+			
+			<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+		</p>
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"qinyuanpei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+
+  //为了解决多说头像服务器奔溃手动替换头像
+  var imgs = new Array();
+  imgs[0] = 'http://img.blog.csdn.net/20151104153648246';
+  imgs[1] = 'http://img.blog.csdn.net/20151104153658676';
+  imgs[2] = 'http://img.blog.csdn.net/20151104153719133';
+  imgs[3] = 'http://img.blog.csdn.net/20151104153730060';
+  imgs[4] = 'http://img.blog.csdn.net/20151104153742180';
+  imgs[5] = 'http://img.blog.csdn.net/20151104154610054';
+  $('.ds-avatar img[src*="cdncache"]').each(function(){
+    var rand = Math.floor(Math.random() * imgs.length);
+    $(this).attr("src",imgs[rand]);
+  });
+
+}); 
+</script>
+
+
+<!-- Analytics Begin -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+
+
+  </body>
+</html>
